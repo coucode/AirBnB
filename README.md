@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![Database Schema Design](./airbnb-database-schema.png)
 
 ## API Documentation
 
@@ -52,7 +52,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/:id
+  * URL: /users/current
   * Body: none
 
 * Successful Response
@@ -144,7 +144,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /users/signup
+  * URL: /users/new
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -356,7 +356,7 @@ Creates and returns a new spot.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /spots
+  * URL: /spots/new
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -557,7 +557,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /reviews/:userId
+  * URL: /users/current/reviews
   * Body: none
 
 * Successful Response
@@ -670,7 +670,7 @@ Create and return a new review for a spot specified by id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: reviews/:spotId
+  * URL: spots/:spotId/reviews/new
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -751,7 +751,7 @@ Update and return an existing review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: PUT
-  * URL: reviews/:reviewId
+  * URL: reviews/:reviewId/edit
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -856,7 +856,7 @@ Return all the bookings that the current user has made.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /bookings/:userId
+  * URL: users/current/bookings
   * Body: none
 
 * Successful Response
@@ -970,7 +970,7 @@ Create and return a new booking from a spot specified by id.
 * Require proper authorization: Spot must NOT belong to the current user
 * Request
   * Method: POST
-  * URL: /bookings/:spotId
+  * URL: spots/:spotId/bookings/new
   * Body:
 
     ```json
@@ -1052,7 +1052,7 @@ Update and return an existing booking.
 * Require proper authorization: Booking must belong to the current user
 * Request
   * Method: PUT
-  * URL: /bookings/:bookingId
+  * URL: /bookings/:bookingId/edit
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1248,7 +1248,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: POST
-  * URL: /reviews/:reviewId
+  * URL: /reviews/:reviewId/images/new
   * Headers:
     * Content-Type: application/json
   * Body:
