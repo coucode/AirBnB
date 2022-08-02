@@ -11,10 +11,10 @@ const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
+    .withMessage('Email or username is required'),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
+    .withMessage('Password is required'),
   handleValidationErrors
 ];
 
@@ -30,17 +30,19 @@ router.post('/', validateLogin, async (req, res, next) => {
     return next(err)
   }
 
-  await setTokenCookie(res, user);
+  const token = await setTokenCookie(res, user);
+  const userInfo = user.toSafeObject()
+  userInfo.token = token
 
-  return res.json({ user });
+  return res.json( userInfo );
 })
 
 router.get('/', restoreUser, (req, res) => {
     const { user } = req;
     if (user) {
-      return res.json({
-        user: user.toSafeObject()
-      });
+      return res.json(
+        user.toSafeObject()
+      );
     } else return res.json({});
   }
 );
