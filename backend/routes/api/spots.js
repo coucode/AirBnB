@@ -119,6 +119,13 @@ router.get('/:spotId', async (req, res) => {
     group: ['Spot.id'],
     raw: true
   })
+  if (!requestedSpot) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
 
   const images = await Image.findAll({
     where: {
@@ -143,13 +150,7 @@ router.get('/:spotId', async (req, res) => {
   requestedSpot['Images'] = imgResult
   requestedSpot['Owner'] = owner
 
-  if (!requestedSpot.id) {
-    res.status(404)
-    return res.json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
-  }
+
 
   return res.json(requestedSpot)
 })
@@ -267,7 +268,81 @@ router.post('/', requireAuth, validateNewSpot, async (req, res) => {
   })
 })
 
+// Owner creates an image for a spot
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+  const { url, previewImage } = req.body
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+  if (req.user.id !== spot.ownerId){
+    res.status(404)
+    return res.json({
+      "message": "Unauthorized action - must be owner to create an image",
+      "statusCode": 404
+    })
+  }
 
+  const newImage = await Image.create({
+    url,
+    previewImage,
+    spotId: req.params.spotId,
+    userId: req.user.id
+  })
+  return res.json({
+    "id": newImage.id,
+    "imageableId": newImage.spotId,
+    "url": newImage.url
+  })
+})
+
+// Owner edits a spot
+router.put('/:spotId', requireAuth, validateNewSpot, async (req, res) => {
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot){
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+  if (req.user.id !== spot.ownerId) {
+    res.status(404)
+    return res.json({
+      "message": "Unauthorized action - must be owner to edit",
+      "statusCode": 404
+    })
+  }
+  const {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price
+  } = req.body;
+
+  spot.update({
+    address: address,
+    city: city,
+    state: state,
+    country: country,
+    lat: lat,
+    lng: lng,
+    name: name,
+    description: description,
+    price: price
+  })
+  return res.json(spot)
+
+})
 
 
 module.exports = router;
