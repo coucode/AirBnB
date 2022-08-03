@@ -50,6 +50,7 @@ router.get('/', async (req, res) => {
   return res.json(results)
 })
 
+// Get all spots of the current user
 router.get('/current', requireAuth, async (req, res) => {
   const allSpots = await Spot.findAll({
     where: {
@@ -96,6 +97,7 @@ router.get('/current', requireAuth, async (req, res) => {
   })
 })
 
+// Get details for a spot by id
 router.get('/:spotId', async (req, res) => {
   const requestedSpot = await Spot.findByPk(req.params.spotId, {
     attributes: {
@@ -107,20 +109,20 @@ router.get('/:spotId', async (req, res) => {
     include: {
       model: Review,
       attributes: []
-    }, 
+    },
     raw: true
   })
 
   const images = await Image.findAll({
     where: {
       spotId: req.params.spotId
-    } 
+    }
   })
   let imgResult = []
-  for (let image of images){
+  for (let image of images) {
     let temp = {}
     temp.id = image.id
-    if (image.reviewId){
+    if (image.reviewId) {
       temp.imageableId = image.reviewId
     } else {
       temp.imageableId = image.spotId
@@ -134,9 +136,18 @@ router.get('/:spotId', async (req, res) => {
   requestedSpot['Images'] = imgResult
   requestedSpot['Owner'] = owner
 
+  if (!requestedSpot.id) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
   return res.json(requestedSpot)
 })
 
+// Create a new spot
 const validateNewSpot = [
   check('address')
     .exists({ checkFalsy: true })
@@ -221,6 +232,30 @@ router.post('/', requireAuth, validateNewSpot, async (req, res) => {
     price: spot.name,
     createdAt: spot.createdAt,
     updatedAt: spot.updatedAt
+  })
+})
+
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+  const { url, previewImage } = req.body
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+  const newImage = await Image.create({
+    url,
+    previewImage,
+    spotId: req.params.spotId,
+    userId: req.user.id
+  })
+  return res.json({
+    "id": newImage.id,
+    "imageableId": newImage.spotId,
+    "url": newImage.url
   })
 })
 
