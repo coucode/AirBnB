@@ -7,47 +7,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-router.get('/:spotId', async (req, res) => {
-  const requestedSpot = await Spot.findByPk(req.params.spotId, {
-    attributes: {
-      include: [
-        [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
-        [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
-      ]
-    },
-    include: {
-      model: Review,
-      attributes: []
-    },
-    group: ['Spot.id'],
-    raw: true
-  })
 
-  const images = await Image.findAll({
-    where: {
-      spotId: req.params.spotId
-    } 
-  })
-  let imgResult = []
-  for (let image of images){
-    let temp = {}
-    temp.id = image.id
-    if (image.reviewId){
-      temp.imageableId = image.reviewId
-    } else {
-      temp.imageableId = image.spotId
-    }
-    temp.url = image.url
-    imgResult.push(temp)
-  }
-  const owner = await User.findByPk(requestedSpot.ownerId, {
-    attributes: ['id', 'firstName', 'lastName']
-  })
-  requestedSpot['Images'] = imgResult
-  requestedSpot['Owner'] = owner
-
-  return res.json(requestedSpot)
-})
 
 // Gets all spots
 router.get('/', async (req, res) => {
@@ -138,7 +98,47 @@ router.get('/current', requireAuth, async (req, res) => {
   })
 })
 
+router.get('/:spotId', async (req, res) => {
+  const requestedSpot = await Spot.findByPk(req.params.spotId, {
+    attributes: {
+      include: [
+        [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
+        [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
+      ]
+    },
+    include: {
+      model: Review,
+      attributes: []
+    },
+    group: ['Spot.id'],
+    raw: true
+  })
 
+  const images = await Image.findAll({
+    where: {
+      spotId: req.params.spotId
+    }
+  })
+  let imgResult = []
+  for (let image of images) {
+    let temp = {}
+    temp.id = image.id
+    if (image.reviewId) {
+      temp.imageableId = image.reviewId
+    } else {
+      temp.imageableId = image.spotId
+    }
+    temp.url = image.url
+    imgResult.push(temp)
+  }
+  const owner = await User.findByPk(requestedSpot.ownerId, {
+    attributes: ['id', 'firstName', 'lastName']
+  })
+  requestedSpot['Images'] = imgResult
+  requestedSpot['Owner'] = owner
+
+  return res.json(requestedSpot)
+})
 
 const validateNewSpot = [
   check('address')
