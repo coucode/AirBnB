@@ -4,13 +4,14 @@ const { requireAuth } = require('../../utils/auth');
 const { Spot, User, Review, Image, sequelize } = require('../../db/models')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { request } = require('express');
 
 const router = express.Router();
 
+// Gets all spots
 router.get('/', async (req, res) => {
   let allSpots = await Spot.findAll({
     attributes: {
+      // finds the average rating for each spot
       include: [
         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
       ]
@@ -96,73 +97,7 @@ router.get('/current', requireAuth, async (req, res) => {
 })
 
 router.get('/:spotId', async (req, res) => {
-  const { Op } = require('sequelize');
-  const requestedSpot = await Spot.findByPk(req.params.spotId, {
-    attributes: {
-      include: [
-        [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
-        [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
-      ]
-    },
-    include: {
-      model: Review,
-      attributes: []
-    },
-    raw: true
-  })
 
-
-  let reviewId = await Review.findAll({
-    where: {
-      spotId: req.params.spotId
-    }, attributes: ['id'],
-    raw: true
-  })
-  let ids = []
-  reviewId.forEach((review) => {
-    ids.push(review.id)
-  })
-  let images = await Image.findAll({
-    where: {
-      [Op.or]: {
-        spotId: req.params.spotId,
-        reviewId: {
-          [Op.in]: ids
-        }
-      }
-    },
-    attributes: ['id', 'spotId', 'reviewId', 'url'],
-    raw: true
-  })
-  let newImages = []
-  images.forEach((img) => {
-    let temp = {}
-    temp.id = img.id
-    if (img.spotId) {
-      temp.imageableId = img.spotId
-    } else {
-      temp.imageableId = img.reviewId
-    }
-    temp.url = img.url
-    newImages.push(temp)
-  })
-  requestedSpot['Images'] = newImages
-  requestedSpot['Owner'] = await User.findOne({
-    where: {
-      id: requestedSpot.ownerId
-    }, attributes: ['id', 'firstName', 'lastName']
-  })
-
-  if (!requestedSpot.id) {
-    res.status(404)
-    return res.json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
-  }
-
-
-  return res.json(requestedSpot)
 })
 
 const validateNewSpot = [

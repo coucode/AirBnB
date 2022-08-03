@@ -72,6 +72,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
+    scopes: {
+      imageable(spotId){
+        const { Image } = require('../models')
+        
+      }
+    }
   });
   return Spot;
 };
