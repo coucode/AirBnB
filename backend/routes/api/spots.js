@@ -1,18 +1,48 @@
 const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
-const { Spot, User } = require('../../db/models')
+const { Spot, User, Review, Image, sequelize } = require('../../db/models')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { request } = require('express');
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const allSpots = await Spot.findAll()
-  return res.json({
-    Spots: allSpots
+  const allSpots = await Spot.findAll({
+    attributes: {
+      include: [
+        [sequelize.literal('Images.url'), 'previewImage']
+      ]
+    },
+    include: [
+      {
+        model: Image,
+        where: {
+          previewImage: true
+        }, 
+        attributes: []
+      }
+    ]
   })
+
+  for (let index = 0; index < allSpots.length; index++) {
+    const spot = allSpots[index];
+    let currentId = spot.dataValues.id
+    let count = await Review.count({
+      where: {
+        spotId: currentId
+      }
+    })
+    let sum = await Review.sum('stars',{
+      where: {
+        spotId: currentId
+      }
+    })
+    spot.dataValues.avgRating = sum / count
+  }
+
+  return res.json(allSpots)
+
 })
 
 router.get('/current', requireAuth, async (req, res) => {
@@ -29,7 +59,7 @@ router.get('/current', requireAuth, async (req, res) => {
 router.get('/:spotId', async (req, res) => {
   const requestedSpot = await Spot.findByPk(req.params.spotId)
 
-  if (!requestedSpot){
+  if (!requestedSpot) {
     res.status(404)
     return res.json({
       "message": "Spot couldn't be found",
@@ -112,5 +142,7 @@ router.post('/', requireAuth, validateNewSpot, async (req, res) => {
 
   return res.json(spot)
 })
+
+
 
 module.exports = router;

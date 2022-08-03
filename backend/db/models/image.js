@@ -26,12 +26,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
     },
     spotId: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     reviewId: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     userId: {
+      allowNull: false,
       type: DataTypes.INTEGER
     }
   }, {
