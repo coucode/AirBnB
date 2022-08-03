@@ -12,21 +12,40 @@ router.get('/', async (req, res) => {
     attributes: {
       include: [
         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"], 
-        [sequelize.literal('Images.url'), "previewImage"]
       ]
     },
-    include: [{
+    include: {
       model: Review, 
       attributes: []
-    },{
-      model: Image, 
-      attributes: []
-    }],
-    group: ['Spot.id']
+    },
+    group: ['Spot.id'],
+    raw: true
   })
-  
+  let results = []
 
-  return res.json(allSpots)
+  for (let i = 0 ; i < allSpots.length; i++){
+    let spot = allSpots[i]
+    let url;
+    let image = await Image.findOne({
+      where: {
+        spotId: spot.id,
+        previewImage: true
+      },
+      raw: true
+    })
+    if (image){
+      url = image.url
+    } else {
+      url = null
+    }
+    spot = {
+      ...spot,
+      previewImage: url
+    }
+    results.push(spot)
+  }
+  
+  return res.json(results)
 })
 
 router.get('/current', requireAuth, async (req, res) => {
