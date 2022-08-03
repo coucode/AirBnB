@@ -97,7 +97,44 @@ router.get('/current', requireAuth, async (req, res) => {
 })
 
 router.get('/:spotId', async (req, res) => {
+  const requestedSpot = await Spot.findByPk(req.params.spotId, {
+    attributes: {
+      include: [
+        [sequelize.fn("COUNT", sequelize.col("Reviews.id")), "numReviews"],
+        [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgStarRating"]
+      ]
+    },
+    include: {
+      model: Review,
+      attributes: []
+    }, 
+    raw: true
+  })
 
+  const images = await Image.findAll({
+    where: {
+      spotId: req.params.spotId
+    } 
+  })
+  let imgResult = []
+  for (let image of images){
+    let temp = {}
+    temp.id = image.id
+    if (image.reviewId){
+      temp.imageableId = image.reviewId
+    } else {
+      temp.imageableId = image.spotId
+    }
+    temp.url = image.url
+    imgResult.push(temp)
+  }
+  const owner = await User.findByPk(requestedSpot.ownerId, {
+    attributes: ['id', 'firstName', 'lastName']
+  })
+  requestedSpot['Images'] = imgResult
+  requestedSpot['Owner'] = owner
+
+  return res.json(requestedSpot)
 })
 
 const validateNewSpot = [
@@ -171,8 +208,8 @@ router.post('/', requireAuth, validateNewSpot, async (req, res) => {
   })
 
   return res.json({
-    id: spot.id ,
-    ownerId: spot.ownerId ,
+    id: spot.id,
+    ownerId: spot.ownerId,
     address: spot.address,
     city: spot.address,
     state: spot.state,
@@ -182,7 +219,7 @@ router.post('/', requireAuth, validateNewSpot, async (req, res) => {
     name: spot.name,
     description: spot.name,
     price: spot.name,
-    createdAt: spot.createdAt, 
+    createdAt: spot.createdAt,
     updatedAt: spot.updatedAt
   })
 })
