@@ -26,7 +26,7 @@ const setTokenCookie = (res, user) => {
   return token;
 };
 
-// verify and parse the JWT's payload and search the database for a user with the id in th epayload
+// verify and parse the JWT's payload and search the database fo´r a user with the id in th epayload
 // uses the currentUser scope 
 
 const restoreUser = (req, res, next) => {

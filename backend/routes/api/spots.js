@@ -7,12 +7,6 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-// testing purposes only
-router.get('/test', async (req, res) => {
-  let images = await Image.findAll()
-  res.json(images)
-})
-
 // Gets all spots
 router.get('/', async (req, res) => {
   let allSpots = await Spot.findAll({
