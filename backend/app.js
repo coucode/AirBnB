@@ -69,33 +69,33 @@ app.use((err, _req, _res, next) => {
   next(err);
 })
 
-app.use((err, req, res, next) => {
-  if (err.title === 'Login failed') {
-    res.status(401)
-    res.json({
-      "message": "Invalid Credentials",
-      "statusCode": 401
-    })
-  }
-  next(err)
-})
+// app.use((err, req, res, next) => {
+//   if (err.title === 'Login failed') {
+//     res.status(401)
+//     res.json({
+//       "message": "Invalid Credentials",
+//       "statusCode": 401
+//     })
+//   }
+//   next(err)
+// })
 
-app.use((err, req, res, next) => {
-  if (err.title === 'Validation Error') {
-    res.status(err.status || 400)
-    res.json({
-      message: err.message,
-      statusCode: err.status,
-      errors: err.errors
-    })
-  }
-  next()
-})
+// app.use((err, req, res, next) => {
+//   if (err.title === 'Validation Error') {
+//     res.status(err.status || 400)
+//     res.json({
+//       message: err.message,
+//       statusCode: err.status,
+//       errors: err.errors
+//     })
+//   }
+//   next(err)
+// })
 
 // Error formatter
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
-  // console.log(err);
+  console.log(err);
   res.json({
     title: err.title || 'Server Error',
     message: err.message,
