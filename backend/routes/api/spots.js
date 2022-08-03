@@ -19,6 +19,7 @@ router.get('/:spotId', async (req, res) => {
       model: Review,
       attributes: []
     },
+    group: ['Spot.id'],
     raw: true
   })
 
