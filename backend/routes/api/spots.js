@@ -154,6 +154,31 @@ router.get('/:spotId', async (req, res) => {
   return res.json(requestedSpot)
 })
 
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+  const { url, previewImage } = req.body
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+  const newImage = await Image.create({
+    url,
+    previewImage,
+    spotId: req.params.spotId,
+    userId: req.user.id
+  })
+  return res.json({
+    "id": newImage.id,
+    "imageableId": newImage.spotId,
+    "url": newImage.url
+  })
+})
+
+
 // Create a new spot
 const validateNewSpot = [
   check('address')
@@ -242,29 +267,6 @@ router.post('/', requireAuth, validateNewSpot, async (req, res) => {
   })
 })
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
-  const { url, previewImage } = req.body
-  let spot = await Spot.findByPk(req.params.spotId)
-  if (!spot) {
-    res.status(404)
-    return res.json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
-  }
-
-  const newImage = await Image.create({
-    url,
-    previewImage,
-    spotId: req.params.spotId,
-    userId: req.user.id
-  })
-  return res.json({
-    "id": newImage.id,
-    "imageableId": newImage.spotId,
-    "url": newImage.url
-  })
-})
 
 
 
