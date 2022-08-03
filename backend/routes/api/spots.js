@@ -149,8 +149,8 @@ router.get('/:spotId', async (req, res) => {
   return res.json(requestedSpot)
 })
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
-  const { url, previewImage } = req.body
+// Get all reviews by a spot's id
+router.get('/:spotId/reviews', async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId)
   if (!spot) {
     res.status(404)
@@ -160,19 +160,41 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     })
   }
 
-  const newImage = await Image.create({
-    url,
-    previewImage,
-    spotId: req.params.spotId,
-    userId: req.user.id
+  let spotReviews = await Review.findAll({
+    where: {
+      spotId: req.params.spotId
+    },
+    include: {
+      model: User,
+      attributes: ['id', 'firstName', 'lastName']
+    }
   })
+  for (let review of spotReviews) {
+    let imgResult = []
+    const images = await Image.findAll({
+      where: {
+        reviewId: review.id
+      }
+    })
+
+    for (let image of images) {
+      let temp = {}
+      temp.id = image.id
+      if (image.reviewId) {
+        temp.imageableId = image.reviewId
+      } else {
+        temp.imageableId = image.spotId
+      }
+      temp.url = image.url
+      imgResult.push(temp)
+    }
+    // review.toJSON()
+    review.dataValues["Images"] = imgResult
+  }
   return res.json({
-    "id": newImage.id,
-    "imageableId": newImage.spotId,
-    "url": newImage.url
+    "Reviews": spotReviews
   })
 })
-
 
 // Create a new spot
 const validateNewSpot = [
@@ -218,7 +240,6 @@ const validateNewSpot = [
     .withMessage("Price per day is required"),
   handleValidationErrors
 ]
-
 router.post('/', requireAuth, validateNewSpot, async (req, res) => {
   const {
     address,
@@ -273,7 +294,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
       "statusCode": 404
     })
   }
-  if (req.user.id !== spot.ownerId){
+  if (req.user.id !== spot.ownerId) {
     res.status(404)
     return res.json({
       "message": "Unauthorized action - must be owner to create an image",
@@ -297,7 +318,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 // Owner edits a spot
 router.put('/:spotId', requireAuth, validateNewSpot, async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId)
-  if (!spot){
+  if (!spot) {
     res.status(404)
     return res.json({
       "message": "Spot couldn't be found",
@@ -338,6 +359,7 @@ router.put('/:spotId', requireAuth, validateNewSpot, async (req, res) => {
 
 })
 
+// Owner can delete a spot
 router.delete('/:spotId', requireAuth, async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId)
   if (!spot) {

@@ -51,4 +51,5 @@ router.get('/current', requireAuth, async (req, res) => {
 
 })
 
+
 module.exports = router;
