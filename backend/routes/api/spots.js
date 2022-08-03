@@ -7,7 +7,10 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-
+router.get('/test', async (req, res) => {
+  let images = await Image.findAll()
+  res.json(images)
+})
 
 // Gets all spots
 router.get('/', async (req, res) => {
@@ -115,6 +118,13 @@ router.get('/:spotId', async (req, res) => {
     group: ['Spot.id'],
     raw: true
   })
+  if (!requestedSpot) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
 
   const images = await Image.findAll({
     where: {
@@ -139,13 +149,7 @@ router.get('/:spotId', async (req, res) => {
   requestedSpot['Images'] = imgResult
   requestedSpot['Owner'] = owner
 
-  if (!requestedSpot.id) {
-    res.status(404)
-    return res.json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
-  }
+
 
   return res.json(requestedSpot)
 })
@@ -248,6 +252,13 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
       "statusCode": 404
     })
   }
+  if (req.user.id !== spot.ownerId){
+    res.status(404)
+    return res.json({
+      "message": "Unauthorized action - must be owner to create an image",
+      "statusCode": 404
+    })
+  }
 
   const newImage = await Image.create({
     url,
@@ -261,7 +272,5 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     "url": newImage.url
   })
 })
-
-
 
 module.exports = router;
