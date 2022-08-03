@@ -32,7 +32,6 @@ module.exports = {
         url: "https://images.unsplash.com/photo-1557217713-d9fd1a8370d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80",
         previewImage: true,
         spotId: 3,
-        reviewId: 4,
         userId: 3
       },
     ])
