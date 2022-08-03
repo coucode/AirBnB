@@ -8,41 +8,25 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const allSpots = await Spot.findAll({
+  let allSpots = await Spot.findAll({
     attributes: {
       include: [
-        [sequelize.literal('Images.url'), 'previewImage']
+        [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"], 
+        [sequelize.literal('Images.url'), "previewImage"]
       ]
     },
-    include: [
-      {
-        model: Image,
-        where: {
-          previewImage: true
-        }, 
-        attributes: []
-      }
-    ]
+    include: [{
+      model: Review, 
+      attributes: []
+    },{
+      model: Image, 
+      attributes: []
+    }],
+    group: ['Spot.id']
   })
-
-  for (let index = 0; index < allSpots.length; index++) {
-    const spot = allSpots[index];
-    let currentId = spot.dataValues.id
-    let count = await Review.count({
-      where: {
-        spotId: currentId
-      }
-    })
-    let sum = await Review.sum('stars',{
-      where: {
-        spotId: currentId
-      }
-    })
-    spot.dataValues.avgRating = sum / count
-  }
+  
 
   return res.json(allSpots)
-
 })
 
 router.get('/current', requireAuth, async (req, res) => {
