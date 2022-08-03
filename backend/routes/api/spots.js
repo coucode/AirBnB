@@ -315,6 +315,56 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
   })
 })
 
+const validateReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage("Review text is required"),
+  check('stars')
+    .isNumeric()
+    .withMessage("Stars must be an integer from 1 to 5")
+    .custom((value) => {
+      if (value > 5 || value < 1) {
+        throw new Error("Stars must be an integer from 1 to 5")
+      }
+      return true
+    })
+    .withMessage("Stars must be an integer from 1 to 5"),
+  handleValidationErrors
+]
+
+// Create a Review for a Spot based on the Spot's id
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
+  const { review, stars } = req.body
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+  let reviewCheck = await Review.findOne({
+    where: {
+      userId: req.user.id,
+      spotId: spot.id
+    }
+  })
+  if (reviewCheck){
+    res.status(403)
+    return res.json({
+      "message": "User already has a review for this spot",
+      "statusCode": 403
+    })
+  }
+  let newReview = await Review.create({
+    review, 
+    stars, 
+    userId: req.user.id,
+    spotId: spot.id
+  })
+  return res.json(newReview)
+})
+
 // Owner edits a spot
 router.put('/:spotId', requireAuth, validateNewSpot, async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId)
