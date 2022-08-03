@@ -33,7 +33,21 @@ router.get('/current', requireAuth, async (req, res) => {
   const userSpots = await Spot.findAll({
     where: {
       ownerId: req.user.id
-    }
+    }, 
+    attributes: {
+      include: [
+        [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+        [sequelize.literal('Images.url'), "previewImage"]
+      ]
+    },
+    include: [{
+      model: Review,
+      attributes: []
+    }, {
+      model: Image,
+      attributes: []
+    }],
+    group: ['Spot.id']
   })
   return res.json({
     Spots: userSpots
@@ -41,7 +55,22 @@ router.get('/current', requireAuth, async (req, res) => {
 })
 
 router.get('/:spotId', async (req, res) => {
-  const requestedSpot = await Spot.findByPk(req.params.spotId)
+  const requestedSpot = await Spot.findByPk(req.params.spotId, {
+    attributes: {
+      include: [
+        [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+        [sequelize.literal('Images.url'), "previewImage"]
+      ]
+    },
+    include: [{
+      model: Review,
+      attributes: []
+    }, {
+      model: Image,
+      attributes: []
+    }],
+    group: ['Spot.id']
+  })
 
   if (!requestedSpot) {
     res.status(404)
