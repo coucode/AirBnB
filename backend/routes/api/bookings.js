@@ -44,5 +44,90 @@ router.get('/current', requireAuth, async (req, res) => {
   })
 })
 
+router.put('/:bookingId', requireAuth, async (req, res) => {
+  let booking = await Booking.findByPk(req.params.bookingId)
+  if (!booking){
+    res.status(404)
+    return res.json({
+      "message": "Booking couldn't be found",
+      "statusCode": 404
+    })
+  }
+  if (booking.userId !== req.user.id){
+    res.status(403)
+    return res.json({
+      "message": "Unauthorized action - you must be the renter to edit your booking",
+      "statusCode": 403
+    })
+  }
+  let currentDate = new Date()
+  if (currentDate > booking.endDate) {
+    res.status(403)
+    return res.json({
+      "message": "Past bookings can't be modified",
+      "statusCode": 403,
+    })
+  }
+
+  let { startDate, endDate } = req.body
+  startDate = new Date(startDate)
+  endDate = new Date(endDate)
+
+  if (endDate <= startDate) {
+    res.status(400)
+    return res.json({
+      "message": "Validation error",
+      "statusCode": 400,
+      "errors": {
+        "endDate": "endDate cannot be on or before startDate"
+      }
+    })
+  }
+
+  const { Op } = require('sequelize')
+
+  let conflicts = await Booking.findAll({
+    where: {
+      [Op.or]: {
+        startDate: {
+          [Op.between]: [startDate, endDate]
+        }, endDate: {
+          [Op.between]: [startDate, endDate]
+        },
+      },
+      spotId: booking.spotId,
+    },
+    attributes: ['startDate', 'endDate']
+  })
+  let error = {}
+
+
+  for (let conflict of conflicts) {
+    if (startDate >= conflict.startDate && startDate <= conflict.endDate) {
+      error.startDate = "Start date conflicts with an existing booking"
+    }
+    if (endDate >= conflict.endDate && endDate <= conflict.endDate) {
+      error.endDate = "End date conflicts with an existing booking"
+    }
+  }
+
+  if (error.startDate || error.endDate) {
+    res.status(403)
+    return res.json({
+      "message": "Sorry, this spot is already booked for the specified dates",
+      "statusCode": 403,
+      "errors": error
+    })
+  }
+
+
+  booking.update({
+    startDate,
+    endDate
+  })
+
+  return res.json(booking)
+
+})
 
 module.exports = router;
