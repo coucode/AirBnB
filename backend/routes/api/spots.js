@@ -4,6 +4,7 @@ const { requireAuth } = require('../../utils/auth');
 const { Spot, User, Review, Image, Booking, sequelize } = require('../../db/models')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { request } = require('express');
 
 const router = express.Router();
 const validateQuery = [
@@ -208,6 +209,12 @@ router.get('/', validateQuery, async (req, res) => {
     } else {
       url = null
     }
+    if (spot.avgRating){
+      spot.avgRating = spot.avgRating.toFixed(1)
+    }
+    
+
+
     spot = {
       ...spot,
       previewImage: url
@@ -253,6 +260,9 @@ router.get('/current', requireAuth, async (req, res) => {
     } else {
       url = null
     }
+    if (spot.avgRating){
+      spot.avgRating = spot.avgRating.toFixed(1)
+    }
     spot = {
       ...spot,
       previewImage: url
@@ -287,6 +297,9 @@ router.get('/:spotId', async (req, res) => {
       "message": "Spot couldn't be found",
       "statusCode": 404
     })
+  }
+  if (requestedSpot.avgStarRating){
+    requestedSpot.avgStarRating = requestedSpot.avgStarRating.toFixed(1)
   }
 
   const images = await Image.findAll({
