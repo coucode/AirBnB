@@ -3,11 +3,9 @@ const { requireAuth } = require('../../utils/auth');
 const { Spot, User, Review, Image, sequelize } = require('../../db/models')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation');
-
 const router = express.Router();
 
 // Get all reviews of the current user
-
 router.get('/current', requireAuth, async (req, res) => {
   const reviews = await Review.findAll({
     where: {
@@ -51,6 +49,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
 })
 
+// Add images to a review
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
   let review = await Review.findByPk(req.params.reviewId)
   if (!review) {
@@ -92,6 +91,47 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     "imageableId": review.id,
     "url": newImage.url
   })
+})
+
+
+const validateReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage("Review text is required"),
+  check('stars')
+    .isNumeric()
+    .withMessage("Stars must be an integer from 1 to 5")
+    .custom((value) => {
+      if (value > 5 || value < 1) {
+        throw new Error("Stars must be an integer from 1 to 5")
+      }
+      return true
+    })
+    .withMessage("Stars must be an integer from 1 to 5"),
+  handleValidationErrors
+]
+// Edit a review
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+  let review = await Review.findByPk(req.params.reviewId)
+  if (!review){
+    res.status(404)
+    return res.json({
+      "message": "Review couldn't be found",
+      "statusCode": 404
+    })
+  }
+  if (req.user.id !== review.userId){
+    res.status(403)
+    return res.json({
+      "message": "Unauthorized action - review can only be edited by the author",
+      "statusCode": 403
+    })
+  }
+  review.update({
+    "review": req.body.review,
+    "stars": req.body.stars
+  })
+  return res.json(review)
 })
 
 module.exports = router;
