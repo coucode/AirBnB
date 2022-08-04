@@ -43,7 +43,7 @@ router.post('/', validateSignup, async (req, res) => {
   let error = {}
 
   if (emailCheck) { error.email = "User with that email already exists" }
-  if (usernameCheck) { error.username = "User with that email already exists" }
+  if (usernameCheck) { error.username = "User with that username already exists" }
 
   if (emailCheck || usernameCheck) {
     res.status(403)
