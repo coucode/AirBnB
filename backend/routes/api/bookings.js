@@ -1,9 +1,17 @@
 const express = require('express');
 const { requireAuth } = require('../../utils/auth');
-const { Spot, User, Review, Image, Booking, sequelize } = require('../../db/models')
-const { check } = require('express-validator')
-const { handleValidationErrors } = require('../../utils/validation');
+const { Spot, Image, Booking } = require('../../db/models')
+
 const router = express.Router();
+
+const bookingNotFound = {
+  "message": "Booking couldn't be found",
+  "statusCode": 404
+}
+const forbidden = {
+  "message": "Forbidden",
+  "statusCode": 403
+}
 
 // Get all of the current user's bookings
 router.get('/current', requireAuth, async (req, res) => {
@@ -48,17 +56,11 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
   let booking = await Booking.findByPk(req.params.bookingId)
   if (!booking) {
     res.status(404)
-    return res.json({
-      "message": "Booking couldn't be found",
-      "statusCode": 404
-    })
+    return res.json(bookingNotFound)
   }
   if (booking.userId !== req.user.id) {
     res.status(403)
-    return res.json({
-      "message": "Unauthorized action - you must be the renter to edit your booking",
-      "statusCode": 403
-    })
+    return res.json(forbidden)
   }
   let currentDate = new Date()
   if (currentDate > booking.endDate) {
