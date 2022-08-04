@@ -264,7 +264,7 @@ router.get('/current', requireAuth, async (req, res) => {
       url = null
     }
     if (spot.avgRating){
-      spot.avgRating = spot.avgRating.toFixed(1)
+      spot.avgRating = Number(spot.avgRating).toFixed(1)
     }
     spot = {
       ...spot,
@@ -302,7 +302,7 @@ router.get('/:spotId', async (req, res) => {
     })
   }
   if (requestedSpot.avgStarRating){
-    requestedSpot.avgStarRating = requestedSpot.avgStarRating.toFixed(1)
+    requestedSpot.avgStarRating = Number(requestedSpot.avgStarRating).toFixed(1)
   }
 
   const images = await Image.findAll({
