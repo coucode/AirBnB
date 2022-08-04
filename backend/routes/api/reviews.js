@@ -7,6 +7,10 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 // Get all reviews of the current user
+router.get('/test', async (req, res) => {
+  let images = await Image.findAll()
+  res.json(images)
+})
 
 router.get('/current', requireAuth, async (req, res) => {
   const reviews = await Review.findAll({
@@ -85,7 +89,8 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     url,
     previewImage,
     userId: req.user.id,
-    spotId: review.spotId
+    spotId: review.spotId, 
+    reviewId: req.params.reviewId
   })
   return res.json({
     "id": newImage.id,
