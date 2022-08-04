@@ -210,7 +210,9 @@ router.get('/', validateQuery, async (req, res) => {
       url = null
     }
     if (spot.avgRating){
-      spot.avgRating = spot.avgRating.toFixed(1)
+      let value = spot.avgRating
+      value = value.toFixed(1)
+      spot.avgRating = value
     }
     
 
