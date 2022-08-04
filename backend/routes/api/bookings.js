@@ -85,9 +85,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
       }
     })
   }
-
   const { Op } = require('sequelize')
-
   let conflicts = await Booking.findAll({
     where: {
       [Op.or]: {
@@ -102,8 +100,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     attributes: ['startDate', 'endDate']
   })
   let error = {}
-
-
   for (let conflict of conflicts) {
     if (startDate >= conflict.startDate && startDate <= conflict.endDate) {
       error.startDate = "Start date conflicts with an existing booking"
@@ -112,7 +108,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
       error.endDate = "End date conflicts with an existing booking"
     }
   }
-
   if (error.startDate || error.endDate) {
     res.status(403)
     return res.json({
@@ -121,28 +116,19 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
       "errors": error
     })
   }
-
-
   booking.update({
     startDate,
     endDate
   })
-
   return res.json(booking)
-
 })
 
 router.delete('/:bookingId', requireAuth, async (req, res) => {
   let booking = await Booking.findByPk(req.params.bookingId)
   if (!booking) {
     res.status(404)
-    return res.json({
-      "message": "Booking couldn't be found",
-      "statusCode": 404
-    })
+    return res.json(bookingNotFound)
   }
-
-
 
   let { startDate, endDate } = booking
   let currentDate = new Date()
@@ -156,20 +142,13 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
   let spot = await Spot.findByPk(booking.spotId)
   if (booking.userId === req.user.id || spot.ownerId === req.user.id) {
     booking.destroy()
-    return res.json(
-      {
-        "message": "Successfully deleted",
-        "statusCode": 200
-      }
-    )
+    return res.json({
+      "message": "Successfully deleted",
+      "statusCode": 200
+    })
   } else {
     res.status(403)
-    return res.json({
-      "message": "Unauthorized action - must be owner or renter to delete booking",
-      "statusCode": 403
-    })
-
+    return res.json(forbidden)
   }
-
 })
 module.exports = router;

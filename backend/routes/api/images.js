@@ -19,7 +19,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
   if (image.userId !== req.user.id){
     res.status(403)
     return res.json({
-      "message": "Unauthorized action - you are not authorized to delete this image",
+      "message": "Forbidden",
       "statusCode": 403
     })
   }
