@@ -315,6 +315,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
   })
 })
 
+// Helper function to validate review fields
 const validateReview = [
   check('review')
     .exists({ checkFalsy: true })
