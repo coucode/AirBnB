@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
-const { Spot, User, Review, Image, sequelize } = require('../../db/models')
+const { Spot, User, Review, Image, Booking, sequelize } = require('../../db/models')
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -432,6 +432,28 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     "message": "Successfully deleted",
     "statusCode": 200
   })
+})
+
+// Create a booking based on spotId
+router.post('/:spotId/bookings', requireAuth, async (req, res) => {
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot){
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+  let { startDate, endDate } = req.body
+  startDate = new Date(startDate)
+  endDate = new Date(endDate)
+  let newBooking = await Booking.create({
+    spotId: spot.id,
+    userId: req.user.id,
+    startDate,
+    endDate
+  })
+  return res.json(newBooking)
 })
 
 module.exports = router;
