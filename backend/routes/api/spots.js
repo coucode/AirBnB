@@ -199,14 +199,14 @@ router.get('/:spotId/reviews', async (req, res) => {
 // Get all Bookings for a Spot based on the Spot's id
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId)
-  if (!spot){
+  if (!spot) {
     res.status(404)
     return res.json({
       "message": "Spot couldn't be found",
       "statusCode": 404
     })
   }
-  if (req.user.id === spot.ownerId){
+  if (req.user.id === spot.ownerId) {
     let bookings = await Booking.findAll({
       where: {
         spotId: req.params.spotId
@@ -217,9 +217,9 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
       },
     })
     let result = []
-    for (let booking of bookings){
+    for (let booking of bookings) {
       let user = booking.User.toJSON()
- 
+
       let temp = {
         User: user,
         id: booking.id,
@@ -239,7 +239,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     let bookings = await Booking.findAll({
       where: {
         spotId: req.params.spotId
-      }, 
+      },
       attributes: ['spotId', 'startDate', 'endDate']
     })
     return res.json(bookings)
@@ -484,19 +484,83 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
   })
 })
 
+
+
 // Create a booking based on spotId
 router.post('/:spotId/bookings', requireAuth, async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId)
-  if (!spot){
+  if (!spot) {
     res.status(404)
     return res.json({
       "message": "Spot couldn't be found",
       "statusCode": 404
     })
   }
+  if (spot.ownerId === req.user.id) {
+    res.status(403)
+    return res.json({
+      "message": "Unauthorized action - cannot create a booking for a spot that you own",
+      "statusCode": 403
+    })
+  }
+
+
   let { startDate, endDate } = req.body
   startDate = new Date(startDate)
   endDate = new Date(endDate)
+
+  if (endDate <= startDate) {
+    res.status(400)
+    return res.json({
+      "message": "Validation error",
+      "statusCode": 400,
+      "errors": {
+        "endDate": "endDate cannot be on or before startDate"
+      }
+    })
+  }
+  const { Op } = require('sequelize')
+
+  let conflicts = await Booking.findAll({
+    where: {
+      [Op.or]: {
+        startDate: {
+          [Op.between]: [startDate, endDate]
+        }, endDate: {
+          [Op.between]: [startDate, endDate]
+        },
+      },
+      spotId: spot.id,
+    },
+    attributes: ['startDate', 'endDate']
+  })
+  let error = {}
+  
+
+  for (let conflict of conflicts){
+    // console.log("INPUT",startDate)
+    // console.log("=====================")
+    // console.log("CONFLICTSTART", conflict.startDate)
+    // console.log("=====================")
+    // console.log("CONFLICTEND", conflict.endDate)
+    if (startDate >= conflict.startDate && startDate <= conflict.endDate){
+      error.startDate = "Start date conflicts with an existing booking"
+    }
+    if (endDate >= conflict.endDate && endDate <= conflict.endDate) {
+      error.endDate = "End date conflicts with an existing booking"
+    }
+  }
+
+  if (error.startDate || error.endDate) {
+    res.status(403)
+    return res.json({
+      "message": "Sorry, this spot is already booked for the specified dates",
+      "statusCode": 403,
+      "errors": error
+    })
+  }
+
+
   let newBooking = await Booking.create({
     spotId: spot.id,
     userId: req.user.id,
