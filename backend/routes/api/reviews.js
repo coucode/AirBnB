@@ -5,12 +5,16 @@ const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
-// Get all reviews of the current user
-router.get('/test', async (req, res) => {
-  let images = await Image.findAll()
-  res.json(images)
-})
+const reviewNotFound = {
+  "message": "Review couldn't be found",
+  "statusCode": 404
+}
+const forbidden = {
+  "message": "Forbidden",
+  "statusCode": 403
+}
 
+// Get all reviews of the current user
 router.get('/current', requireAuth, async (req, res) => {
   const reviews = await Review.findAll({
     where: {
@@ -24,8 +28,7 @@ router.get('/current', requireAuth, async (req, res) => {
       attributes: {
         exclude: ['createdAt', 'updatedAt']
       }
-    }
-    ]
+    }]
   })
   for (let review of reviews) {
     let imgResult = []
@@ -34,24 +37,16 @@ router.get('/current', requireAuth, async (req, res) => {
         reviewId: review.id
       }
     })
-
     for (let image of images) {
       let temp = {}
       temp.id = image.id
-      if (image.reviewId) {
-        temp.imageableId = image.reviewId
-      } else {
-        temp.imageableId = image.spotId
-      }
+      if (image.reviewId) { temp.imageableId = image.reviewId } else { temp.imageableId = image.spotId }
       temp.url = image.url
       imgResult.push(temp)
     }
-    // review.toJSON()
     review.dataValues["Images"] = imgResult
   }
-
   return res.json(reviews)
-
 })
 
 // Add images to a review
@@ -59,23 +54,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
   let review = await Review.findByPk(req.params.reviewId)
   if (!review) {
     res.status(404)
-    return res.json({
-      "message": "Review couldn't be found",
-      "statusCode": 404
-    })
+    return res.json(reviewNotFound)
   }
   if (req.user.id !== review.userId) {
     res.status(403)
-    return res.json({
-      "message": "Unauthorized action - you may only add images to your own review",
-      "statusCode": 403
-    })
+    return res.json(forbidden)
   }
-  let imageCheck = await Image.findAll({
-    where: {
-      spotId: review.spotId
-    }
-  })
+  let imageCheck = await Image.findAll({ where: { spotId: review.spotId } })
   if (imageCheck.length === 10) {
     res.status(403)
     return res.json({
@@ -83,13 +68,12 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
       "statusCode": 403
     })
   }
-  console.log(imageCheck.length)
   const { url, previewImage } = req.body
   let newImage = await Image.create({
     url,
     previewImage,
     userId: req.user.id,
-    spotId: review.spotId, 
+    spotId: review.spotId,
     reviewId: req.params.reviewId
   })
   return res.json({
@@ -99,7 +83,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
   })
 })
 
-
+// Middleware to check that review fields are valid
 const validateReview = [
   check('review')
     .exists({ checkFalsy: true })
@@ -119,19 +103,13 @@ const validateReview = [
 // Edit a review
 router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
   let review = await Review.findByPk(req.params.reviewId)
-  if (!review){
+  if (!review) {
     res.status(404)
-    return res.json({
-      "message": "Review couldn't be found",
-      "statusCode": 404
-    })
+    return res.json(reviewNotFound)
   }
-  if (req.user.id !== review.userId){
+  if (req.user.id !== review.userId) {
     res.status(403)
-    return res.json({
-      "message": "Unauthorized action - review can only be edited by the author",
-      "statusCode": 403
-    })
+    return res.json(forbidden)
   }
   review.update({
     "review": req.body.review,
@@ -140,21 +118,16 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
   return res.json(review)
 })
 
-router.delete('/:reviewId', requireAuth, async (req, res ) => {
+// Deletes a review
+router.delete('/:reviewId', requireAuth, async (req, res) => {
   let review = await Review.findByPk(req.params.reviewId)
-  if (!review){
+  if (!review) {
     res.status(404)
-    return res.json({
-      "message": "Review couldn't be found",
-      "statusCode": 404
-    })
+    return res.json(reviewNotFound)
   }
-  if (review.userId !== req.user.id ){
+  if (review.userId !== req.user.id) {
     res.status(403)
-    return res.json({
-      "message": "Unauthorized action - reviews can only be deleted by their author",
-      "statusCode": 403
-    })
+    return res.json(forbidden)
   }
   review.destroy()
   return res.json({

@@ -250,7 +250,6 @@ router.get('/:spotId/reviews', async (req, res) => {
     res.status(404)
     return res.json(spotNotFound)
   }
-
   let spotReviews = await Review.findAll({
     where: {
       spotId: req.params.spotId
@@ -267,24 +266,16 @@ router.get('/:spotId/reviews', async (req, res) => {
         reviewId: review.id
       }
     })
-
     for (let image of images) {
       let temp = {}
       temp.id = image.id
-      if (image.reviewId) {
-        temp.imageableId = image.reviewId
-      } else {
-        temp.imageableId = image.spotId
-      }
+      if (image.reviewId) { temp.imageableId = image.reviewId } else { temp.imageableId = image.spotId }
       temp.url = image.url
       imgResult.push(temp)
     }
-    // review.toJSON()
     review.dataValues["Images"] = imgResult
   }
-  return res.json({
-    "Reviews": spotReviews
-  })
+  return res.json({ "Reviews": spotReviews })
 })
 
 // Get all Bookings for a Spot based on the Spot's id
@@ -471,16 +462,10 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
   let spot = await Spot.findByPk(req.params.spotId)
   if (!spot) {
     res.status(404)
-    return res.json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
+    return res.json(spotNotFound)
   }
   let reviewCheck = await Review.findOne({
-    where: {
-      userId: req.user.id,
-      spotId: spot.id
-    }
+    where: { userId: req.user.id, spotId: spot.id }
   })
   if (reviewCheck) {
     res.status(403)
