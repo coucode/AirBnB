@@ -16,7 +16,7 @@ router.get('/current', requireAuth, async (req, res) => {
   let result = []
   for (let booking of bookings) {
     let spotInfo = await Spot.findByPk(booking.spotId, {
-      attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'], 
+      attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
       raw: true
     })
     let image = await Image.findOne({
@@ -46,14 +46,14 @@ router.get('/current', requireAuth, async (req, res) => {
 
 router.put('/:bookingId', requireAuth, async (req, res) => {
   let booking = await Booking.findByPk(req.params.bookingId)
-  if (!booking){
+  if (!booking) {
     res.status(404)
     return res.json({
       "message": "Booking couldn't be found",
       "statusCode": 404
     })
   }
-  if (booking.userId !== req.user.id){
+  if (booking.userId !== req.user.id) {
     res.status(403)
     return res.json({
       "message": "Unauthorized action - you must be the renter to edit your booking",
@@ -130,4 +130,44 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 
 })
 
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+  let booking = await Booking.findByPk(req.params.bookingId)
+  if (!booking) {
+    res.status(404)
+    return res.json({
+      "message": "Booking couldn't be found",
+      "statusCode": 404
+    })
+  }
+
+
+
+  let { startDate, endDate } = booking
+  let currentDate = new Date()
+  if (currentDate >= startDate && currentDate <= endDate) {
+    res.status(403)
+    return res.json({
+      "message": "Bookings that have been started can't be deleted",
+      "statusCode": 403
+    })
+  }
+  let spot = await Spot.findByPk(booking.spotId)
+  if (booking.userId === req.user.id || spot.ownerId === req.user.id) {
+    booking.destroy()
+    return res.json(
+      {
+        "message": "Successfully deleted",
+        "statusCode": 200
+      }
+    )
+  } else {
+    res.status(403)
+    return res.json({
+      "message": "Unauthorized action - must be owner or renter to delete booking",
+      "statusCode": 403
+    })
+
+  }
+
+})
 module.exports = router;
