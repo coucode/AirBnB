@@ -6,9 +6,177 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
+const validateQuery = [
+  check('page')
+    .custom((value) => {
+      if (value < 0) {
+        throw new Error("Page must be greater than or equal to 0")
+      }
+      if (value > 10) {
+        throw new Error("Page must be less than or equal to 10")
+      }
+      return true
+    }),
+  check('size')
+    .custom((value) => {
+      if (value < 0) {
+        throw new Error("Size must be greater than or equal to 0 ")
+      }
+      if (value > 20) {
+        throw new Error("Page must be less than or equal to 10")
+      }
+      return true
+    }),
+  check('maxLat')
+    .custom((value) => {
+      if (value > 90) {
+        throw new Error("Maximum latitude is invalid")
+      }
+      return true
+    }),
+  check('minLat')
+    .custom((value) => {
+      if (value < -90) {
+        throw new Error("Minimum latitude is invalid")
+      }
+      return true
+    }),
+  check('maxLng')
+    .custom((value) => {
+      if (value > 180) {
+        throw new Error("Maximum longitude is invalid")
+      }
+      return true
+    }),
+  check('minLng')
+    .custom((value) => {
+      if (value < -180) {
+        throw new Error("Maximum longitude is invalid")
+      }
+      return true
+    }),
 
+  check('minPrice')
+    .custom((value) => {
+      if (value < 0) {
+        throw new Error("Minimum price must be greater than or equal to 0")
+      }
+      return true
+    }),
+  check('maxPrice')
+    .custom((value) => {
+      if (value < 0) {
+        throw new Error("Maximum price must be greater than or equal to 0")
+      }
+      return true
+    })
+  , handleValidationErrors
+]
 // Gets all spots
-router.get('/', async (req, res) => {
+router.get('/', validateQuery, async (req, res) => {
+  const { Op } = require('sequelize')
+  let {
+    page,
+    size,
+    minLat,
+    maxLat,
+    minLng,
+    maxLng,
+    minPrice,
+    maxPrice
+  } = req.query
+
+  if (page ||
+    size ||
+    minLat ||
+    maxLat ||
+    minLng ||
+    maxLng ||
+    minPrice ||
+    maxPrice) {
+    if (!page) { page = 0 }
+    if (!size) { size = 20 }
+    page = parseInt(page)
+    size = parseInt(size)
+
+    const pagination = {}
+    if (page >= 1 && size >= 1) {
+      pagination.limit = size
+      pagination.offset = size * (page - 1)
+    }
+    /******* Filters ********/
+    const where = {}
+    //Latitude
+    if (minLat && maxLat) {
+      where.lat = { [Op.between]: [minLat, maxLat] }
+    }
+    if (minLat && !maxLat) {
+      where.lat = { [Op.gte]: minLat }
+    }
+    if (!minLat && maxLat) {
+      where.lat = { [Op.lte]: maxLat }
+    }
+    // Longitude
+    if (minLng && maxLng) {
+      where.lng = { [Op.between]: [minLng, maxLng] }
+    }
+    if (minLng && !maxLng) {
+      where.lng = { [Op.gte]: minLng }
+    }
+    if (!minLng && maxLng) {
+      where.lng = { [Op.lte]: maxLng }
+    }
+    // Price
+    if (minPrice && maxPrice) {
+      where.price = { [Op.between]: [minPrice, maxPrice] }
+    }
+    if (minPrice && !maxPrice) {
+      where.price = { [Op.gte]: minPrice }
+    }
+    if (!minPrice && maxPrice) {
+      where.price = { [Op.lte]: maxLng }
+    }
+
+
+
+
+    let allSpots = await Spot.findAll({
+      where,
+      ...pagination,
+      raw: true
+    })
+    let results = []
+
+    for (let i = 0; i < allSpots.length; i++) {
+      let spot = allSpots[i]
+      let url;
+      let image = await Image.findOne({
+        where: {
+          spotId: spot.id,
+          previewImage: true
+        },
+        raw: true
+      })
+      if (image) {
+        url = image.url
+      } else {
+        url = null
+      }
+      spot = {
+        ...spot,
+        previewImage: url
+      }
+      results.push(spot)
+    }
+
+    return res.json({
+      "Spots": results,
+      "page": page,
+      "size": size
+    })
+  }
+
+
   let allSpots = await Spot.findAll({
     attributes: {
       // finds the average rating for each spot
@@ -535,15 +703,15 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     attributes: ['startDate', 'endDate']
   })
   let error = {}
-  
 
-  for (let conflict of conflicts){
+
+  for (let conflict of conflicts) {
     // console.log("INPUT",startDate)
     // console.log("=====================")
     // console.log("CONFLICTSTART", conflict.startDate)
     // console.log("=====================")
     // console.log("CONFLICTEND", conflict.endDate)
-    if (startDate >= conflict.startDate && startDate <= conflict.endDate){
+    if (startDate >= conflict.startDate && startDate <= conflict.endDate) {
       error.startDate = "Start date conflicts with an existing booking"
     }
     if (endDate >= conflict.endDate && endDate <= conflict.endDate) {
