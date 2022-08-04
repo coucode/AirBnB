@@ -7,10 +7,10 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+// Middleware to check for credential fields are not empty
 const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
-    .notEmpty()
     .withMessage('Email or username is required'),
   check('password')
     .exists({ checkFalsy: true })
@@ -18,10 +18,12 @@ const validateLogin = [
   handleValidationErrors
 ];
 
+// Logs the user in 
 router.post('/', validateLogin, async (req, res, next) => {
   const { credential, password } = req.body;
   const user = await User.login({ credential, password });
 
+  // If the user does not exist, return an error
   if (!user) {
     const err = new Error('Login failed');
     err.status = 401;
@@ -37,6 +39,7 @@ router.post('/', validateLogin, async (req, res, next) => {
   return res.json( userInfo );
 })
 
+// Retrieves information about the user that is currently logged in
 router.get('/', restoreUser, (req, res) => {
     const { user } = req;
     if (user) {
@@ -47,7 +50,7 @@ router.get('/', restoreUser, (req, res) => {
   }
 );
 
-
+// Logs out the current user
 router.delete('/', (_req, res) => {
   res.clearCookie('token');
   return res.json({ message: 'success' });

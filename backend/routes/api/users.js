@@ -7,27 +7,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-// Original validateSignup
-// const validateSignup = [
-//   check('email')
-//     .exists({ checkFalsy: true })
-//     .isEmail()
-//     .withMessage('Please provide a valid email.'),
-//   check('username')
-//     .exists({ checkFalsy: true })
-//     .isLength({ min: 4 })
-//     .withMessage('Please provide a username with at least 4 characters.'),
-//   check('username')
-//     .not()
-//     .isEmail()
-//     .withMessage('Username cannot be an email.'),
-//   check('password')
-//     .exists({ checkFalsy: true })
-//     .isLength({ min: 6 })
-//     .withMessage('Password must be 6 characters or more.'),
-//   handleValidationErrors
-// ];
-
+// Middleware to check that all sign up fields are valid
 const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })
@@ -37,8 +17,8 @@ const validateSignup = [
   check('username')
     .exists({ checkFalsy: true })
     .withMessage('Username is required'),
-  check('username') 
-    .exists({ checkFalsy: false})
+  check('username')
+    .exists({ checkFalsy: false })
     .isLength({ min: 4 })
     .withMessage('Please provide a username with at least 4 characters.'),
   check('username')
@@ -54,33 +34,25 @@ const validateSignup = [
   handleValidationErrors
 ]
 
-// Sign Up 
+// Signs up a new user and checking against existing emails and usernames
 router.post('/', validateSignup, async (req, res) => {
   const { firstName, lastName, email, password, username } = req.body;
 
   const emailCheck = await User.findOne({ where: { email: email } })
-  if (emailCheck) {
-    res.status(403)
-    return res.json({
-      "message": "User already exists",
-      "statusCode": 403,
-      "errors": {
-        "email": "User with that email already exists"
-      }
-    })
-  }
   const usernameCheck = await User.findOne({ where: { username: username } })
-  if (usernameCheck) {
+  let error = {}
+
+  if (emailCheck) { error.email = "User with that email already exists" }
+  if (usernameCheck) { error.username = "User with that email already exists" }
+
+  if (emailCheck || usernameCheck) {
     res.status(403)
     return res.json({
       "message": "User already exists",
       "statusCode": 403,
-      "errors": {
-        "username": "User with that username already exists"
-      }
+      "errors": error
     })
   }
-
 
   const user = await User.signup({
     firstName,
