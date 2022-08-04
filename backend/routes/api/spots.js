@@ -541,8 +541,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
       "statusCode": 403
     })
   }
-
-
   let { startDate, endDate } = req.body
   startDate = new Date(startDate)
   endDate = new Date(endDate)
@@ -573,14 +571,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     attributes: ['startDate', 'endDate']
   })
   let error = {}
-
-
   for (let conflict of conflicts) {
-    // console.log("INPUT",startDate)
-    // console.log("=====================")
-    // console.log("CONFLICTSTART", conflict.startDate)
-    // console.log("=====================")
-    // console.log("CONFLICTEND", conflict.endDate)
     if (startDate >= conflict.startDate && startDate <= conflict.endDate) {
       error.startDate = "Start date conflicts with an existing booking"
     }
@@ -588,7 +579,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
       error.endDate = "End date conflicts with an existing booking"
     }
   }
-
   if (error.startDate || error.endDate) {
     res.status(403)
     return res.json({
@@ -597,8 +587,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
       "errors": error
     })
   }
-
-
   let newBooking = await Booking.create({
     spotId: spot.id,
     userId: req.user.id,
