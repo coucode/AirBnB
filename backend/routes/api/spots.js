@@ -196,6 +196,56 @@ router.get('/:spotId/reviews', async (req, res) => {
   })
 })
 
+// Get all Bookings for a Spot based on the Spot's id
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot){
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+  if (req.user.id === spot.ownerId){
+    let bookings = await Booking.findAll({
+      where: {
+        spotId: req.params.spotId
+      },
+      include: {
+        model: User,
+        // attributes: ['id', 'firstName', 'lastName']
+      },
+    })
+    let result = []
+    for (let booking of bookings){
+      let user = booking.User.toJSON()
+ 
+      let temp = {
+        User: user,
+        id: booking.id,
+        spotId: booking.spotId,
+        userId: booking.userId,
+        startDate: booking.startDate.toDateString(),
+        endDate: booking.endDate.toDateString(),
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt
+      }
+      result.push(temp)
+    }
+    return res.json({
+      "Bookings": result
+    })
+  } else {
+    let bookings = await Booking.findAll({
+      where: {
+        spotId: req.params.spotId
+      }, 
+      attributes: ['spotId', 'startDate', 'endDate']
+    })
+    return res.json(bookings)
+  }
+})
+
 // Create a new spot
 const validateNewSpot = [
   check('address')
