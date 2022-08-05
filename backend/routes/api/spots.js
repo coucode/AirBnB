@@ -537,10 +537,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
   }
   if (spot.ownerId === req.user.id) {
     res.status(403)
-    return res.json({
-      "message": "Unauthorized action - cannot create a booking for a spot that you own",
-      "statusCode": 403
-    })
+    return res.json(forbidden)
   }
   let { startDate, endDate } = req.body
   startDate = new Date(startDate)
