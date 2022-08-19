@@ -33,21 +33,21 @@ router.post('/', validateLogin, async (req, res, next) => {
   }
 
   const token = await setTokenCookie(res, user);
-  const userInfo = user.toSafeObject()
+  const userInfo = user //.toSafeObject()
   userInfo.token = token
 
-  return res.json( userInfo );
+  return res.json(userInfo);
 })
 
 // Retrieves information about the user that is currently logged in
 router.get('/', restoreUser, (req, res) => {
-    const { user } = req;
-    if (user) {
-      return res.json(
-        user.toSafeObject()
-      );
-    } else return res.json({});
-  }
+  const { user } = req;
+  if (user) {
+    return res.json(
+      user.toSafeObject()
+    );
+  } else return res.json({});
+}
 );
 
 // Logs out the current user
