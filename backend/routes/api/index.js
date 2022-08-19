@@ -24,9 +24,10 @@ router.use('/bookings', bookingsRouter);
 
 router.use('/images', imagesRouter);
 
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
+// REMOVED THIS AT THE END OF FRONTEND AUTH ME PHASE 1
+// router.post('/test', (req, res) => {
+//   res.json({ requestBody: req.body });
+// });
 
 /*** CODE FOR TESTING USER AUTH MIDDLEWARE ROUTES ***/
 // router.get(
