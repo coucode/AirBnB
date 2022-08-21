@@ -14,11 +14,11 @@ function SplashPage() {
   return (
     <>
       <h1>This is the Splashpage</h1>
-      <ul>
-        {spotArr.map((spot) => (
+      {/* <ul>
+        {spotArr?.map((spot) => (
           <li key={spot.id}>{spot.name}</li>
         ))}
-      </ul>
+      </ul> */}
     </>
   )
 }
