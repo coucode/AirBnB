@@ -22,9 +22,12 @@ function SignupFormPage() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password }))
+      let user = { firstName, lastName, username, email, password }
+      console.log("USER", user)
+      return dispatch(sessionActions.signup(user))
         .catch(async (res) => {
           const data = await res.json();
+          console.log("DATAAA", data)
           if (data && data.errors) setErrors(data.errors);
         });
     }
