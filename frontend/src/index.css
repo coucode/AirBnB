@@ -1,1 +1,23 @@
 /* TODO Add site wide styles */
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #484848;
+  font-size: 14;
+}
+
+/* NEED TO REVISIT - START */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  padding-left: 300px;
+}
+
+label {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+/* NEED TO REVISIT - END */

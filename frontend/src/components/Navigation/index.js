@@ -15,8 +15,8 @@ function Navigation({ isLoaded }) {
   } else {
     sessionLinks = (
       <>
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/login" className="navigation">Log In</NavLink>
+        <NavLink to="/signup" className="navigation">Sign Up</NavLink>
       </>
     );
   }
@@ -24,7 +24,10 @@ function Navigation({ isLoaded }) {
   return (
     <ul>
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink exact to="/" className="homeLogo"><i className="fa-solid fa-house"></i> aircnc</NavLink>
+        <NavLink exact to='/' className="navigation">Home</NavLink>
+        <NavLink exact to='/listings' className="navigation">Listings</NavLink>
+        {/* NEED TO REVISIT -- ADD SEARCH FEATURE WHEN SPOTS COMPONENTS READY*/}
         {isLoaded && sessionLinks}
       </li>
     </ul>

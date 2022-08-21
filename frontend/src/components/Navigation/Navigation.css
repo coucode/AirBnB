@@ -1,0 +1,23 @@
+.homeLogo {
+  color: #ff385c;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.navigation {
+  text-decoration: none;
+  color: #484848;
+}
+
+.user {
+  background-color: #ffffff;
+  border-radius: 21px;
+  color: #484848;
+}
+
+.menu {
+  padding: 5px;
+}
