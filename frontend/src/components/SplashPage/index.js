@@ -15,9 +15,9 @@ function SplashPage() {
     <>
       <h1>This is the Splashpage</h1>
       <ul>
-        {spotArr.map((spot) => (
+        {/* {spotArr.map((spot) => (
           <li key={spot.id}>{spot.name}</li>
-        ))}
+        ))} */}
       </ul>
     </>
   )

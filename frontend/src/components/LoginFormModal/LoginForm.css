@@ -3,9 +3,3 @@
   justify-content: left;
   flex-direction: column;
 }
-
-input {
-  margin-bottom: 20px;
-  height: 30px;
-  padding-left: 15px;
-}
