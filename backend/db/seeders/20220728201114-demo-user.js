@@ -7,24 +7,73 @@ module.exports = {
     return queryInterface.bulkInsert('Users', [
       {
         firstName: 'Jon',
-        lastName: 'Snow',
+        lastName: 'Snowson',
         email: 'demo1@user.io',
-        username: 'Demo1',
-        hashedPassword: bcrypt.hashSync('password1')
+        username: 'demo1',
+        hashedPassword: bcrypt.hashSync('pass1')
       },
       {
         firstName: 'Sansa',
-        lastName: 'Stark',
+        lastName: 'Starksa',
         email: 'demo2@user.io',
-        username: 'Demo2',
-        hashedPassword: bcrypt.hashSync('password2')
+        username: 'demo2',
+        hashedPassword: bcrypt.hashSync('pass2')
       },
       {
         firstName: 'Davos',
-        lastName: 'Seaworth',
+        lastName: 'Seaworthson',
         email: 'demo3@user.io',
-        username: 'Demo3',
-        hashedPassword: bcrypt.hashSync('password3')
+        username: 'demo3',
+        hashedPassword: bcrypt.hashSync('pass3')
+      },
+      {
+        firstName: 'Kuni',
+        lastName: 'Garuson',
+        email: 'demo4@user.io',
+        username: 'demo4',
+        hashedPassword: bcrypt.hashSync('pass4')
+      },
+      {
+        firstName: 'Gin',
+        lastName: 'Mazotisa',
+        email: 'demo5@user.io',
+        username: 'demo5',
+        hashedPassword: bcrypt.hashSync('pass5')
+      },
+      {
+        firstName: 'Jia',
+        lastName: 'Matizasa',
+        email: 'demo6@user.io',
+        username: 'demo6',
+        hashedPassword: bcrypt.hashSync('pass6')
+      },
+      {
+        firstName: 'Bellatrix',
+        lastName: 'Lestrangesa',
+        email: 'demo7@user.io',
+        username: 'demo7',
+        hashedPassword: bcrypt.hashSync('pass7')
+      },
+      {
+        firstName: 'Hermoine',
+        lastName: 'Grangersa',
+        email: 'demo8@user.io',
+        username: 'demo8',
+        hashedPassword: bcrypt.hashSync('pass8')
+      },
+      {
+        firstName: 'Aloy',
+        lastName: 'Sobecksa',
+        email: 'demo9@user.io',
+        username: 'demo9',
+        hashedPassword: bcrypt.hashSync('pass9')
+      },
+      {
+        firstName: 'Elisabet',
+        lastName: 'Sobecksa',
+        email: 'demo10@user.io',
+        username: 'demo10',
+        hashedPassword: bcrypt.hashSync('pass10')
       }
     ], {});
   },
@@ -32,7 +81,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete('Users', {
-      username: { [Op.in]: ['Demo1', 'Demo2', 'Demo3'] }
+      username: { [Op.in]: ['demo1', 'demo2', 'demo3', 'demo4', 'demo5', 'demo6', 'demo7', 'demo8', 'demo9', 'demo10'] }
     }, {});
   }
 };
