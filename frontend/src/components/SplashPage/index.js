@@ -10,15 +10,15 @@ function SplashPage() {
   }, [dispatch])
   let spotsObj = useSelector(state => state.spots)
   const spotArr = Object.values(spotsObj)
-
+  
   return (
     <>
       <h1>This is the Splashpage</h1>
-      {/* <ul>
-        {spotArr?.map((spot) => (
+      <ul>
+        {spotArr.map((spot) => (
           <li key={spot.id}>{spot.name}</li>
         ))}
-      </ul> */}
+      </ul>
     </>
   )
 }
