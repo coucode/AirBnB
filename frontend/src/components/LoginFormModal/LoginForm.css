@@ -1,5 +1,4 @@
-.loginForm {
-  display: flex; 
-  justify-content: left;
-  flex-direction: column;
+.loginButton {
+  text-decoration: none;
+  color: #484848;
 }
