@@ -1,26 +1,59 @@
+import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './SplashPage.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getAllSpots } from '../../store/spots';
 
-function SplashPage() {
-  const dispatch = useDispatch();
+function SplashPage({ spots }) {
+  const spotArr = Object.values(spots)
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
-    dispatch(getAllSpots())
-  }, [dispatch])
-  let spotsObj = useSelector(state => state.spots)
-  const spotArr = Object.values(spotsObj)
-  
+    setLoading(true)
+    if (spotArr.length > 0) {
+      setLoading(false)
+    }
+  }, [spotArr])
+
   return (
-    <>
-      <h1>This is the Splashpage</h1>
-      <ul>
-        {/* {spotArr.map((spot) => (
-          <li key={spot.id}>{spot.name}</li>
-        ))} */}
-      </ul>
-    </>
+    <div >
+      {!loading || !spotArr ? (
+        <>
+          {spotArr.map(spot => {
+            return (
+              <div key={spot.id}>
+
+                <NavLink to={`/spots/${spot.id}`} className='spotCard'>
+                  <div>
+                    <img src={spot?.previewImage} alt="spot" style={{
+                      width: 280.25,
+                      height: 266.25
+                    }} />
+                    <div>
+                      <div style={{ fontWeight: 'bold' }}>
+                        {spot?.city}, {spot?.state}
+                      </div>
+                      <div>
+                        <i className="fa-solid fa-star"> </i> {spot?.avgRating}
+                      </div>
+                    </div>
+                    <div>
+                      $<span stlye={{ fontWeight: 'bold' }}>{spot?.price}</span> night
+                    </div>
+                  </div>
+                </NavLink>
+              </div>
+            )
+          })}
+        </>
+      ) : (
+        <>
+          Loading...
+        </>
+      )}
+
+    </div>
+
   )
+
 }
 
 export default SplashPage;

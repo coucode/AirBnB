@@ -1,3 +1,9 @@
 h1 {
   font-weight: 200;
 }
+
+.spotCard {
+  font-family: 'Montserrat';
+  text-decoration: none;
+  color: black
+}
