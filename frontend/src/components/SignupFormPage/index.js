@@ -23,7 +23,6 @@ function SignupFormPage() {
     if (password === confirmPassword) {
       setErrors([]);
       let user = { firstName, lastName, username, email, password }
-      console.log("USER", user)
       return dispatch(sessionActions.signup(user))
         .catch(async (res) => {
           const data = await res.json();
