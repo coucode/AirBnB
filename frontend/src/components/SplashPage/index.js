@@ -1,10 +1,22 @@
 import { NavLink } from 'react-router-dom';
+
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { getAllSpots } from '../../store/spots';
+
 import './SplashPage.css';
 
-function SplashPage({ spots }) {
-  const spotArr = Object.values(spots)
+function SplashPage() {
+  const dispatch = useDispatch();
+  const allSpots = useSelector(state => state.spots)
+
+  const spotArr = Object.values(allSpots)
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    dispatch(getAllSpots())
+  }, [dispatch])
+
 
   useEffect(() => {
     setLoading(true)
@@ -12,6 +24,7 @@ function SplashPage({ spots }) {
       setLoading(false)
     }
   }, [spotArr])
+  
 
   return (
     <div >
