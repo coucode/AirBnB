@@ -14,38 +14,54 @@ function LoginForm() {
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
+        console.log("data", data)
+        if (data) setErrors([data]);
       }
     );
   };
 
+  const handleClick = (e) => {
+    e.preventDefault()
+
+    return dispatch(sessionActions.login({ credential: "demo9", password: "pass9" })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data) setErrors([data]);
+      }
+    )
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
-      <label>
-        Username or Email
-        <input
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+    <div>
+      <button type="button" onClick={handleClick}>Sign in with Demo User</button>
+
+      <form onSubmit={handleSubmit}>
+        <ul>
+          {errors?.map((error, idx) => (
+            <li key={idx}>{error.message}</li>
+          ))}
+        </ul>
+        <label>
+          Username or Email
+          <input
+            type="text"
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        <button type="submit">Log In</button>
+      </form>
+    </div>
   );
 }
 
