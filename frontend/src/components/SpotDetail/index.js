@@ -10,7 +10,7 @@ function SpotDetail(){
 
   useEffect(() => {
     dispatch(getOneSpot(id))
-  }, [dispatch])
+  }, [dispatch, id])
 
   const spotsObj = useSelector(state => state.spots)
   const spot = spotsObj[id].detail
@@ -44,7 +44,7 @@ function SpotDetail(){
         </>
       ) : (
         <>
-        <h1>SPOT DETAIL LOADING</h1>
+        <h1>loading...</h1>
         </>
       )}
 

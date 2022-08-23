@@ -1,38 +1,46 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOwnerSpots } from '../../store/spots';
 import { NavLink } from 'react-router-dom';
 
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { getAllSpots } from '../../store/spots';
-
-import './SplashPage.css';
-
-function SplashPage() {
-  const dispatch = useDispatch();
-  const allSpots = useSelector(state => state.spots)
-  const spotArr = Object.values(allSpots)
+function Listings() {
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
+  const sessionUser = useSelector(state => state.session.user);
+  // const spotError = useSelector(state => state.spots.error)
 
   useEffect(() => {
-    dispatch(getAllSpots())
-  }, [dispatch])
+    if (sessionUser){
+      dispatch(getOwnerSpots())
+    }
+  }, [dispatch, sessionUser])
 
+  const spotsObj = useSelector(state => state.spots)
+  let ownerSpots = Object.values(spotsObj)
 
   useEffect(() => {
     setLoading(true)
-    if (spotArr.length > 0) {
+    if (ownerSpots) {
       setLoading(false)
     }
-  }, [spotArr])
-  
+  }, [ownerSpots])
+
+  // function errorMessage() {
+  //   if (spotError) {
+  //     return (
+  //       <h2>You do not have any listings on aircnc</h2>
+  //     )
+  //   }
+  // }
 
   return (
-    <div >
-      {!loading || !spotArr ? (
+    <>
+      {/* {errorMessage()} */}
+      {!loading || !ownerSpots ? (
         <>
-          {spotArr.map(spot => {
+          {ownerSpots.map(spot => {
             return (
               <div key={spot.id}>
-
                 <NavLink to={`/spots/${spot.id}`} className='spotCard'>
                   <div>
                     <img src={spot?.previewImage} alt="spot" style={{
@@ -57,15 +65,10 @@ function SplashPage() {
           })}
         </>
       ) : (
-        <>
-          Loading...
-        </>
+        <h2>No listings availble</h2>
       )}
-
-    </div>
-
+    </>
   )
-
 }
 
-export default SplashPage;
+export default Listings;
