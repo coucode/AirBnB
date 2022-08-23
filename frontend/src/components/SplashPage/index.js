@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from '../../store/spots';
 
@@ -8,30 +8,30 @@ import './SplashPage.css';
 
 function SplashPage() {
   const dispatch = useDispatch();
-  const allSpots = useSelector(state => state.spots)
-  const spotArr = Object.values(allSpots)
-  const [loading, setLoading] = useState(true)
-
+  const allSpots = useSelector(state => state.spots.allSpots)
+  let loading = true;
+  
   useEffect(() => {
     dispatch(getAllSpots())
   }, [dispatch])
-
-
-  useEffect(() => {
-    setLoading(true)
-    if (spotArr.length > 0) {
-      setLoading(false)
-    }
-  }, [spotArr])
   
+  
+  let spotArr;
+  if (allSpots){
+    spotArr = Object.values(allSpots)
+    loading = false;
+  } else {
+    return null
+  }
+
 
   return (
-    <div >
-      {!loading || !spotArr ? (
+    <div className='splashCards'>
+      {(loading === false) || (spotArr.length > 0) ? (
         <>
           {spotArr.map(spot => {
             return (
-              <div key={spot.id}>
+              <div key={spot.id} >
 
                 <NavLink to={`/spots/${spot.id}`} className='spotCard'>
                   <div>

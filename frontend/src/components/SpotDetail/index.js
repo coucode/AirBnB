@@ -12,8 +12,7 @@ function SpotDetail(){
     dispatch(getOneSpot(id))
   }, [dispatch, id])
 
-  const spotsObj = useSelector(state => state.spots)
-  const spot = spotsObj[id].detail
+  const spot = useSelector(state => state.spots.spotDetail)
 
   useEffect(() => {
     setLoading(true)
@@ -21,6 +20,7 @@ function SpotDetail(){
       setLoading(false)
     }
   }, [spot])
+
 
   return (
     <div> 

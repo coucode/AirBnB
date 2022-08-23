@@ -3,7 +3,6 @@ import { csrfFetch } from "./csrf";
 const GET_SPOTS = 'spots/GETSPOTS'
 const GET_A_SPOT = 'spots/GETASPOT'
 const GET_OWNER_SPOTS = 'spots/GETOWNERSPOTS'
-// const FETCH_FAIL = 'spots/FAIL'
 
 const getSpots = (spots) => {
   return {
@@ -26,14 +25,6 @@ const getSpotByOwner = (spots) => {
   }
 }
 
-// const errorMessage = (err) => {
-//   return {
-//     type: FETCH_FAIL,
-//     err
-//   }
-// }
-
-
 export const getAllSpots = () => async (dispatch) => {
   const response = await csrfFetch('/api/spots')
   if (response.ok) {
@@ -51,40 +42,34 @@ export const getOneSpot = (id) => async (dispatch) => {
 }
 
 export const getOwnerSpots = () => async (dispatch) => {
-  // try {
     const response = await csrfFetch('/api/spots/current')
     const spots = await response.json()
     dispatch(getSpotByOwner(spots))
-  // } catch (err){
-  //   const error = await err.json()
-  //   dispatch(errorMessage(error))
-  // }
 }
 
 const initialState = {}
 
-const spotReducer = (state = initialState, action) => {
+const spotReducer = (state = initialState, action) => {  
   switch (action.type) {
     case GET_SPOTS:
       const allSpots = {}
       action.spots.forEach(spot => {
         allSpots[spot.id] = spot;
       })
-      let newState = { ...state, ...allSpots }
+      let newState = { ...state, allSpots: { ...allSpots } }
       return newState
     case GET_A_SPOT:
-      let oneSpot = {...state}
-      let details = oneSpot[action.spot.id]
-      details["detail"] = action.spot
+      let oneSpot = {...state, spotDetail: action.spot}
       return oneSpot
     case GET_OWNER_SPOTS:
+      console.log("STATE", state)
+      console.log("ACTION", action)
+
       const ownerSpots = {}
       action.spots.Spots.forEach(spot => {
         ownerSpots[spot.id] = spot;
       })
-      return {...ownerSpots}
-    // case FETCH_FAIL: 
-    // return {...state, error: action.err.message}
+      return {...state, ownerSpots: {...ownerSpots}}
     default:
       return state;
   }

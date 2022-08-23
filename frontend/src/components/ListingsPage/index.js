@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOwnerSpots } from '../../store/spots';
 import { NavLink } from 'react-router-dom';
 
 function Listings() {
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(true)
   const sessionUser = useSelector(state => state.session.user);
-  // const spotError = useSelector(state => state.spots.error)
 
   useEffect(() => {
     if (sessionUser){
@@ -15,30 +13,23 @@ function Listings() {
     }
   }, [dispatch, sessionUser])
 
-  const spotsObj = useSelector(state => state.spots)
-  let ownerSpots = Object.values(spotsObj)
-
-  useEffect(() => {
-    setLoading(true)
-    if (ownerSpots) {
-      setLoading(false)
-    }
-  }, [ownerSpots])
-
-  // function errorMessage() {
-  //   if (spotError) {
-  //     return (
-  //       <h2>You do not have any listings on aircnc</h2>
-  //     )
-  //   }
-  // }
+  let loading = true;
+  const spotsObj = useSelector(state => state.spots.ownerSpots)
+  let spots;
+  if (spotsObj){
+    spots = Object.values(spotsObj)
+    loading = false;
+  } else {
+    return (
+      <h2>No listings available</h2>
+    )
+  }
 
   return (
-    <>
-      {/* {errorMessage()} */}
-      {!loading || !ownerSpots ? (
+    <div className='splashCards'>
+      {(loading === false) && (spots.length > 0) ? (
         <>
-          {ownerSpots.map(spot => {
+          {spots.map(spot => {
             return (
               <div key={spot.id}>
                 <NavLink to={`/spots/${spot.id}`} className='spotCard'>
@@ -65,9 +56,9 @@ function Listings() {
           })}
         </>
       ) : (
-        <h2>No listings availble</h2>
+        <h2>Loading...</h2>
       )}
-    </>
+    </div>
   )
 }
 

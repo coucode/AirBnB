@@ -29,7 +29,6 @@ function Navigation({ isLoaded }) {
         <NavLink exact to="/" className="homeLogo"><i className="fa-solid fa-house"></i> aircnc</NavLink>
         <NavLink exact to='/' className="navigation">Home</NavLink>
         <NavLink exact to='/listings' className="navigation">Listings</NavLink>
-        {/* NEED TO REVISIT -- ADD SEARCH FEATURE WHEN SPOTS COMPONENTS READY*/}
         {isLoaded && sessionLinks}
       </li>
     </ul>
