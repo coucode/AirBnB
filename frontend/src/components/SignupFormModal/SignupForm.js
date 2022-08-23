@@ -25,7 +25,6 @@ function SignupForm() {
       return dispatch(sessionActions.signup(user))
         .catch(async (res) => {
           const data = await res.json();
-          console.log("DATAAA", data)
           if (data && data.errors) setErrors(data.errors);
         });
     }

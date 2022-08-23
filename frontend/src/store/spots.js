@@ -62,7 +62,6 @@ export const createASpot = (payload) => async (dispatch) => {
   })
   if (response.ok){
     const newSpot = await response.json()
-    console.log("FETCHRESPO", newSpot)
     dispatch(createSpot(newSpot))
     return newSpot
   }
@@ -89,8 +88,6 @@ const spotReducer = (state = initialState, action) => {
       })
       return ownerSpots
     case CREATE_A_SPOT:
-      console.log("STATE", state)
-      console.log("ACTIOn", action)
       return {...state, [action.newSpot.id]: action.newSpot}
     default:
       return state;
