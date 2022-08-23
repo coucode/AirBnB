@@ -26,10 +26,10 @@ const getSpotByOwner = (spots) => {
   }
 }
 
-const createSpot = (spot) => {
+const createSpot = (newSpot) => {
   return {
     type: CREATE_A_SPOT,
-    spot
+    newSpot
   }
 }
 
@@ -56,7 +56,16 @@ export const getOwnerSpots = () => async (dispatch) => {
 }
 
 export const createASpot = (payload) => async (dispatch) => {
-  
+  const response = await csrfFetch('/api/spots', {
+    method: 'POST', 
+    body: JSON.stringify(payload)
+  })
+  if (response.ok){
+    const newSpot = await response.json()
+    console.log("FETCHRESPO", newSpot)
+    dispatch(createSpot(newSpot))
+    return newSpot
+  }
 }
 
 const initialState = {}
@@ -79,6 +88,10 @@ const spotReducer = (state = initialState, action) => {
         ownerSpots[spot.id] = spot;
       })
       return ownerSpots
+    case CREATE_A_SPOT:
+      console.log("STATE", state)
+      console.log("ACTIOn", action)
+      return {...state, [action.newSpot.id]: action.newSpot}
     default:
       return state;
   }

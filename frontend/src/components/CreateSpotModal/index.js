@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from '../../context/Modal';
+import { useSelector } from 'react-redux';
 import CreateSpotForm from './CreateSpotForm';
 
 function CreateSpotModal() {
   const [showModal, setShowModal] = useState(false);
+  const spots = useSelector(state => state.spots)
+
+  useEffect(() => {
+    setShowModal(false)
+  }, [spots])
 
   return (
     <>

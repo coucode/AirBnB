@@ -24,6 +24,20 @@ function SplashPage() {
     return null
   }
 
+  function imageCheck(spot) {
+    if (spot.previewImage) {
+      return spot.previewImage
+    } else {
+      return "https://st.depositphotos.com/1987177/3470/v/450/depositphotos_34700099-stock-illustration-no-photo-available-or-missing.jpg"
+    }
+  }
+  function ratingCheck(spot) {
+    if (spot.avgRating) {
+      return spot.avgRating
+    } else {
+      return "New"
+    }
+  }
 
   return (
     <div className='splashCards'>
@@ -35,7 +49,7 @@ function SplashPage() {
 
                 <NavLink to={`/spots/${spot.id}`} className='spotCard'>
                   <div>
-                    <img src={spot?.previewImage} alt="spot" style={{
+                    <img src={imageCheck(spot)} alt="spot" style={{
                       width: 280.25,
                       height: 266.25
                     }} />
@@ -44,7 +58,7 @@ function SplashPage() {
                         {spot?.city}, {spot?.state}
                       </div>
                       <div>
-                        <i className="fa-solid fa-star"> </i> {spot?.avgRating}
+                        <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
                       </div>
                     </div>
                     <div>

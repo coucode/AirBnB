@@ -23,7 +23,23 @@ function SpotDetail(){
   }, [spot])
 
 
-  if (!spot.Images) return null
+  if (!spot || !spot.Images) return null
+  function imageCheck(spot){
+    if (spot.Images.length > 0){
+      return spot.Images[0].url
+    } else {
+      return "https://st.depositphotos.com/1987177/3470/v/450/depositphotos_34700099-stock-illustration-no-photo-available-or-missing.jpg"
+    }
+  }
+
+  function ratingCheck(spot) {
+    if (spot.avgStarRating) {
+      return spot.avgStarRating
+    } else {
+      return "New"
+    }
+  }
+
   
   return (
     <div> 
@@ -31,11 +47,11 @@ function SpotDetail(){
         <>
           <h1> {spot?.name} </h1>
           <div>
-            <i className="fa-solid fa-star"> </i> {spot?.avgStarRating}
+            <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
             <div>{spot?.numReviews} Reviews</div>
             <div>{spot?.city}, {spot?.state}, {spot?.country}</div> 
           </div>
-          <img src={spot?.Images[0].url} alt="spot" style={{height: 500, width: 500}}></img>
+          <img src={imageCheck(spot)} alt="spot" style={{height: 500, width: 500}}></img>
           <div>
             <p>Entire home hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</p>
             <p>{spot?.name}</p>
