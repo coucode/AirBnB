@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_SPOTS = 'spots/GETSPOTS'
 const GET_A_SPOT = 'spots/GETASPOT'
 const GET_OWNER_SPOTS = 'spots/GETOWNERSPOTS'
+const CREATE_A_SPOT = 'spots/CREATE'
 
 const getSpots = (spots) => {
   return {
@@ -22,6 +23,13 @@ const getSpotByOwner = (spots) => {
   return {
     type: GET_OWNER_SPOTS,
     spots
+  }
+}
+
+const createSpot = (spot) => {
+  return {
+    type: CREATE_A_SPOT,
+    spot
   }
 }
 
@@ -45,6 +53,10 @@ export const getOwnerSpots = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots/current')
     const spots = await response.json()
     dispatch(getSpotByOwner(spots))
+}
+
+export const createASpot = (payload) => async (dispatch) => {
+  
 }
 
 const initialState = {}
