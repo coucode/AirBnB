@@ -10,16 +10,23 @@ function Listings() {
   useEffect(() => {
     if (sessionUser){
       dispatch(getOwnerSpots())
-    }
+    } 
   }, [dispatch, sessionUser])
 
+
+
   let loading = true;
-  const spotsObj = useSelector(state => state.spots.ownerSpots)
+  const spotsObj = useSelector(state => state.spots)
   let spots;
   if (spotsObj){
     spots = Object.values(spotsObj)
     loading = false;
   } else {
+    return (
+      <h2>No listings available</h2>
+    )
+  }
+  if (!sessionUser) {
     return (
       <h2>No listings available</h2>
     )

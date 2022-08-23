@@ -56,20 +56,17 @@ const spotReducer = (state = initialState, action) => {
       action.spots.forEach(spot => {
         allSpots[spot.id] = spot;
       })
-      let newState = { ...state, allSpots: { ...allSpots } }
-      return newState
+      return {...state, ...allSpots}
     case GET_A_SPOT:
-      let oneSpot = {...state, spotDetail: action.spot}
+      let oneSpot = {...state}
+      oneSpot[action.spot.id] = action.spot
       return oneSpot
     case GET_OWNER_SPOTS:
-      console.log("STATE", state)
-      console.log("ACTION", action)
-
       const ownerSpots = {}
       action.spots.Spots.forEach(spot => {
         ownerSpots[spot.id] = spot;
       })
-      return {...state, ownerSpots: {...ownerSpots}}
+      return ownerSpots
     default:
       return state;
   }

@@ -12,7 +12,8 @@ function SpotDetail(){
     dispatch(getOneSpot(id))
   }, [dispatch, id])
 
-  const spot = useSelector(state => state.spots.spotDetail)
+  const spotObj = useSelector(state => state.spots)
+  const spot = spotObj[id]
 
   useEffect(() => {
     setLoading(true)
@@ -22,6 +23,8 @@ function SpotDetail(){
   }, [spot])
 
 
+  if (!spot.Images) return null
+  
   return (
     <div> 
       {!loading || !spot ? (
