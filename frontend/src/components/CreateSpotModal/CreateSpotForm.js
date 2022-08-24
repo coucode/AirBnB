@@ -31,6 +31,7 @@ function CreateSpotForm() {
     if (lat < -90 || lat > 90) errors.push("Latitude must be between -90 and 90")
     if (lng < -180 || lng > 180) errors.push("Longitude must be between -180 and 180")
     if (!price) errors.push("Price per day is required")
+    if (price < 1) errors.push("Price must be greater than $0")
     if (!sessionUser.id) errors.push("Must be logged in to create a new listing")
     return setValidationErrors(errors)
   }, [address, city, state, country, lat, lng, name, description, price, sessionUser])
@@ -90,16 +91,18 @@ function CreateSpotForm() {
         <input
           type="number"
           placeholder="Latitude"
-          min="-90"
-          max="90"
+          // min="-90.000000000"
+          // max="90.000000000"
+          // step="0.00000001"
           required
           value={lat}
           onChange={(e) => setLat(e.target.value)} />
         <input
           type="number"
           placeholder="Longitude"
-          min="-180"
-          max="180"
+          // min="-180.000000000"
+          // max="180.000000000"
+          // step="0.00000001"
           required
           value={lng}
           onChange={(e) => setLng(e.target.value)} />
@@ -118,7 +121,8 @@ function CreateSpotForm() {
         <input
           type="number"
           placeholder="Price"
-          min="0"
+          // min="0"
+          // step="0.01"
           required
           value={price}
           onChange={(e) => setPrice(e.target.value)} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { deleteASpot, getOneSpot } from '../../store/spots';
 import EditSpotModal from '../EditSpotModal'
 
@@ -10,14 +10,13 @@ function SpotDetail(){
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const sessionUser = useSelector(state => state.session.user)
-  const [deleteSpot, setDeleteSpot] = useState(null)
+  const spotObj = useSelector(state => state.spots)
+  const spot = spotObj[id]
 
   useEffect(() => {
     dispatch(getOneSpot(id))
-  }, [dispatch, id])
+  }, [dispatch, id, spot.name, spot.address, spot.city, spot.state, spot.country, spot.lat, spot.lng, spot.description, spot.price])
 
-  const spotObj = useSelector(state => state.spots)
-  const spot = spotObj[id]
 
   useEffect(() => {
     setLoading(true)
@@ -26,17 +25,8 @@ function SpotDetail(){
     }
   }, [spot])
 
-  useEffect(() => {
-    if (deleteSpot === null) {
-      return
-    } else {
-      dispatch(deleteASpot(id))
-      setDeleteSpot(null)
-      history.push("/")
-    }
-  }, [deleteSpot, dispatch, id, history])
-
-  if (!spot || !spot.Images) return null
+  if (!spot) return (<Redirect to='/' />)
+  if (!spot.Images)  return null
   function imageCheck(spot){
     if (spot.Images.length > 0){
       return spot.Images[0].url
@@ -53,19 +43,22 @@ function SpotDetail(){
     }
   }
 
+  const handleDeleteClick = async (e) => {
+    await dispatch(deleteASpot(id))
+    await history.push('/listings')
+  }
+
   let modifyButtons;
   if (spot && sessionUser){
     if (spot.ownerId === sessionUser.id){
       modifyButtons = (
         <>
         <EditSpotModal spot={spot}/>
-        <button onClick={() => setDeleteSpot(true) }>Delete Listing</button>
+        <button onClick={handleDeleteClick}>Delete Listing</button>
         </>
       )
     } 
   }
-
-
   
   return (
     <div> 
