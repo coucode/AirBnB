@@ -4,6 +4,7 @@ const GET_SPOTS = 'spots/GETSPOTS'
 const GET_A_SPOT = 'spots/GETASPOT'
 const GET_OWNER_SPOTS = 'spots/GETOWNERSPOTS'
 const CREATE_A_SPOT = 'spots/CREATE'
+const DELETE_A_SPOT = 'spots/DELETEASPOT'
 
 const getSpots = (spots) => {
   return {
@@ -30,6 +31,13 @@ const createSpot = (newSpot) => {
   return {
     type: CREATE_A_SPOT,
     newSpot
+  }
+}
+
+const deleteSpot = (spotId) => {
+  return {
+    type: DELETE_A_SPOT,
+    spotId
   }
 }
 
@@ -67,6 +75,15 @@ export const createASpot = (payload) => async (dispatch) => {
   }
 }
 
+export const deleteASpot = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: 'DELETE'
+  })
+  if (response.ok){
+    dispatch(deleteSpot(spotId))
+  }
+}
+
 const initialState = {}
 
 const spotReducer = (state = initialState, action) => {  
@@ -76,7 +93,7 @@ const spotReducer = (state = initialState, action) => {
       action.spots.forEach(spot => {
         allSpots[spot.id] = spot;
       })
-      return {...state, ...allSpots}
+      return {...allSpots}
     case GET_A_SPOT:
       let oneSpot = {...state}
       oneSpot[action.spot.id] = action.spot
@@ -89,6 +106,10 @@ const spotReducer = (state = initialState, action) => {
       return ownerSpots
     case CREATE_A_SPOT:
       return {...state, [action.newSpot.id]: action.newSpot}
+    case DELETE_A_SPOT:
+      const deleteState = {...state}
+      delete deleteState[action.id]
+      return deleteState
     default:
       return state;
   }
