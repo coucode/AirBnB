@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { deleteASpot, getOneSpot } from '../../store/spots';
+import EditSpotModal from '../EditSpotModal'
 
 function SpotDetail(){
   const dispatch = useDispatch()
@@ -52,14 +53,18 @@ function SpotDetail(){
     }
   }
 
-  let deleteButton;
+  let modifyButtons;
   if (spot && sessionUser){
     if (spot.ownerId === sessionUser.id){
-      deleteButton = (
+      modifyButtons = (
+        <>
+        <EditSpotModal spot={spot}/>
         <button onClick={() => setDeleteSpot(true) }>Delete Listing</button>
+        </>
       )
     } 
   }
+
 
   
   return (
@@ -67,7 +72,7 @@ function SpotDetail(){
       {!loading || !spot ? (
         <>
           <h1> {spot?.name} </h1>
-          {deleteButton}
+          {modifyButtons}
           <div>
             <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
             <div>{spot?.numReviews} Reviews</div>
