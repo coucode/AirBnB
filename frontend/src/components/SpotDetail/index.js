@@ -5,7 +5,7 @@ import { deleteASpot, getOneSpot } from '../../store/spots';
 import EditSpotModal from '../EditSpotModal'
 import SpotReviews from '../SpotReviews';
 
-function SpotDetail(){
+function SpotDetail() {
   const dispatch = useDispatch()
   const history = useHistory()
   const { id } = useParams()
@@ -17,6 +17,7 @@ function SpotDetail(){
   useEffect(() => {
     dispatch(getOneSpot(id))
   }, [dispatch, id])
+  // , spot.name, spot.address, spot.city, spot.state, spot.country, spot.lat, spot.lng, spot.description, spot.price
 
 
   useEffect(() => {
@@ -28,8 +29,8 @@ function SpotDetail(){
 
   if (!spot) return null
   if (!spot.Images) return null
-  function imageCheck(spot){
-    if (spot.Images.length > 0){
+  function imageCheck(spot) {
+    if (spot.Images.length > 0) {
       return spot.Images[0].url
     } else {
       return "https://st.depositphotos.com/1987177/3470/v/450/depositphotos_34700099-stock-illustration-no-photo-available-or-missing.jpg"
@@ -50,19 +51,19 @@ function SpotDetail(){
   }
 
   let modifyButtons;
-  if (spot && sessionUser){
-    if (spot.ownerId === sessionUser.id){
+  if (spot && sessionUser) {
+    if (spot.ownerId === sessionUser.id) {
       modifyButtons = (
         <>
-        <EditSpotModal spot={spot}/>
-        <button onClick={handleDeleteClick}>Delete Listing</button>
+          <EditSpotModal spot={spot} />
+          <button onClick={handleDeleteClick}>Delete Listing</button>
         </>
       )
-    } 
+    }
   }
-  
+
   return (
-    <div> 
+    <div>
       {!loading || !spot ? (
         <>
           <h1> {spot?.name} </h1>
@@ -70,23 +71,22 @@ function SpotDetail(){
           <div>
             <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
             <div>{spot?.numReviews} Reviews</div>
-            <div>{spot?.city}, {spot?.state}, {spot?.country}</div> 
+            <div>{spot?.city}, {spot?.state}, {spot?.country}</div>
           </div>
-          <img src={imageCheck(spot)} alt="spot" style={{height: 500, width: 500}}></img>
+          <img src={imageCheck(spot)} alt="spot" style={{ height: 500, width: 500 }}></img>
           <div>
             <p>Entire home hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</p>
             <p>{spot?.name}</p>
-            <p style={{fontWeight: 'bold'}}> The Space </p>
+            <p style={{ fontWeight: 'bold' }}> The Space </p>
             <p>{spot?.description}</p>
           </div>
+          <SpotReviews />
           <div>
-            <h3>Reviews</h3>
-            <SpotReviews />
           </div>
         </>
       ) : (
         <>
-        <h1>loading...</h1>
+          <h1>loading...</h1>
         </>
       )}
 
