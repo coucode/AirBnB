@@ -26,7 +26,7 @@ function Listings() {
       <h2>No listings available</h2>
     )
   }
-  if (!sessionUser) {
+  if (!sessionUser || spots.length === 0) {
     return (
       <>
       <h2>No listings available</h2>
