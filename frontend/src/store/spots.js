@@ -59,24 +59,26 @@ export const getAllSpots = () => async (dispatch) => {
 
 export const getOneSpot = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${id}`)
+
   if (response.ok) {
     const spot = await response.json()
     dispatch(getASpot(spot))
   }
+
 }
 
 export const getOwnerSpots = () => async (dispatch) => {
-    const response = await csrfFetch('/api/spots/current')
-    const spots = await response.json()
-    dispatch(getSpotByOwner(spots))
+  const response = await csrfFetch('/api/spots/current')
+  const spots = await response.json()
+  dispatch(getSpotByOwner(spots))
 }
 
 export const createASpot = (payload) => async (dispatch) => {
   const response = await csrfFetch('/api/spots', {
-    method: 'POST', 
+    method: 'POST',
     body: JSON.stringify(payload)
   })
-  if (response.ok){
+  if (response.ok) {
     const newSpot = await response.json()
     dispatch(createSpot(newSpot))
     return newSpot
@@ -88,7 +90,7 @@ export const updateASpot = (payload) => async (dispatch) => {
     method: 'PUT',
     body: JSON.stringify(payload)
   })
-  if (response.ok){
+  if (response.ok) {
     const updatedSpot = await response.json()
     dispatch(updateSpot(updatedSpot))
     return updatedSpot
@@ -99,23 +101,23 @@ export const deleteASpot = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`, {
     method: 'DELETE'
   })
-  if (response.ok){
+  if (response.ok) {
     dispatch(deleteSpot(spotId))
   }
 }
 
 const initialState = {}
 
-const spotReducer = (state = initialState, action) => {  
+const spotReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOTS:
       const allSpots = {}
       action.spots.forEach(spot => {
         allSpots[spot.id] = spot;
       })
-      return {...allSpots}
+      return { ...allSpots }
     case GET_A_SPOT:
-      let oneSpot = {...state}
+      let oneSpot = { ...state }
       oneSpot[action.spot.id] = action.spot
       return oneSpot
     case GET_OWNER_SPOTS:
@@ -125,13 +127,13 @@ const spotReducer = (state = initialState, action) => {
       })
       return ownerSpots
     case CREATE_A_SPOT:
-      return {...state, [action.newSpot.id]: action.newSpot}
+      return { ...state, [action.newSpot.id]: action.newSpot }
     case UPDATE_A_SPOT:
-      const updatedState = {...state}
-      updatedState[action.updatedSpot.id] =  action.updatedSpot
+      const updatedState = { ...state }
+      updatedState[action.updatedSpot.id] = action.updatedSpot
       return updatedState
     case DELETE_A_SPOT:
-      const deleteState = {...state}
+      const deleteState = { ...state }
       delete deleteState[action.id]
       return deleteState
     default:

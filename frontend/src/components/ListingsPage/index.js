@@ -18,7 +18,7 @@ function Listings() {
   let loading = true;
   const spotsObj = useSelector(state => state.spots)
   let spots;
-  if (spotsObj){
+  if (spotsObj !== {}){
     spots = Object.values(spotsObj)
     loading = false;
   } else {
