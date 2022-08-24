@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { deleteASpot, getOneSpot } from '../../store/spots';
 import EditSpotModal from '../EditSpotModal'
+// import SpotReviews from '../SpotReviews';
 
 function SpotDetail(){
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ function SpotDetail(){
 
   useEffect(() => {
     dispatch(getOneSpot(id))
-  }, [dispatch, id, spot.name, spot.address, spot.city, spot.state, spot.country, spot.lat, spot.lng, spot.description, spot.price])
+  }, [dispatch, id])
 
 
   useEffect(() => {
@@ -25,8 +26,8 @@ function SpotDetail(){
     }
   }, [spot])
 
-  if (!spot) return (<Redirect to='/' />)
-  if (!spot.Images)  return null
+  if (!spot) return null
+  if (!spot.Images) return null
   function imageCheck(spot){
     if (spot.Images.length > 0){
       return spot.Images[0].url
@@ -79,6 +80,8 @@ function SpotDetail(){
             <p>{spot?.description}</p>
           </div>
           <div>
+            <h3>Reviews</h3>
+            {/* <SpotReviews /> */}
           </div>
         </>
       ) : (

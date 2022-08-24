@@ -46,7 +46,7 @@ function EditSpotForm({ spot }) {
     const payload = { id: spot.id, address, city, state, country, lat, lng, name, description, price };
 
     await dispatch(updateASpot(payload))
-    await history.push(`/spots/${spot.id}`)
+    await history.push(`/listings`)
   }
 
   return (
