@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getOneSpot } from '../../store/spots';
+import { useParams, useHistory } from 'react-router-dom';
+import { deleteASpot, getOneSpot } from '../../store/spots';
 
 function SpotDetail(){
   const dispatch = useDispatch()
+  const history = useHistory()
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
+  const sessionUser = useSelector(state => state.session.user)
+  const [deleteSpot, setDeleteSpot] = useState(null)
 
   useEffect(() => {
     dispatch(getOneSpot(id))
@@ -22,6 +25,15 @@ function SpotDetail(){
     }
   }, [spot])
 
+  useEffect(() => {
+    if (deleteSpot === null) {
+      return
+    } else {
+      dispatch(deleteASpot(id))
+      setDeleteSpot(null)
+      history.push("/")
+    }
+  }, [deleteSpot, dispatch, id, history])
 
   if (!spot || !spot.Images) return null
   function imageCheck(spot){
@@ -40,12 +52,22 @@ function SpotDetail(){
     }
   }
 
+  let deleteButton;
+  if (spot && sessionUser){
+    if (spot.ownerId === sessionUser.id){
+      deleteButton = (
+        <button onClick={() => setDeleteSpot(true) }>Delete Listing</button>
+      )
+    } 
+  }
+
   
   return (
     <div> 
       {!loading || !spot ? (
         <>
           <h1> {spot?.name} </h1>
+          {deleteButton}
           <div>
             <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
             <div>{spot?.numReviews} Reviews</div>
