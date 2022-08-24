@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory, Redirect } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { deleteASpot, getOneSpot } from '../../store/spots';
 import EditSpotModal from '../EditSpotModal'
-// import SpotReviews from '../SpotReviews';
+import SpotReviews from '../SpotReviews';
 
 function SpotDetail(){
   const dispatch = useDispatch()
@@ -81,7 +81,7 @@ function SpotDetail(){
           </div>
           <div>
             <h3>Reviews</h3>
-            {/* <SpotReviews /> */}
+            <SpotReviews />
           </div>
         </>
       ) : (
