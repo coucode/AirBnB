@@ -9,13 +9,13 @@ function SplashPage() {
   const dispatch = useDispatch();
   const allSpots = useSelector(state => state.spots)
   let loading = true;
-  
+
   useEffect(() => {
     dispatch(getAllSpots())
   }, [dispatch])
-  
+
   let spotArr;
-  if (allSpots){
+  if (allSpots) {
     spotArr = Object.values(allSpots)
     loading = false;
   } else {
@@ -38,43 +38,44 @@ function SplashPage() {
   }
 
   return (
-    <section >
+    <div className='sc_container'>
       {(loading === false) || (spotArr.length > 0) ? (
-
-        <div >
+        <>
           {spotArr.map(spot => {
             return (
-              <div key={spot.id}  >
-                <NavLink to={`/spots/${spot.id}`} >
-                  <div>
-                    <img src={imageCheck(spot)} alt="spot" style={{
-                      width: 280.25,
-                      height: 266.25
-                    }} />
-                    <div>
-                      <div style={{ fontWeight: 'bold' }}>
+              <div key={spot.id} >
+                <NavLink to={`/spots/${spot.id}`} className="sc_container_cards" >
+                  <div >
+                    <img
+                      src={imageCheck(spot)}
+                      alt="listing"
+                      style={{ width: 280.25, height: 266.25 }} 
+                      className="sc_container_cards_img"
+                      />
+                    <div className="sc_container_cards_top">
+                      <div className='sc_container_cards_top--text'>
                         {spot?.city}, {spot?.state}
                       </div>
                       <div>
                         <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
                       </div>
                     </div>
-                    <div>
-                      $<span stlye={{ fontWeight: 'bold' }}>{spot?.price}</span> night
+                    <div className="sc_container_cards_bottom">
+                      <p style={{fontWeight: 'bold'}}>${spot?.price} </p> <p style={{ color:"#383838", paddingLeft: '5px'}}> night</p>
                     </div>
                   </div>
                 </NavLink>
               </div>
             )
           })}
-        </div>
+        </>
       ) : (
         <>
           Loading...
         </>
       )}
 
-    </section>
+    </div>
 
   )
 

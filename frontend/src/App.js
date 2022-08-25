@@ -22,7 +22,9 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <SplashPage />
+            <div className="splashContainer">
+              <SplashPage />
+            </div>
           </Route>
           <Route path="/spots/:id">
             <SpotDetail />

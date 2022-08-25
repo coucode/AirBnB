@@ -49,13 +49,13 @@ function Listings() {
   }
 
   return (
-    <div className='splashCards'>
+    <div className='sc_container'>
       {(loading === false) && (spots.length > 0) ? (
         <>
           {spots.map(spot => {
             return (
               <div key={spot.id}>
-                <NavLink to={`/spots/${spot.id}`} className='spotCard'>
+                <NavLink to={`/spots/${spot.id}`} className='sc_container_cards'>
                   <div>
                     <img src={imageCheck(spot)} alt="spot" style={{
                       width: 280.25,
