@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
-import { getAllSpotReviews } from '../../store/reviews';
+import { useParams, useHistory } from 'react-router-dom';
+import { deleteAReview, getAllSpotReviews } from '../../store/reviews';
 import CreateReviewModal from '../CreateReviewModal';
 
 function SpotReviews() {
   const dispatch = useDispatch()
   const { id } = useParams()
+  const history = useHistory()
   const reviewsObj = useSelector(state => state.reviews)
   const sessionUser = useSelector(state => state.session.user)
   // console.log("REVIEWSOBJ",reviewsObj)
@@ -19,22 +20,31 @@ function SpotReviews() {
 
   if (!reviews) return null
 
-  function dateConverter(review){
-    if (review){
+  function dateConverter(review) {
+    if (review) {
       let date = new Date(review.createdAt)
-      const options = { month: 'long', year:'numeric' }
+      const options = { month: 'long', year: 'numeric' }
       date = date.toLocaleDateString(undefined, options)
       return date
     }
   }
   let reviewCheck = false;
-  if (reviews && sessionUser){
-     reviewCheck = reviews.find((review) => review.userId === sessionUser.id)
+  if (reviews && sessionUser) {
+    reviewCheck = reviews.find((review) => review.userId === sessionUser.id)
   }
   let reviewButton;
-  if (!reviewCheck){
+  if (!reviewCheck) {
     reviewButton = (
-      <CreateReviewModal />
+        <CreateReviewModal />
+    )
+  }
+  const handleDeleteClick = async (e) => {
+    await dispatch(deleteAReview(reviewCheck.id))
+    await history.push(`/spots/${id}`)
+  }
+  if (reviewCheck){
+    reviewButton = (
+      <button onClick={handleDeleteClick}>Delete Review</button>
     )
   }
 
