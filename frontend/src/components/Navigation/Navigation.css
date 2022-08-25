@@ -1,11 +1,50 @@
-.homeLogo {
+ul {
+  margin: 0;
+}
+
+li {
+  display: inline;
+}
+
+.navLink {
+  display: inline-block;
+  padding: .5em;
+  color: #222222;
+  text-decoration: none;
+  padding: .5em;
+}
+
+.main-nav {
+  border-bottom: 1px solid #EBEBEB;
+  height: 80px;
+  width: 100%;
+
+}
+
+.main-nav li {
+  padding: 0 2%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .homeLogo {
   color: #ff385c;
   text-decoration: none;
 }
 
-ul {
-  list-style-type: none;
-}
 
 .navigation {
   text-decoration: none;
@@ -21,3 +60,40 @@ ul {
 .menu {
   padding: 5px;
 }
+
+
+.home {
+  grid-column-start: 2;
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.homeLink {
+  text-decoration: none;
+  color: #484848;
+}
+
+.listings {
+  grid-column-start: 3;
+  align-items: center;
+  text-decoration: none;
+  color: #484848;
+}
+
+.listingProfile {
+  grid-column-start: 6;
+  justify-content: space-between;
+}
+
+.profileButton {
+  justify-self: right;
+}
+
+.listingButton {
+  justify-self: left;
+}
+.logSign {
+  grid-column-start: 6;
+  justify-items: space-between;
+} */

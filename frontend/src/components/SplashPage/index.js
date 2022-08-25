@@ -38,13 +38,14 @@ function SplashPage() {
   }
 
   return (
-    <div className='splashCards'>
+    <section >
       {(loading === false) || (spotArr.length > 0) ? (
-        <>
+
+        <div >
           {spotArr.map(spot => {
             return (
-              <div key={spot.id} >
-                <NavLink to={`/spots/${spot.id}`} className='spotCard'>
+              <div key={spot.id}  >
+                <NavLink to={`/spots/${spot.id}`} >
                   <div>
                     <img src={imageCheck(spot)} alt="spot" style={{
                       width: 280.25,
@@ -66,14 +67,14 @@ function SplashPage() {
               </div>
             )
           })}
-        </>
+        </div>
       ) : (
         <>
           Loading...
         </>
       )}
 
-    </div>
+    </section>
 
   )
 

@@ -14,25 +14,27 @@ function Navigation({ isLoaded }) {
   if (sessionUser) {
     sessionLinks = (
       <>
-        <NavLink exact to='/listings' className="navigation">Listings</NavLink>
+        <NavLink exact to='/listings' className="navLink listings">Listings</NavLink>
         <CreateSpotModal />
         <ProfileButton user={sessionUser} />
       </>
     );
   } else {
     sessionLinks = (
-      <>
+      <div className='logSign'>
         <LoginFormModal />
         <SignupFormModal />
-      </>
+      </div>
     );
   }
 
   return (
-    <ul>
+    <ul className='main-nav'>
       <li>
-        <NavLink exact to="/" className="homeLogo"><i className="fa-solid fa-house"></i> aircnc</NavLink>
-        <NavLink exact to='/' className="navigation">Home</NavLink>
+        <NavLink exact to="/" className="navLink homeLogo"><i className="fa-solid fa-house"></i> aircnc</NavLink>
+        {/* <NavLink exact to='/' className="homeLink">Home</NavLink> */}
+      </li>
+      <li>
         {isLoaded && sessionLinks}
       </li>
     </ul>
