@@ -13,8 +13,6 @@ function Listings() {
     } 
   }, [dispatch, sessionUser])
 
-
-
   let loading = true;
   const spotsObj = useSelector(state => state.spots)
   let spots;
@@ -49,7 +47,6 @@ function Listings() {
       return "New"
     }
   }
-
 
   return (
     <div className='splashCards'>

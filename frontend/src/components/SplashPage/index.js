@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from '../../store/spots';
@@ -14,7 +13,6 @@ function SplashPage() {
   useEffect(() => {
     dispatch(getAllSpots())
   }, [dispatch])
-  
   
   let spotArr;
   if (allSpots){
@@ -46,7 +44,6 @@ function SplashPage() {
           {spotArr.map(spot => {
             return (
               <div key={spot.id} >
-
                 <NavLink to={`/spots/${spot.id}`} className='spotCard'>
                   <div>
                     <img src={imageCheck(spot)} alt="spot" style={{

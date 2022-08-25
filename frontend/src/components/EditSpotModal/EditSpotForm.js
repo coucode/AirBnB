@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { updateASpot } from '../../store/spots';
+import { getOneSpot, updateASpot } from '../../store/spots';
 
 function EditSpotForm({ spot }) {
   const dispatch = useDispatch()
@@ -46,7 +46,8 @@ function EditSpotForm({ spot }) {
     const payload = { id: spot.id, address, city, state, country, lat, lng, name, description, price };
 
     await dispatch(updateASpot(payload))
-    await history.push(`/listings`)
+    await dispatch(getOneSpot(spot.id))
+    await history.push(`/spots/${spot.id}`)
   }
 
   return (

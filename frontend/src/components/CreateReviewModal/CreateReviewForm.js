@@ -38,6 +38,7 @@ function CreateReviewForm({spot}) {
       review
     }
     let createReview = await dispatch(createAReview(payload))
+    // Added the dispatch below so that the state is updated with all the information needed for the new review
     await dispatch(getAllSpotReviews(id))
     if (createReview) {
       history.push(`/spots/${id}`)

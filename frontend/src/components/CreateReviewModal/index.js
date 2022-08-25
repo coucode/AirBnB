@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import { useSelector } from 'react-redux';
 import CreateReviewForm from './CreateReviewForm';
 
-function CreateReviewModal({spot}) {
+function CreateReviewModal() {
   const [showModal, setShowModal] = useState(false);
   const reviews = useSelector(state => state.reviews)
 

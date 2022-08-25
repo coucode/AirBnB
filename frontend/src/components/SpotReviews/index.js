@@ -10,9 +10,7 @@ function SpotReviews() {
   const history = useHistory()
   const reviewsObj = useSelector(state => state.reviews)
   const sessionUser = useSelector(state => state.session.user)
-  // console.log("REVIEWSOBJ",reviewsObj)
   const reviews = Object.values(reviewsObj)
-  // console.log("REVIEWSARR", reviews)
 
   useEffect(() => {
     dispatch(getAllSpotReviews(id))
@@ -35,15 +33,16 @@ function SpotReviews() {
   let reviewButton;
   if (!reviewCheck) {
     reviewButton = (
-        <CreateReviewModal />
+      <CreateReviewModal />
     )
   }
+  let deleteButton;
   const handleDeleteClick = async (e) => {
     await dispatch(deleteAReview(reviewCheck.id))
     await history.push(`/spots/${id}`)
   }
-  if (reviewCheck){
-    reviewButton = (
+  if (reviewCheck) {
+    deleteButton = (
       <button onClick={handleDeleteClick}>Delete Review</button>
     )
   }
@@ -56,9 +55,16 @@ function SpotReviews() {
           {reviews.map(review => {
             return (
               <div key={review?.id}>
-                <p>{review?.User?.firstName}</p>
-                <p>{dateConverter(review)}</p>
-                <p>{review?.review}</p>
+                <div>
+                  <p>{review?.User?.firstName}</p>
+                  <p>{dateConverter(review)}</p>
+                </div>
+                <div>
+                  {deleteButton}
+                </div>
+                <div>
+                  <p>{review?.review}</p>
+                </div>
               </div>
             )
           })}

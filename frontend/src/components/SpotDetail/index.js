@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { deleteASpot, getOneSpot } from '../../store/spots';
+import { deleteASpot, getOneSpot, getAllSpots } from '../../store/spots';
 import EditSpotModal from '../EditSpotModal'
 import SpotReviews from '../SpotReviews';
 
@@ -13,12 +13,11 @@ function SpotDetail() {
   const sessionUser = useSelector(state => state.session.user)
   const spotObj = useSelector(state => state.spots)
   const spot = spotObj[id]
+  const reviews = useSelector(state => state.reviews)
 
   useEffect(() => {
     dispatch(getOneSpot(id))
-  }, [dispatch, id])
-  // , spot.name, spot.address, spot.city, spot.state, spot.country, spot.lat, spot.lng, spot.description, spot.price
-
+  }, [dispatch, id, reviews])
 
   useEffect(() => {
     setLoading(true)
@@ -47,6 +46,7 @@ function SpotDetail() {
 
   const handleDeleteClick = async (e) => {
     await dispatch(deleteASpot(id))
+    await dispatch(getAllSpots())
     await history.push('/listings')
   }
 
