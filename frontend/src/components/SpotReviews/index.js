@@ -41,7 +41,7 @@ function SpotReviews({ spot }) {
   }
   // This renders the Create Review button so long as a review does not exist and the user is not the owner
   let reviewButton;
-  if (!reviewCheck && !ownerCheck) {
+  if (!reviewCheck && !ownerCheck && sessionUser) {
     reviewButton = (
       <CreateReviewModal />
     )
