@@ -1,20 +1,22 @@
-.sc_container {
+.l_container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-.sc_container_cards {
+.l_container_cards {
   display: flex;
-  
+  padding: 20px;
 }
 
-.sc_container_cards_img {
+.l_container_cards_img {
   border-radius: 20px;
 }
 
-.sc_container_cards_top {
+.l_container_cards_top {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
@@ -23,15 +25,15 @@
   padding-top: 10px;
 }
 
-.sc_container_cards_top--text {
+.l_container_cards_top--text {
   font-weight: bold;
 }
 
-.sc_container a {
+.l_container a {
   text-decoration: none;
 }
 
-.sc_container_cards_bottom {
+.l_container_cards_bottom {
   display: flex;
   justify-content: flex-start;
   font-size: 14px;

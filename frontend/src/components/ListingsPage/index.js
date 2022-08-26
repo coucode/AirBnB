@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOwnerSpots } from '../../store/spots';
 import { NavLink } from 'react-router-dom';
+import './ListingsPage.css'
 
 function Listings() {
   const dispatch = useDispatch()
@@ -49,28 +50,30 @@ function Listings() {
   }
 
   return (
-    <div className='sc_container'>
+    <div className='l_container'>
       {(loading === false) && (spots.length > 0) ? (
         <>
           {spots.map(spot => {
             return (
               <div key={spot.id}>
-                <NavLink to={`/spots/${spot.id}`} className='sc_container_cards'>
+                <NavLink to={`/spots/${spot.id}`} className='l_container_cards'>
                   <div>
-                    <img src={imageCheck(spot)} alt="spot" style={{
-                      width: 280.25,
-                      height: 266.25
-                    }} />
-                    <div>
-                      <div style={{ fontWeight: 'bold' }}>
+                    <img
+                      src={imageCheck(spot)}
+                      alt="listing"
+                      style={{ width: 280.25, height: 266.25 }}
+                      className="l_container_cards_img"
+                    />
+                    <div className="l_container_cards_top">
+                      <div className='l_container_cards_top--text'>
                         {spot?.city}, {spot?.state}
                       </div>
                       <div>
                         <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
                       </div>
                     </div>
-                    <div>
-                      $<span stlye={{ fontWeight: 'bold' }}>{spot?.price}</span> night
+                    <div className="l_container_cards_bottom">
+                      <p style={{ fontWeight: 'bold' }}>${spot?.price} </p> <p style={{ color: "#383838", paddingLeft: '5px' }}> night</p>
                     </div>
                   </div>
                 </NavLink>
