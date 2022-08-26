@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { deleteAReview, getAllSpotReviews } from '../../store/reviews';
 import CreateReviewModal from '../CreateReviewModal';
 
-function SpotReviews() {
+function SpotReviews({ spot }) {
   const dispatch = useDispatch()
   const { id } = useParams()
   const history = useHistory()
@@ -26,25 +26,41 @@ function SpotReviews() {
       return date
     }
   }
+  /* Renders the create a review button if the user does not have an existing review and is not the owner*/
+  // This checks if the current user has a review
   let reviewCheck = false;
   if (reviews && sessionUser) {
     reviewCheck = reviews.find((review) => review.userId === sessionUser.id)
   }
+  // This checks if the current user is the owner of the spot/listing
+  let ownerCheck = false;
+  if (spot && sessionUser) {
+    if (spot.ownerId === sessionUser.id) {
+      ownerCheck = true;
+    }
+  }
+  // This renders the Create Review button so long as a review does not exist and the user is not the owner
   let reviewButton;
-  if (!reviewCheck) {
+  if (!reviewCheck && !ownerCheck) {
     reviewButton = (
       <CreateReviewModal />
     )
   }
-  let deleteButton;
+  // This deletes the review and rerenders the spot details
   const handleDeleteClick = async (e) => {
     await dispatch(deleteAReview(reviewCheck.id))
     await history.push(`/spots/${id}`)
   }
-  if (reviewCheck) {
-    deleteButton = (
-      <button onClick={handleDeleteClick}>Delete Review</button>
-    )
+
+  // This checks if the current review belongs to the currently signed in user. If so, the delete button will appear
+  function deleteCheck(review) {
+    if (review && sessionUser) {
+      if (review.User.id === sessionUser.id) {
+        return (
+          <button onClick={handleDeleteClick}>Delete Review</button>
+        )
+      }
+    }
   }
 
   return (
@@ -60,7 +76,7 @@ function SpotReviews() {
                   <p>{dateConverter(review)}</p>
                 </div>
                 <div>
-                  {deleteButton}
+                  {deleteCheck(review)}
                 </div>
                 <div>
                   <p>{review?.review}</p>

@@ -87,7 +87,7 @@ function SpotDetail() {
             <p style={{ fontWeight: 'bold' }}> The Space </p>
             <p>{spot?.description}</p>
           </div>
-          <SpotReviews />
+          <SpotReviews spot={spot}/>
           <div>
           </div>
         </>
