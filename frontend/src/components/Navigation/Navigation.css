@@ -2,9 +2,6 @@ ul {
   margin: 0;
 }
 
-li {
-  display: inline;
-}
 
 .navLink {
   display: inline-block;
@@ -22,6 +19,7 @@ li {
 }
 
 .main-nav li {
+  display: inline;
   padding: 0 2%;
 }
 

@@ -80,8 +80,16 @@ export const createASpot = (payload) => async (dispatch) => {
   })
   if (response.ok) {
     const newSpot = await response.json()
-    dispatch(createSpot(newSpot))
-    return newSpot
+    let responseImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+      method: 'POST',
+      body: JSON.stringify({url: payload.image, previewImage: true})
+    })
+    if (responseImage.ok) {
+      let newImage = responseImage.json()
+      newSpot.previewImage = newImage.url
+      dispatch(createSpot(newSpot))
+      return newSpot
+    }
   }
 }
 

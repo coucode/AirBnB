@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createASpot } from '../../store/spots';
 
 function CreateSpotForm() {
   const dispatch = useDispatch()
   const history = useHistory()
-  const sessionUser = useSelector(state => state.session.user)
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -16,6 +15,7 @@ function CreateSpotForm() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
@@ -32,9 +32,9 @@ function CreateSpotForm() {
     if (lng < -180 || lng > 180) errors.push("Longitude must be between -180 and 180")
     if (!price) errors.push("Price per day is required")
     if (price < 1) errors.push("Price must be greater than $0")
-    if (!sessionUser.id) errors.push("Must be logged in to create a new listing")
+    if (!image) errors.push("Preview image is required")
     return setValidationErrors(errors)
-  }, [address, city, state, country, lat, lng, name, description, price, sessionUser])
+  }, [address, city, state, country, lat, lng, name, description, price, image])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -43,7 +43,7 @@ function CreateSpotForm() {
       return alert("Cannot Submit");
     }
 
-    const payload = { address, city, state, country, lat, lng, name, description, price };
+    const payload = { address, city, state, country, lat, lng, name, description, price, image };
     let newSpot = await dispatch(createASpot(payload))
     if (newSpot) {
       history.push(`/spots/${newSpot.id}`)
@@ -118,6 +118,12 @@ function CreateSpotForm() {
           value={description}
           placeholder="Write a description about your listing here."
         ></textarea>
+        <input
+          type="url"
+          placeholder="www.example.com"
+          required
+          value={image}
+          onChange={(e) => setImage(e.target.value)} />
         <input
           type="number"
           placeholder="Price"
