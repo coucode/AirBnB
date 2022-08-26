@@ -1,7 +1,83 @@
-ul {
-  margin: 0;
+.profile-dropdown {
+  position: absolute;
+  z-index: 1;
+  margin-top: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  width: 200px;
+  height: 100px;
 }
 
+.profileButton {
+  background: transparent;
+  cursor: pointer;
+  margin: 0;
+  text-align: center;
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 21px;
+  width: 77px;
+  height: 42px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.logoutButton {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  font-weight: 400;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+.listing-container {
+  padding-left: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.listings {
+  width: 100%;
+  height: 100%;
+}
+
+.logout-container {
+  padding-left: 5px;
+  padding-top: 12px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.menu-prof {
+  padding: 5px;
+}
+
+.test {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+
+}
+
+.cs-container {
+  display: flex;
+  justify-self: flex-end;
+}
+
+.pb-container {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  width: 90px;
+}
 
 .navLink {
   display: inline-block;
@@ -11,37 +87,51 @@ ul {
   padding: .5em;
 }
 
+
+.nav-container {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  background-color: #FFFFFF;
+}
+
 .main-nav {
+  display: flex;
+  align-items: center;
   border-bottom: 1px solid #EBEBEB;
   height: 80px;
   width: 100%;
-
+  padding-left: 40px;
+  padding-right: 40px;
+  justify-content: space-between;
 }
 
-.main-nav li {
-  display: inline;
-  padding: 0 2%;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .homeLogo {
+.fa-house,
+#homeLogo {
   color: #ff385c;
   text-decoration: none;
 }
+
+.logSign {
+  display: flex;
+  justify-self: flex-end;
+  justify-content: space-between;
+}
+
+.login {
+  padding-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+/* 
 
 
 .navigation {

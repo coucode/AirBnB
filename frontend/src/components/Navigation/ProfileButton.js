@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
-  
+
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
   };
-  
+
   useEffect(() => {
     if (!showMenu) return;
 
@@ -21,7 +21,7 @@ function ProfileButton({ user }) {
     };
 
     document.addEventListener('click', closeMenu);
-  
+
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
@@ -33,18 +33,19 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu} className="user">
-        <i className="fa-solid fa-bars"></i>
-        <i className="fa-solid fa-circle-user" ></i>
+      <button onClick={openMenu} className="profileButton">
+        <i className="fa-solid fa-bars menu-prof"></i>
+        <i className="fa-solid fa-circle-user menu-prof" ></i>
       </button>
       {showMenu && (
-        <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
-        </ul>
+        <div className="profile-dropdown">
+          <div className="listing-container">
+            <NavLink exact to='/listings' className="navLink listings">Your Listings</NavLink>
+          </div>
+          <div className="logout-container">
+            <button onClick={logout} className="logoutButton">Log Out</button>
+          </div>
+        </div>
       )}
     </>
   );
