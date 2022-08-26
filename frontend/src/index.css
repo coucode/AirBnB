@@ -9,9 +9,14 @@ html, body {
   padding: 0;
 }
 
+.root {
+  display: flex;
+}
+
 .page {
   display: inline flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .splashContainer {
