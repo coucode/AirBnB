@@ -17,7 +17,7 @@ function CreateReviewForm() {
 
   useEffect(() => {
     const errors = []
-    if (stars < 1 || stars > 5) errors.push("Stars must be between 1 and 5")
+    if (stars < 1 || stars > 5) errors.push("Rating must be between 1 and 5")
     if (!review) errors.push("Review is required")
 
     return setValidationErrors(errors)
@@ -27,9 +27,6 @@ function CreateReviewForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setHasSubmitted(true)
-    if (validationErrors.length > 0) {
-      return alert("Cannot Submit");
-    }
 
     const payload = {
       spotId: Number(id),
@@ -37,12 +34,15 @@ function CreateReviewForm() {
       stars: Number(stars),
       review
     }
-    let createReview = await dispatch(createAReview(payload))
-    // Added the dispatch below so that the state is updated with all the information needed for the new review
-    await dispatch(getAllSpotReviews(id))
-    if (createReview) {
-      history.push(`/spots/${id}`)
-    } 
+
+    // if (validationErrors.length === 0) {
+      let createReview = await dispatch(createAReview(payload))
+      // Added the dispatch below so that the state is updated with all the information needed for the new review
+      await dispatch(getAllSpotReviews(id))
+      if (createReview) {
+        history.push(`/spots/${id}`)
+      }
+    // }
   }
   return (
     <section>
@@ -59,19 +59,19 @@ function CreateReviewForm() {
       )}
       <form onSubmit={handleSubmit}>
         <input
-        type="number"
-        min="1"
-        max="5"
-        placeholder='Stars'
-        required
-        value={stars}
-        onChange={(e) => setStars(e.target.value)}
+          type="number"
+          // min="1"
+          // max="5"
+          placeholder='Your rating between 1 to 5 stars'
+          // required
+          value={stars}
+          onChange={(e) => setStars(e.target.value)}
         />
         <textarea
-        id="review"
-        onChange={(e) => setReview(e.target.value)}
-        value={review}
-        placeholder="Write your review here"
+          id="review"
+          onChange={(e) => setReview(e.target.value)}
+          value={review}
+          placeholder="Write your review here"
         >
         </textarea>
         <button>Submit</button>

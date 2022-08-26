@@ -33,6 +33,14 @@ function CreateSpotForm() {
     if (!price) errors.push("Price per day is required")
     if (price < 1) errors.push("Price must be greater than $0")
     if (!image) errors.push("Preview image is required")
+    // Refactor this after presentation
+    let validation = false;
+    if (image.includes("png") || image.includes("jpg") || image.includes("jpeg")) {
+      validation = true;
+    }
+    if (validation === false) {
+      errors.push("Valid preview image url is required. Please provide an png, jpg, or jpeg image url")
+    }
     return setValidationErrors(errors)
   }, [address, city, state, country, lat, lng, name, description, price, image])
 
@@ -41,9 +49,11 @@ function CreateSpotForm() {
     setHasSubmitted(true)
 
     const payload = { address, city, state, country, lat, lng, name, description, price, image };
-    let newSpot = await dispatch(createASpot(payload))
-    if (newSpot) {
-      history.push(`/spots/${newSpot.id}`)
+    if (validationErrors.length === 0) {
+      let newSpot = await dispatch(createASpot(payload))
+      if (newSpot) {
+        history.push(`/spots/${newSpot.id}`)
+      }
     }
   }
 
@@ -66,24 +76,32 @@ function CreateSpotForm() {
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          // required
+
         />
         <input
           type="text"
           placeholder="City"
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          // required
+
         />
         <input
           type="text"
           placeholder="State"
           value={state}
           onChange={(e) => setState(e.target.value)}
+          // required
+
         />
         <input
           type="text"
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
+          // required
+
         />
         <input
           type="number"
@@ -91,7 +109,7 @@ function CreateSpotForm() {
           // min="-90.000000000"
           // max="90.000000000"
           // step="0.00000001"
-          required
+          // required
           value={lat}
           onChange={(e) => setLat(e.target.value)} />
         <input
@@ -100,7 +118,7 @@ function CreateSpotForm() {
           // min="-180.000000000"
           // max="180.000000000"
           // step="0.00000001"
-          required
+          // required
           value={lng}
           onChange={(e) => setLng(e.target.value)} />
         <input
@@ -108,17 +126,21 @@ function CreateSpotForm() {
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          // required
+
         />
         <textarea
           id="description"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
           placeholder="Write a description about your listing here."
+          // required
+
         ></textarea>
         <input
           type="url"
-          placeholder="https://www.example.com"
-          required
+          placeholder="Provide a link to your preview image. Must be a png, jpg, jpeg file."
+          // required
           value={image}
           onChange={(e) => setImage(e.target.value)} />
         <input
@@ -126,15 +148,12 @@ function CreateSpotForm() {
           placeholder="Price"
           // min="0"
           // step="0.01"
-          required
+          // required
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
         <button> Submit </button>
       </form>
-
     </section>
   )
-
 }
-
 export default CreateSpotForm

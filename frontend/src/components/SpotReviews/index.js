@@ -55,7 +55,7 @@ function SpotReviews({ spot }) {
   // This checks if the current review belongs to the currently signed in user. If so, the delete button will appear
   function deleteCheck(review) {
     if (review && sessionUser) {
-      if (review.User.id === sessionUser.id) {
+      if (review?.User?.id === sessionUser?.id) {
         return (
           <button onClick={handleDeleteClick}>Delete Review</button>
         )
