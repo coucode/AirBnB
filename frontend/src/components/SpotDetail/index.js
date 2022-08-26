@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { deleteASpot, getOneSpot, getOwnerSpots } from '../../store/spots';
 import EditSpotModal from '../EditSpotModal'
 import SpotReviews from '../SpotReviews';
+import './SpotDetail.css'
 
 function SpotDetail() {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ function SpotDetail() {
     dispatch(getOneSpot(id)).catch(
       async (res) => {
         const data = await res.json()
-        if (data){
+        if (data) {
           history.push("/")
         }
       }
@@ -61,34 +62,55 @@ function SpotDetail() {
   if (spot && sessionUser) {
     if (spot.ownerId === sessionUser.id) {
       modifyButtons = (
-        <>
+        <div className='sd_modify_buttons'>
           <EditSpotModal spot={spot} />
           <button onClick={handleDeleteClick}>Delete Listing</button>
-        </>
+        </div>
       )
     }
   }
 
   return (
-    <div>
+    <div className='sd_container'>
       {!loading || !spot ? (
         <>
-          <h1> {spot?.name} </h1>
-          {modifyButtons}
-          <div>
+          <div className='sd_header'>
+            <h1> {spot?.name} </h1>
+            {modifyButtons}
+          </div>
+          <div className='sd_subtitle'>
             <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
             <div>{spot?.numReviews} Reviews</div>
             <div>{spot?.city}, {spot?.state}, {spot?.country}</div>
           </div>
-          <img src={imageCheck(spot)} alt="spot" style={{ height: 500, width: 500 }}></img>
-          <div>
-            <p>Entire home hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</p>
-            <p>{spot?.name}</p>
-            <p style={{ fontWeight: 'bold' }}> The Space </p>
-            <p>{spot?.description}</p>
+          <div className='sd_img_container'>
+            <img src={imageCheck(spot)} alt="spot" className='sd_img'></img>
           </div>
-          <SpotReviews spot={spot}/>
-          <div>
+          <div className='sd_info_container'>
+            <div className='sd_info_container_left'>
+              <div className="sd_owner_container">
+                <p className='sd_owner_info'>Entire home hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</p>
+                <img className="owner-prof" src="https://www.seekpng.com/png/full/73-730482_existing-user-default-avatar.png" alt="owner"></img>
+              </div>
+              <div className='sd_description'>
+                <p>{spot?.description}</p>
+              </div>
+              <div className='sd_reviews'>
+                <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
+                <div>{spot?.numReviews} Reviews</div>
+                <SpotReviews spot={spot} />
+
+              </div>
+            </div>
+            <div className='sd_info_container_right'>
+              <div>
+                <p>${spot?.price}</p> <p>night</p>
+                <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
+                <div>{spot?.numReviews} Reviews</div>
+              </div>
+            </div>
+
+
           </div>
         </>
       ) : (
