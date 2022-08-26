@@ -39,9 +39,6 @@ function EditSpotForm({ spot }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setHasSubmitted(true)
-    if (validationErrors.length > 0) {
-      return alert("Cannot Submit");
-    }
 
     const payload = { id: spot.id, address, city, state, country, lat, lng, name, description, price };
 
@@ -125,7 +122,6 @@ function EditSpotForm({ spot }) {
           onChange={(e) => setPrice(e.target.value)} />
         <button>Submit</button>
       </form>
-
     </section>
   )
 

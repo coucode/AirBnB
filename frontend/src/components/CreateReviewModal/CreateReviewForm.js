@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { createAReview, getAllSpotReviews } from '../../store/reviews';
 
-function CreateReviewForm({spot}) {
+function CreateReviewForm() {
   const { id } = useParams()
   const dispatch = useDispatch()
   const history = useHistory()

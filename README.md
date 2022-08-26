@@ -1,5 +1,5 @@
-# Welcome to AirCnC!
-This website is a clone of AirBnB.
+# Welcome to Aircnc!
+This website is a clone of Airbnb.
 
 ## Information
 

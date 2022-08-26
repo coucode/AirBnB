@@ -32,8 +32,7 @@ function LoginForm() {
 
   return (
     <div>
-      <button type="button" onClick={handleClick}>Sign in with Demo User</button>
-
+      <h2>Welcome to Aircnc</h2>
       <form onSubmit={handleSubmit}>
         <ul>
           {errors?.map((error, idx) => (
@@ -59,6 +58,7 @@ function LoginForm() {
           />
         </label>
         <button type="submit">Log In</button>
+        <button type="button" onClick={handleClick}>Sign in with Demo User</button>
       </form>
     </div>
   );
