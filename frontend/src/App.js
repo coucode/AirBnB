@@ -12,6 +12,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -26,10 +27,10 @@ function App() {
               <SplashPage />
             </div>
           </Route>
-          <Route path="/spots/:id">
+          <Route exact path="/spots/:id">
             <SpotDetail />
           </Route>
-          <Route path="/listings">
+          <Route exact path="/listings">
             <Listings />
           </Route>
         </Switch>

@@ -39,9 +39,6 @@ function CreateSpotForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setHasSubmitted(true)
-    if (validationErrors.length > 0) {
-      return alert("Cannot Submit");
-    }
 
     const payload = { address, city, state, country, lat, lng, name, description, price, image };
     let newSpot = await dispatch(createASpot(payload))
@@ -120,7 +117,7 @@ function CreateSpotForm() {
         ></textarea>
         <input
           type="url"
-          placeholder="www.example.com"
+          placeholder="https://www.example.com"
           required
           value={image}
           onChange={(e) => setImage(e.target.value)} />
@@ -132,7 +129,7 @@ function CreateSpotForm() {
           required
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
-        <button>Submit</button>
+        <button> Submit </button>
       </form>
 
     </section>

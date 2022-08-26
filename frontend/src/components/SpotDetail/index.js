@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { deleteASpot, getOneSpot, getAllSpots } from '../../store/spots';
+import { deleteASpot, getOneSpot, getOwnerSpots } from '../../store/spots';
 import EditSpotModal from '../EditSpotModal'
 import SpotReviews from '../SpotReviews';
 
@@ -16,8 +16,15 @@ function SpotDetail() {
   const reviews = useSelector(state => state.reviews)
 
   useEffect(() => {
-    dispatch(getOneSpot(id))
-  }, [dispatch, id, reviews])
+    dispatch(getOneSpot(id)).catch(
+      async (res) => {
+        const data = await res.json()
+        if (data){
+          history.push("/")
+        }
+      }
+    )
+  }, [dispatch, id, reviews, history])
 
   useEffect(() => {
     setLoading(true)
@@ -46,7 +53,7 @@ function SpotDetail() {
 
   const handleDeleteClick = async (e) => {
     await dispatch(deleteASpot(id))
-    await dispatch(getAllSpots())
+    await dispatch(getOwnerSpots())
     await history.push('/listings')
   }
 
@@ -89,7 +96,6 @@ function SpotDetail() {
           <h1>loading...</h1>
         </>
       )}
-
     </div>
   )
 }
