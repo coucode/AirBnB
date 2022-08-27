@@ -1,0 +1,74 @@
+.review_top_button {
+  padding-top: 32px;
+  padding-left: 8px;
+}
+
+.review_container {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 32px;
+}
+
+.review_user_info {
+  display: grid;
+  grid-template-columns: 1fr 3fr 5fr 3fr;
+  align-items: center;
+}
+
+.review_user_icon {
+  height: 54px;
+  width: 54px;
+  grid-column-start: 1;
+}
+
+.review_user_icon>img {
+  height: 100%;
+  width: 100%;
+}
+
+.review_user_details {
+  grid-column-start: 2;
+  padding-left: 10px;
+}
+
+.review_user_name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.review_user_date {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #717171;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.review_delete {
+  display: flex;
+  align-self: center;
+  grid-column-start: 4;
+}
+
+.review_delete_button {
+  background-image:
+  radial-gradient(circle at center, #FF385C 0%, #E61E4D 27.5%, #E31C5F 50%, #D70466 75%, #BD1E59 100%, #BD1E59 100%);
+  /* radial-gradient(circle at center,#FF385C 0%,#E61E4D 27.5%,#E31C5F 40%,#D70466 57.5%,#BD1E59 75%,#BD1E59 100%); */
+  background-size: 125% 300%;
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 20px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  height: 48px;
+  width: 150px;
+}
+
+.review_review {
+  font-size: 16px;
+}

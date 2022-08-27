@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom';
 import { deleteAReview, getAllSpotReviews } from '../../store/reviews';
 import CreateReviewModal from '../CreateReviewModal';
+import './SpotReviews.css'
 
 function SpotReviews({ spot }) {
   const dispatch = useDispatch()
@@ -57,7 +58,7 @@ function SpotReviews({ spot }) {
     if (review && sessionUser) {
       if (review?.User?.id === sessionUser?.id) {
         return (
-          <button onClick={handleDeleteClick}>Delete Review</button>
+          <button onClick={handleDeleteClick} className="review_delete_button">Delete Review</button>
         )
       }
     }
@@ -65,21 +66,32 @@ function SpotReviews({ spot }) {
 
   return (
     <div>
+      <div className='review_top_button'>
       {reviewButton}
+
+      </div>
       {reviews.length > 0 ? (
         <>
           {reviews.map(review => {
             return (
-              <div key={review?.id}>
-                <div>
-                  <p>{review?.User?.firstName}</p>
-                  <p>{dateConverter(review)}</p>
+              <div key={review?.id} className="review_container">
+                <div className="review_container_inner">
+
+                <div className='review_user_info'>
+                  <div className='review_user_icon'>
+                    <img src="https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg" alt="icon"></img>
+                  </div>
+                  <div className='review_user_details'>
+                    <p className='review_user_name'>{review?.User?.firstName}</p>
+                    <p className='review_user_date'>{dateConverter(review)}</p>
+                  </div>
+                  <div className='review_delete'>
+                    {deleteCheck(review)}
+                  </div>
                 </div>
-                <div>
-                  {deleteCheck(review)}
-                </div>
-                <div>
+                <div className="review_review">
                   <p>{review?.review}</p>
+                </div>
                 </div>
               </div>
             )
