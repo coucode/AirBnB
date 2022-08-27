@@ -36,29 +36,30 @@ function CreateReviewForm() {
     }
 
     // if (validationErrors.length === 0) {
-      let createReview = await dispatch(createAReview(payload))
-      // Added the dispatch below so that the state is updated with all the information needed for the new review
-      await dispatch(getAllSpotReviews(id))
-      if (createReview) {
-        history.push(`/spots/${id}`)
-      }
+    let createReview = await dispatch(createAReview(payload))
+    // Added the dispatch below so that the state is updated with all the information needed for the new review
+    await dispatch(getAllSpotReviews(id))
+    if (createReview) {
+      history.push(`/spots/${id}`)
+    }
     // }
   }
   return (
-    <section>
-      <h2>Write a Review</h2>
+    <section className='cr_container'>
+      <h2 className='modal_title'>Write a Review</h2>
       {hasSubmitted && validationErrors.length > 0 && (
-        <div>
+        <div className='form_errors_container'>
           The following errors were found:
-          <ul>
+          <ul className="form_errors">
             {validationErrors.map((error) => (
-              <li key={error}>{error}</li>
+              <li key={error} className="form_errors">{error}</li>
             ))}
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='cr_form'>
         <input
+          className='cr_inputs_top'
           type="number"
           min="1"
           // max="5"
@@ -69,13 +70,16 @@ function CreateReviewForm() {
           onChange={(e) => setStars(e.target.value)}
         />
         <textarea
+          className='cr_inputs_bottom'
           id="review"
           onChange={(e) => setReview(e.target.value)}
           value={review}
           placeholder="Write your review here"
         >
         </textarea>
-        <button>Submit</button>
+        <div className='cr_button_container'>
+          <button className='cr_button'>Submit</button>
+        </div>
       </form>
     </section>
   )
