@@ -10,8 +10,9 @@
 
 .sd_modify_buttons {
   display: flex;
-  width: 300px;
+  width: 320px;
   justify-content: space-between;
+  align-items: center;
 }
 
 .sd_subtitle {
@@ -26,6 +27,9 @@
   padding-left: 8px;
 }
 
+.sd_subtitle_star {
+  padding-right: 5px;
+}
 
 .sd_img_container {
   width: 100%;
@@ -62,6 +66,8 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #EBEBEB;
+  padding-bottom: 32px;
+  padding-right: 10px;
 }
 
 .sd_owner_info {
@@ -78,14 +84,20 @@
   line-height: 24px;
   font-size: 18px;
   padding-top: 32px;
-  padding-bottom: 48px;
+  padding-bottom: 32px;
   border-bottom: 2px solid #EBEBEB;
 }
 
 .sd_reviews {
   padding-top: 32px;
-  border: 5px solid red;
   border-bottom: 2px solid #EBEBEB;
+}
+
+.sd_reviews_header {
+  display: inline-flex;
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 600;
 }
 
 .sd_info_container_right {
@@ -127,4 +139,18 @@
   align-items: center;
   font-size: 14px;
   font-weight: 500;
+}
+
+.deleteButton {
+  background-image:
+  radial-gradient(circle at center, #FF385C 0%, #E61E4D 27.5%, #E31C5F 50%, #D70466 75%, #BD1E59 100%, #BD1E59 100%);
+  background-size: 125% 300%;
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 20px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  height: 48px;
+  width: 150px;
 }
