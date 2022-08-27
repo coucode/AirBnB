@@ -142,7 +142,7 @@ function SpotDetail() {
         </>
       ) : (
         <>
-          <h1>loading...</h1>
+            <h1 className='noData'>loading...</h1>
         </>
       )}
     </div>

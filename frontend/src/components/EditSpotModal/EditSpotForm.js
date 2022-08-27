@@ -50,47 +50,49 @@ function EditSpotForm({ spot }) {
   }
 
   return (
-    <section>
-      <h2>Edit your listing</h2>
-      <div className='form_errors_container'>
-        The following errors were found:
+    <section className='edit_container'>
+      <h2 className='modal_title'>Edit your listing</h2>
       {hasSubmitted && validationErrors.length > 0 && (
-        <div>
+        <div className='form_errors_container'>
           The following errors were found:
-          <ul>
+          <ul className="form_errors">
             {validationErrors.map((error) => (
-              <li key={error}>{error}</li>
+              <li key={error} className="form_errors">{error}</li>
             ))}
           </ul>
         </div>
       )}
-      </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="edit_form">
         <input
+          className='edit_inputs_top'
           type="text"
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
         <input
+          className="edit_inputs_middle"
           type="text"
           placeholder="City"
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
         <input
+          className="edit_inputs_middle"
           type="text"
           placeholder="State"
           value={state}
           onChange={(e) => setState(e.target.value)}
         />
         <input
+          className="edit_inputs_middle"
           type="text"
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
         />
         <input
+          className="edit_inputs_middle"
           type="number"
           placeholder="Latitude"
           // min="-90"
@@ -99,6 +101,7 @@ function EditSpotForm({ spot }) {
           value={lat}
           onChange={(e) => setLat(e.target.value)} />
         <input
+          className="edit_inputs_middle"
           type="number"
           placeholder="Longitude"
           // min="-180"
@@ -107,18 +110,21 @@ function EditSpotForm({ spot }) {
           value={lng}
           onChange={(e) => setLng(e.target.value)} />
         <input
+          className="edit_inputs_middle"
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <textarea
+          className="edit_inputs_middle"
           id="description"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
           placeholder="Write a description about your listing here."
         ></textarea>
         <input
+          className='edit_inputs_bottom'
           type="number"
           placeholder="Price"
           min="0"
@@ -126,7 +132,9 @@ function EditSpotForm({ spot }) {
           // required
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
-        <button>Submit</button>
+        <div className='edit_button_container'>
+          <button className='edit_button'>Submit</button>
+        </div>
       </form>
     </section>
   )

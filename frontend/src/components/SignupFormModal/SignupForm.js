@@ -24,13 +24,13 @@ function SignupForm() {
       errors.push("Please enter your first name")
     }
     if (firstName.length < 2 || firstName.length > 40) {
-      errors.push("First name must be between 2 and 4 characters")
+      errors.push("First name must be between 2 and 40 characters")
     }
     if (!lastName.length > 0) {
       errors.push("Please enter your last name")
     }
-    if (lastName.length < 2 || lastName.length > 40) {
-      errors.push("Last name must be between 2 and 4 characters")
+    if (lastName.length < 1 || lastName.length > 40) {
+      errors.push("Last name must be between 1 and 40 characters")
     }
     if (!username.length > 0) {
       errors.push("Please enter a username")
@@ -82,7 +82,7 @@ function SignupForm() {
       <form onSubmit={handleSubmit} className="signin_form">
 
         <input
-          className="login_inputs_top"
+          className="signup_inputs_top"
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
@@ -91,7 +91,7 @@ function SignupForm() {
         />
 
         <input
-          className="login_inputs_middle"
+          className="signup_inputs_middle"
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
@@ -100,7 +100,7 @@ function SignupForm() {
         />
 
         <input
-          className="login_inputs_middle"
+          className="signup_inputs_middle"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -109,7 +109,7 @@ function SignupForm() {
         />
 
         <input
-          className="login_inputs_middle"
+          className="signup_inputs_middle"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -118,7 +118,7 @@ function SignupForm() {
         />
 
         <input
-          className="login_inputs_middle"
+          className="signup_inputs_middle"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -127,7 +127,7 @@ function SignupForm() {
         />
 
         <input
-          className="login_inputs_bottom"
+          className="signup_inputs_bottom"
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}

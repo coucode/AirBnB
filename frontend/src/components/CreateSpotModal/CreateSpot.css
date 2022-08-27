@@ -29,6 +29,7 @@
 }
 
 .csl_inputs_top {
+    margin-top: 10px;
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
   border-bottom: none;

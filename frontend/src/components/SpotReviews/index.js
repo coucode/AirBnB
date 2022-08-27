@@ -98,7 +98,7 @@ function SpotReviews({ spot }) {
           })}
         </>
 
-      ) : (<h3>No Reviews</h3>)}
+      ) : (<h3 className='noData'>No Reviews</h3>)}
 
     </div>
   )

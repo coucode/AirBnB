@@ -22,13 +22,13 @@ function Listings() {
     loading = false;
   } else {
     return (
-      <h2>No listings available</h2>
+      <h2 className='noDataListings'>No listings available</h2>
     )
   }
   if (!sessionUser || spots.length === 0) {
     return (
       <>
-      <h2>No listings available</h2>
+      <h2 className='noDataListings'>No listings available</h2>
       </>
     )
   }
@@ -82,7 +82,7 @@ function Listings() {
           })}
         </>
       ) : (
-        <h2>Loading...</h2>
+          <h2 className='noData'>Loading...</h2>
       )}
     </div>
   )

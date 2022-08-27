@@ -30,3 +30,11 @@ html, body {
   justify-content: center;
   flex-direction: column;
 } */
+
+.noData{
+  padding-left: 10px;
+}
+
+.noDataListings{
+  padding-left: 50px;
+}
