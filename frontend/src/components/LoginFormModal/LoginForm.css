@@ -5,9 +5,13 @@
   text-align: center;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  border-radius: 21px;
+  border-radius: 20px;
   width: 77px;
   height: 42px;
   font-size: 14px;
   font-weight: 500;
+}
+
+.loginButton:hover {
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 }

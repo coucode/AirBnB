@@ -1,12 +1,10 @@
 .sd_container {
   padding-left: 40px;
   padding-right: 40px;
-  border: 5px red solid;
 }
 
 .sd_header {
   display: flex;
-  border: 5px purple solid;
   justify-content: space-between;
 }
 
@@ -18,45 +16,55 @@
 
 .sd_subtitle {
   display: flex;
-  border: 5px teal solid;
+  font-size: 14px;
+  font-weight: 600;
 }
 
+
+.sd_subtitle_num_reviews,
+.sd_subtitle_location {
+  padding-left: 8px;
+}
+
+
 .sd_img_container {
-  border: 5px blue solid;
   width: 100%;
   height: 480px;
-  object-fit: cover;
+  overflow: hidden;
+  padding-top: 20px;
 }
 
 .sd_img_container .sd_img {
-  border: 5px orange solid;
-  max-width: 100%;
+  width: 100%;
   max-height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .sd_info_container {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  padding-top: 32px;
+  padding-left: 10px;
+  padding-right: 5px;
 }
 
 .sd_info_container_left {
   grid-column-start: 1;
-  border: 2px dotted green;
 }
 
 .sd_info_container_right {
   grid-column-start: 2;
-    border: 2px dotted yellowgreen;
 }
 
 .sd_owner_container {
-  border: 5px violet solid;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid #EBEBEB;
 }
 
-.sd_owner_info{
+.sd_owner_info {
   font-size: 1em;
   font-weight: 600;
 }
@@ -67,5 +75,56 @@
 }
 
 .sd_description {
-  border: 5px chartreuse solid;
+  line-height: 24px;
+  font-size: 18px;
+  padding-top: 32px;
+  padding-bottom: 48px;
+  border-bottom: 2px solid #EBEBEB;
+}
+
+.sd_reviews {
+  padding-top: 32px;
+  border: 5px solid red;
+  border-bottom: 2px solid #EBEBEB;
+}
+
+.sd_info_container_right {
+  display: flex;
+  justify-content: center;
+}
+
+.sd_info_price {
+  display: flex;
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  width: 90%;
+  height: 100px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.sd_info_pricenight {
+  display: flex;
+  align-items: center;
+}
+
+.sd_info_price--boldtext {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.sd_info_night {
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.sd_info_reviews {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
 }

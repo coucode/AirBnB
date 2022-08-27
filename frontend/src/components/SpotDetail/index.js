@@ -79,9 +79,13 @@ function SpotDetail() {
             {modifyButtons}
           </div>
           <div className='sd_subtitle'>
-            <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
-            <div>{spot?.numReviews} Reviews</div>
-            <div>{spot?.city}, {spot?.state}, {spot?.country}</div>
+            <div className='sd_subtitle_star'>
+              <i className="fa-solid fa-star"> </i> {ratingCheck(spot)} ·
+            </div>
+            <div className='sd_subtitle_num_reviews'>
+              {spot?.numReviews} Reviews ·
+            </div>
+            <div className='sd_subtitle_location'>{spot?.city}, {spot?.state}, {spot?.country}</div>
           </div>
           <div className='sd_img_container'>
             <img src={imageCheck(spot)} alt="spot" className='sd_img'></img>
@@ -96,6 +100,7 @@ function SpotDetail() {
                 <p>{spot?.description}</p>
               </div>
               <div className='sd_reviews'>
+                <h3>WORK IN PROGRESS</h3>
                 <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
                 <div>{spot?.numReviews} Reviews</div>
                 <SpotReviews spot={spot} />
@@ -103,10 +108,16 @@ function SpotDetail() {
               </div>
             </div>
             <div className='sd_info_container_right'>
-              <div>
-                <p>${spot?.price}</p> <p>night</p>
-                <i className="fa-solid fa-star"> </i> {ratingCheck(spot)}
-                <div>{spot?.numReviews} Reviews</div>
+              <div className='sd_info_price'>
+                <div className='sd_info_pricenight'>
+
+                  <p className='sd_info_price--boldtext'>${spot?.price}</p>
+                  <p className='sd_info_night'>  night</p>
+                </div>
+                <div className='sd_info_reviews'>
+                  <i className="fa-solid fa-star"> </i>  {ratingCheck(spot)} ·
+                  <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
+                </div>
               </div>
             </div>
 

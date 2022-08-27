@@ -9,6 +9,7 @@
   border-radius: 10px;
   width: 200px;
   height: 100px;
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 }
 
 .profileButton {
@@ -18,12 +19,15 @@
   text-align: center;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  border-radius: 21px;
+  border-radius: 20px;
   width: 77px;
   height: 42px;
   font-size: 18px;
   font-weight: 600;
   color: #222222;
+}
+.profileButton:hover {
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 }
 
 .logoutButton {
@@ -98,7 +102,7 @@
 .main-nav {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #EBEBEB;
+  border-bottom: 2px solid #EBEBEB;
   height: 80px;
   width: 100%;
   padding-left: 40px;
