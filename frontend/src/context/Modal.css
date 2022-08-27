@@ -22,4 +22,12 @@
   position: absolute;
   background-color: white;
   justify-content: center;
+  border-radius: 10px;
+  width: 568px;
+}
+
+.form_errors {
+  list-style-type: none;
+  font-size: 16px;
+  color: red;
 }

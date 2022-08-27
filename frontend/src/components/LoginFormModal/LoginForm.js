@@ -31,34 +31,35 @@ function LoginForm() {
   }
 
   return (
-    <div>
-      <h2>Welcome to Aircnc</h2>
-      <form onSubmit={handleSubmit}>
-        <ul>
+    <div className="login_container">
+      <h2 className="modal_title">Welcome to Aircnc</h2>
+      <form onSubmit={handleSubmit} className="login_form">
+        <ul className="form_errors">
           {errors?.map((error, idx) => (
-            <li key={idx}>{error.message}</li>
+            <li key={idx} className="form_errors">{error.message}</li>
           ))}
         </ul>
-        <label>
-          Username or Email
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
-        <button type="button" onClick={handleClick}>Sign in with Demo User</button>
+        <input
+          className="login_inputs_top"
+          type="text"
+          value={credential}
+          onChange={(e) => setCredential(e.target.value)}
+          required
+          placeholder="Username or Email"
+        />
+        <input
+          className="login_inputs_bottom"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          placeholder="Password"
+        />
+        <div className="login_button_container">
+          <button type="submit" className="login_buttons">Log In</button>
+          <button type="button" onClick={handleClick} className="login_buttons">Sign in with Demo User</button>
+
+        </div>
       </form>
     </div>
   );
