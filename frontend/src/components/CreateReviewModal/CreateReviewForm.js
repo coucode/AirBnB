@@ -60,9 +60,10 @@ function CreateReviewForm() {
       <form onSubmit={handleSubmit}>
         <input
           type="number"
-          // min="1"
+          min="1"
           // max="5"
           placeholder='Your rating between 1 to 5 stars'
+          step="1"
           // required
           value={stars}
           onChange={(e) => setStars(e.target.value)}

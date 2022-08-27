@@ -28,6 +28,8 @@ function EditSpotForm({ spot }) {
     if (!name) errors.push("Name is required")
     if (name.length > 50) errors.push("Name must be less than 50 characters")
     if (!description) errors.push("Description is required")
+    if (!lat) errors.push("Latitude between -90 and 90 is required")
+    if (!lng) errors.push("Longitude between -90 and 90 is required")
     if (lat < -90 || lat > 90) errors.push("Latitude must be between -90 and 90")
     if (lng < -180 || lng > 180) errors.push("Longitude must be between -180 and 180")
     if (!price) errors.push("Price per day is required")
@@ -88,17 +90,17 @@ function EditSpotForm({ spot }) {
         <input
           type="number"
           placeholder="Latitude"
-          min="-90"
-          max="90"
-          required
+          // min="-90"
+          // max="90"
+          // required
           value={lat}
           onChange={(e) => setLat(e.target.value)} />
         <input
           type="number"
           placeholder="Longitude"
-          min="-180"
-          max="180"
-          required
+          // min="-180"
+          // max="180"
+          // required
           value={lng}
           onChange={(e) => setLng(e.target.value)} />
         <input
@@ -117,7 +119,8 @@ function EditSpotForm({ spot }) {
           type="number"
           placeholder="Price"
           min="0"
-          required
+          step="1"
+          // required
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
         <button>Submit</button>
