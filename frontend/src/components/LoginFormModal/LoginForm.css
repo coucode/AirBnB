@@ -21,10 +21,6 @@
   padding: 24px;
 }
 
-.modal_title {
-  font-size: 22px;
-  margin-bottom: 5px;
-}
 
 .login_form {
   display: flex;
@@ -48,7 +44,7 @@
   border-bottom-right-radius: 10px;
 }
 
-.login_button_container{
+.login_button_container {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -69,3 +65,6 @@
   width: 100%;
 }
 
+.login_buttons:hover {
+  cursor: pointer;
+}

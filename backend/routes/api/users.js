@@ -13,7 +13,7 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .withMessage('Email is required')
     .isEmail()
-    .withMessage('Invalid email'),
+    .withMessage('Please provide a valid email address'),
   check('username')
     .exists({ checkFalsy: true })
     .withMessage('Username is required'),
@@ -24,7 +24,7 @@ const validateSignup = [
   check('username')
     .not()
     .isEmail()
-    .withMessage('Username cannot be an email.'),
+    .withMessage('Username cannot be an email address.'),
   check('firstName')
     .exists({ checkFalsy: true })
     .withMessage('First Name is required'),

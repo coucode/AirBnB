@@ -31,3 +31,8 @@
   font-size: 16px;
   color: red;
 }
+
+.modal_title {
+  font-size: 22px;
+  margin-bottom: 5px;
+}

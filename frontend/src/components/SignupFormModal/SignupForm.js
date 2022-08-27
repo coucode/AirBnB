@@ -18,14 +18,6 @@ function SignupForm() {
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
 
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-
   useEffect(() => {
     const errors = []
     if (!firstName.length > 0) {
@@ -38,19 +30,13 @@ function SignupForm() {
       errors.push("Please enter your last name")
     }
     if (lastName.length < 2 || lastName.length > 40) {
-      errors.push("First name must be between 2 and 4 characters")
+      errors.push("Last name must be between 2 and 4 characters")
     }
     if (!username.length > 0) {
       errors.push("Please enter a username")
     }
     if (username.length < 4 || username.length > 30) {
       errors.push("Your username must be between 4 and 30 characters")
-    }
-    if (validateEmail(username)) {
-      errors.push("Email address cannot be used for a username. Please provide a username")
-    }
-    if (!validateEmail(email)) {
-      errors.push("Email is invalid")
     }
     if (email < 3 || email > 256) {
       errors.push("Email address must be between 3 and 256 characters")
@@ -72,77 +58,82 @@ function SignupForm() {
       return dispatch(sessionActions.signup(user))
         .catch(async (res) => {
           const data = await res.json();
-          if (data) setErrors([data]);
+          if (data) {
+            let errors = Object.values(data.errors)
+            setErrors(errors);
+          }
         });
     }
     return setValidationErrors([...validationErrors, 'Confirm Password field must be the same as the Password field']);
   };
 
   return (
-    <section>
-      <h2>Welcome to Aircnc!</h2>
-      <form onSubmit={handleSubmit}>
+    <section className="signin_container">
+      <h2 className="modal_title">Welcome to Aircnc!</h2>
+      <form onSubmit={handleSubmit} className="signin_form">
         {hasSubmitted && (
-        <ul>
-          {errors?.map((error, idx) => <li key={idx}>{error.message}</li>)}
-          {validationErrors?.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+          <ul className="form_errors">
+            {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
+            {validationErrors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
+          </ul>
         )}
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Sign Up</button>
+
+        <input
+          className="login_inputs_top"
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+          placeholder="First Name"
+        />
+
+        <input
+          className="login_inputs_middle"
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+          placeholder="Last Name"
+        />
+
+        <input
+          className="login_inputs_middle"
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          placeholder="Email"
+        />
+
+        <input
+          className="login_inputs_middle"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          placeholder="Username"
+        />
+
+        <input
+          className="login_inputs_middle"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          placeholder="Password"
+        />
+
+        <input
+          className="login_inputs_bottom"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+          placeholder="Confirm Password"
+        />
+        <div className="signup_button_container">
+          <button type="submit" className="signup_button">Sign Up</button>
+        </div>
       </form>
     </section>
   );
