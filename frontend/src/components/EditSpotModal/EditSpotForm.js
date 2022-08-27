@@ -52,6 +52,8 @@ function EditSpotForm({ spot }) {
   return (
     <section>
       <h2>Edit your listing</h2>
+      <div className='form_errors_container'>
+        The following errors were found:
       {hasSubmitted && validationErrors.length > 0 && (
         <div>
           The following errors were found:
@@ -62,6 +64,7 @@ function EditSpotForm({ spot }) {
           </ul>
         </div>
       )}
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

@@ -70,13 +70,16 @@ function SignupForm() {
   return (
     <section className="signin_container">
       <h2 className="modal_title">Welcome to Aircnc!</h2>
-      <form onSubmit={handleSubmit} className="signin_form">
-        {hasSubmitted && (
+      {hasSubmitted && (
+        <div className='form_errors_container'>
+          The following errors were found:
           <ul className="form_errors">
             {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
             {validationErrors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
           </ul>
-        )}
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="signin_form">
 
         <input
           className="login_inputs_top"

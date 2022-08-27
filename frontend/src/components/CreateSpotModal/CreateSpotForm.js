@@ -60,52 +60,56 @@ function CreateSpotForm() {
   }
 
   return (
-    <section>
-      <h2>Create a new listing</h2>
+    <section className='csl_container'>
+      <h2 className='modal_title'>Create a new listing</h2>
       {hasSubmitted && validationErrors.length > 0 && (
-        <div>
+        <div className='form_errors_container'>
           The following errors were found:
-          <ul>
+          <ul className="form_errors">
             {validationErrors.map((error) => (
-              <li key={error}>{error}</li>
+              <li key={error} className="form_errors">{error}</li>
             ))}
           </ul>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
-        <input
+      <form onSubmit={handleSubmit} className="csl_form">
+        <input className='csl_inputs_top'
           type="text"
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          // required
+        // required
 
         />
         <input
+          className="csl_inputs_middle"
           type="text"
           placeholder="City"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          // required
+        // required
 
         />
         <input
+          className="csl_inputs_middle"
           type="text"
           placeholder="State"
           value={state}
           onChange={(e) => setState(e.target.value)}
-          // required
+        // required
 
         />
         <input
+          className="csl_inputs_middle"
           type="text"
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
-          // required
+        // required
 
         />
         <input
+          className="csl_inputs_middle"
           type="number"
           placeholder="Latitude"
           // min="-90.000000000"
@@ -115,6 +119,7 @@ function CreateSpotForm() {
           value={lat}
           onChange={(e) => setLat(e.target.value)} />
         <input
+          className="csl_inputs_middle"
           type="number"
           placeholder="Longitude"
           // min="-180.000000000"
@@ -124,28 +129,32 @@ function CreateSpotForm() {
           value={lng}
           onChange={(e) => setLng(e.target.value)} />
         <input
+          className="csl_inputs_middle"
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          // required
+        // required
 
         />
         <textarea
+          className="csl_inputs_middle"
           id="description"
           onChange={(e) => setDescription(e.target.value)}
           value={description}
           placeholder="Write a description about your listing here."
-          // required
+        // required
 
         ></textarea>
         <input
+          className="csl_inputs_middle"
           type="url"
-          placeholder="Provide a link to your preview image. Must be a png, jpg, jpeg file."
+          placeholder="Provide a link to your png/jpg/jpeg preview image."
           // required
           value={image}
           onChange={(e) => setImage(e.target.value)} />
         <input
+          className='csl_inputs_bottom'
           type="number"
           placeholder="Price"
           min="0"
@@ -153,7 +162,9 @@ function CreateSpotForm() {
           // required
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
-        <button> Submit </button>
+        <div className='csl_button_container'>
+          <button className='csl_button'> Submit </button>
+        </div>
       </form>
     </section>
   )

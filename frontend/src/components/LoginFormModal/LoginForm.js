@@ -7,9 +7,12 @@ function LoginForm() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setHasSubmitted(true)
+
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
@@ -33,12 +36,18 @@ function LoginForm() {
   return (
     <div className="login_container">
       <h2 className="modal_title">Welcome to Aircnc</h2>
+      {hasSubmitted && (
+        <div className='form_errors_container'>
+          The following errors were found:
+          <ul className="form_errors">
+            {errors?.map((error, idx) => (
+              <li key={idx} className="form_errors">{error.message}</li>
+            ))}
+          </ul>
+        </div>
+
+      )}
       <form onSubmit={handleSubmit} className="login_form">
-        <ul className="form_errors">
-          {errors?.map((error, idx) => (
-            <li key={idx} className="form_errors">{error.message}</li>
-          ))}
-        </ul>
         <input
           className="login_inputs_top"
           type="text"
