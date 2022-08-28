@@ -45,7 +45,7 @@ function CreateReviewForm() {
     // }
   }
   return (
-    <section className='cr_container'>
+    <div className='cr_container'>
       <h2 className='modal_title'>Write a Review</h2>
       {hasSubmitted && validationErrors.length > 0 && (
         <div className='form_errors_container'>
@@ -81,7 +81,7 @@ function CreateReviewForm() {
           <button className='cr_button'>Submit</button>
         </div>
       </form>
-    </section>
+    </div>
   )
 }
 export default CreateReviewForm

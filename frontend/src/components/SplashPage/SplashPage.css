@@ -3,6 +3,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  max-width: 1200px;
 }
 
 .sc_container_cards {

@@ -71,81 +71,89 @@ function SpotDetail() {
   }
 
   return (
-    <div className='sd_container'>
-      {!loading || !spot ? (
-        <>
-          <div className='sd_header'>
-            <h1> {spot?.name} </h1>
-            {modifyButtons}
-          </div>
-          <div className='sd_subtitle'>
-            <div className='sd_subtitle_star'>
-              <i className="fa-solid fa-star"> </i>
+    <div className='sd_outer_container'>
+      <div className='sd_container'>
+        {!loading || !spot ? (
+          <>
+            <div className='sd_header'>
+              <h1> {spot?.name} </h1>
+              {modifyButtons}
             </div>
-            <div>
-              {ratingCheck(spot)} ·
-            </div>
-            <div className='sd_subtitle_num_reviews'>
-              {spot?.numReviews} Reviews ·
-            </div>
-            <div className='sd_subtitle_location'>{spot?.city}, {spot?.state}, {spot?.country}</div>
-          </div>
-          <div className='sd_img_container'>
-            <img src={imageCheck(spot)} alt="spot" className='sd_img'></img>
-          </div>
-          <div className='sd_info_container'>
-            <div className='sd_info_container_left'>
-              <div className="sd_owner_container">
-                <p className='sd_owner_info'>Entire home hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</p>
-                <img className="owner-prof" src="https://www.seekpng.com/png/full/73-730482_existing-user-default-avatar.png" alt="owner"></img>
+            <div className='sd_subtitle'>
+              <div className='sd_subtitle_star'>
+                <i className="fa-solid fa-star"> </i>
               </div>
-              <div className='sd_description'>
-                <p>{spot?.description}</p>
+              <div>
+                {ratingCheck(spot)} ·
               </div>
-              <div className='sd_reviews'>
-                <div className='sd_reviews_header'>
-                  <div className='sd_subtitle_star'>
-                    <i className="fa-solid fa-star"> </i>
-                  </div>
-                  <div>
-                    {ratingCheck(spot)} ·
-                  </div>
+              <div className='sd_subtitle_num_reviews'>
+                {spot?.numReviews} Reviews ·
+              </div>
+              <div className='sd_subtitle_location'>{spot?.city}, {spot?.state}, {spot?.country}</div>
+            </div>
+            <div className='sd_img_container'>
+              <img src={imageCheck(spot)} alt="spot" className='sd_img'></img>
+            </div>
+            <div className='sd_info_container'>
+              <div className='sd_info_container_left'>
+                <div className="sd_owner_container">
+                  <p className='sd_owner_info'>Entire home hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</p>
+                  <img className="owner-prof" src="https://www.seekpng.com/png/full/73-730482_existing-user-default-avatar.png" alt="owner"></img>
+                </div>
+                <div className='sd_description'>
+                  <p>{spot?.description}</p>
+                </div>
+                <div className='sd_reviews'>
+                  <div className='sd_reviews_header'>
+                    <div className='sd_subtitle_star'>
+                      <i className="fa-solid fa-star"> </i>
+                    </div>
+                    <div>
+                      {ratingCheck(spot)} ·
+                    </div>
 
-                  <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
+                    <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
+
+                  </div>
+                  <SpotReviews spot={spot} />
 
                 </div>
-                <SpotReviews spot={spot} />
-
               </div>
-            </div>
-            <div className='sd_info_container_right'>
-              <div className='sd_info_price'>
-                <div className='sd_info_pricenight'>
-                  <p className='sd_info_price--boldtext'>${spot?.price}</p>
-                  <p className='sd_info_night'>  night</p>
-                </div>
-                <div className='sd_info_reviews'>
-                  <div className='sd_subtitle_star'>
-                    <i className="fa-solid fa-star"> </i>
+              <div className='sd_info_container_right'>
+                <div className='sd_info_price'>
+                  <div className='sd_info_pricenight'>
+                    <p className='sd_info_price--boldtext'>${spot?.price}</p>
+                    <p className='sd_info_night'>  night</p>
                   </div>
-                  <div>
-                    {ratingCheck(spot)} ·
+                  <div className='sd_info_div'>
 
                   </div>
-                  <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
+                  <div className='sd_info_reviews'>
+                    <div className='sd_subtitle_star'>
+                      <i className="fa-solid fa-star"> </i>
+                    </div>
+                    <div>
+                      {ratingCheck(spot)} ·
+
+                    </div>
+                    <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
+                  </div>
                 </div>
               </div>
+
+
             </div>
-
-
-          </div>
-        </>
-      ) : (
-        <>
+          </>
+        ) : (
+          <>
             <h1 className='noData'>loading...</h1>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
+
+
+
   )
 }
 

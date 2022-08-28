@@ -1,6 +1,12 @@
+.sd_outer_container{
+  display: flex;
+  justify-content: center;
+}
+
 .sd_container {
   padding-left: 40px;
   padding-right: 40px;
+  max-width: 1200px;
 }
 
 .sd_header {
@@ -49,7 +55,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   padding-top: 32px;
-  padding-left: 10px;
+  padding-left: 5px;
   padding-right: 5px;
 }
 
@@ -59,6 +65,7 @@
 
 .sd_info_container_right {
   grid-column-start: 2;
+  width: 100%;
 }
 
 .sd_owner_container {
@@ -103,6 +110,7 @@
 .sd_info_container_right {
   display: flex;
   justify-content: center;
+  padding-left: 10px;
 }
 
 .sd_info_price {
@@ -110,10 +118,10 @@
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
   border-radius: 10px;
-  width: 90%;
+  width: inherit;
   height: 100px;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -124,7 +132,7 @@
 }
 
 .sd_info_price--boldtext {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 26px;
   font-weight: 600;
 }
@@ -158,4 +166,8 @@
 
 .deleteButton:hover {
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+}
+
+.sd_info_div{
+  width: 5px;
 }

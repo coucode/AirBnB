@@ -50,6 +50,9 @@ function Listings() {
   }
 
   return (
+    <div className='l_outer_container'> 
+
+
     <div className='l_container'>
       {(loading === false) && (spots.length > 0) ? (
         <>
@@ -84,6 +87,7 @@ function Listings() {
       ) : (
           <h2 className='noData'>Loading...</h2>
       )}
+    </div>
     </div>
   )
 }
