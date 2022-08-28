@@ -11,6 +11,11 @@
   border-radius: 10px;
   height: 48px;
   width: 150px;
+  cursor: pointer;
+}
+
+.create_review_button:hover {
+  box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 }
 
 /* Modal Style */
