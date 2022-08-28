@@ -1,0 +1,50 @@
+#review-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#review-modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#review-modal-content {
+  position: absolute;
+  background-color: white;
+  justify-content: center;
+  border-radius: 10px;
+  width: 568px;
+  top: 935px;
+}
+
+.form_errors {
+  list-style-type: none;
+  font-size: 16px;
+  color: red;
+}
+
+.modal_title {
+  font-size: 22px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+}
+
+.form_errors_container {
+  font-size: 16px;
+  /* padding-left: 5px;
+  padding-right: 5px; */
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  padding: 15px;
+  padding-bottom: 10px;
+}
