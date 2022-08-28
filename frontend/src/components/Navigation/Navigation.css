@@ -97,17 +97,20 @@
   z-index: 10;
   top: 0;
   background-color: #FFFFFF;
+  border-bottom: 1px solid #EBEBEB;
+  display: flex;
+  justify-content: center;
 }
 
 .main-nav {
   display: flex;
   align-items: center;
-  border-bottom: 2px solid #EBEBEB;
   height: 80px;
   width: 100%;
   padding-left: 40px;
   padding-right: 40px;
   justify-content: space-between;
+  max-width: 1289px;
 }
 
 .fa-house,
