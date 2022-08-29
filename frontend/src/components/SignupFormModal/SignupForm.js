@@ -70,7 +70,7 @@ function SignupForm() {
   return (
     <section className="signin_container">
       <h2 className="modal_title">Welcome to Aircnc!</h2>
-      {hasSubmitted && (validationErrors.length >= 1) && (
+      {hasSubmitted && (validationErrors.length >= 1 || errors.length >= 1) && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">

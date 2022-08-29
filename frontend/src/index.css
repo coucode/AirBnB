@@ -35,8 +35,10 @@ html, body {
 
 .noData{
   padding-left: 10px;
+  max-width: 1200px;
 }
 
 .noDataListings{
   padding-left: 50px;
+  max-width: 1200px;
 }
