@@ -52,6 +52,7 @@ As a signed in user, you can write a review. The owner of the spot/location will
 
 ### Delete a Review
 As a signed in user, you can delete a review that you wrote by clicking "Delete Review". Users cannot delete reviews belonging to another person. 
+
 ![image](https://user-images.githubusercontent.com/103226832/187122665-d6fdc574-3ad8-4e67-9907-92f819bf95f9.png)
 
 ## Local Installation
