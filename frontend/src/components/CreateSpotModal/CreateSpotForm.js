@@ -62,7 +62,7 @@ function CreateSpotForm() {
   return (
     <section className='csl_container'>
       <h2 className='modal_title'>Create a new listing</h2>
-      {hasSubmitted && validationErrors.length > 0 && (
+      {hasSubmitted && validationErrors.length >= 1 && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">

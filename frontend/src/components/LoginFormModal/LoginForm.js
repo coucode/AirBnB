@@ -36,7 +36,7 @@ function LoginForm() {
   return (
     <div className="login_container">
       <h2 className="modal_title">Welcome to Aircnc</h2>
-      {hasSubmitted && (
+      {hasSubmitted && errors.length >=1 && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">

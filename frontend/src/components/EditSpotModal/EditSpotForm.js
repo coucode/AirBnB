@@ -52,7 +52,7 @@ function EditSpotForm({ spot }) {
   return (
     <section className='edit_container'>
       <h2 className='modal_title'>Edit your listing</h2>
-      {hasSubmitted && validationErrors.length > 0 && (
+      {hasSubmitted && validationErrors.length >=1 && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">
