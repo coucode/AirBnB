@@ -16,8 +16,6 @@ This project is built with:
 * React
 * Redux 
 
-* [![Express][Express]][Express-url]
-
 ## Features Directions
 ### Home Page Demo User: 
 You will be able to test the features without sign up by clicking on the "Log In" button, then Sign in with Demo User
