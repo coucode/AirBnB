@@ -1,0 +1,45 @@
+.footer-container {
+  position: relative;
+  z-index: 10;
+  bottom: 0;
+  background-color: #FFFFFF;
+  border-top: 1px solid #EBEBEB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+
+.splash-dev-info {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.splash-dev-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: var(--main-fonts);
+}
+
+.splash-dev-inner-text {
+  margin: 0;
+  color: var(--light-font-color);
+  font-size: 20px;
+}
+
+.splash-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+  height: 50px;
+  text-decoration: none;
+}
