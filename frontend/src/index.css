@@ -14,9 +14,10 @@ html, body {
 }
 
 .page {
-  display: inline flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
 }
 
 .splashContainer {
@@ -25,6 +26,7 @@ html, body {
   padding-right: 60px;
   display: flex;
   justify-content: center;
+  overflow-y: scroll;
 }
 
 /* form {
