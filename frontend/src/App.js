@@ -29,10 +29,15 @@ function App() {
             </div>
           </Route>
           <Route exact path="/spots/:id">
-            <SpotDetail />
+            <div className="spotContainer">
+              <SpotDetail />
+            </div>
           </Route>
           <Route exact path="/listings">
-            <Listings />
+            <div className="listingContainer">
+              <Listings />
+
+            </div>
           </Route>
         </Switch>
       )}

@@ -4,7 +4,8 @@
   color: #222222;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -29,18 +30,34 @@ html, body {
   overflow-y: scroll;
 }
 
+.spotContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2px;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.listingContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2px;
+  overflow-y: scroll;
+  height: 100%;
+}
+
 /* form {
   display: flex;
   justify-content: center;
   flex-direction: column;
 } */
 
-.noData{
+.noData {
   padding-left: 10px;
   max-width: 1200px;
 }
 
-.noDataListings{
+.noDataListings {
   padding-left: 50px;
   max-width: 1200px;
 }
