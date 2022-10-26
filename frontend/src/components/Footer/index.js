@@ -3,6 +3,9 @@ function Footer() {
 
   return (
     <div className="footer-container">
+      <div className='splash-dev-text'>
+        Like my work? Check out my Github and LinkedIn:
+      </div>
       <div className='splash-links' >
         <a href="https://github.com/coucode" target="_blank" rel="noopener noreferrer">
           <i className="fa-brands fa-square-github fa-2xl devLinks"></i>
