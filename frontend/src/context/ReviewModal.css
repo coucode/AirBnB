@@ -19,12 +19,11 @@
 }
 
 #review-modal-content {
-  position: absolute;
+  position: relative;
   background-color: white;
   justify-content: center;
   border-radius: 10px;
   width: 568px;
-  top: 935px;
 }
 
 .form_errors {
