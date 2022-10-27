@@ -31,9 +31,11 @@ function BookingsByUser(){
             <div key = {booking.id}>
               {booking.Spot.name}
               <br/>
-              {booking.startDate}
+              - START: {booking.startDate}
               <br />
-              {booking.endDate}
+              - END: {booking.endDate}
+              <br />
+              <br />
             </div>
           )
         })}

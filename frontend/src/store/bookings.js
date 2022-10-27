@@ -27,7 +27,7 @@ export const getUserBookings = () => async (dispatch) => {
 }
 
 export const getSpotBookings = (payload) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${payload.id}/bookings`)
+  const response = await csrfFetch(`/api/spots/${payload}/bookings`)
 
   if (response.ok) {
     const bookings = await response.json()
