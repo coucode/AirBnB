@@ -41,13 +41,13 @@ const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_BOOKINGS: 
       const allBookings = {}
-      action.bookings.forEach(booking => {
+      action.bookings.Bookings.forEach(booking => {
         allBookings[booking.id] = booking
       })
       return {...allBookings}
     case GET_SPOT_BOOKINGS:
       const spotBookings = {}
-      action.bookings.forEach(booking => {
+      action.bookings.Bookings.forEach(booking => {
         spotBookings[booking.id] = booking
       })
       return { ...spotBookings }
