@@ -8,6 +8,7 @@ import SplashPage from "./components/SplashPage";
 import SpotDetail from "./components/SpotDetail";
 import Listings from "./components/ListingsPage"
 import Footer from "./components/Footer";
+import BookingsByUser from "./components/BookingsByUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,8 +37,10 @@ function App() {
           <Route exact path="/listings">
             <div className="listingContainer">
               <Listings />
-
             </div>
+          </Route>
+          <Route exact path="/bookings/test">
+            <BookingsByUser />
           </Route>
         </Switch>
       )}

@@ -52,4 +52,47 @@ As a signed in user, you can write a review. The owner of the spot/location will
 
 ### Delete a Review
 As a signed in user, you can delete a review that you wrote by clicking "Delete Review". Users cannot delete reviews belonging to another person. 
+
 ![image](https://user-images.githubusercontent.com/103226832/187122665-d6fdc574-3ad8-4e67-9907-92f819bf95f9.png)
+
+## Local Installation
+To run this application locally, you will need Node.js and NPM. This root folder contains a backend and frontend directory. 
+
+### Step 1: Download
+Clone the project repository in your terminal
+```
+git clone https://github.com/coucode/AirBnB-clone.git
+```
+
+### Step 2: Backend Setup
+#### Server Installation
+Inside of the ```/backend``` directory, run the following command in the terminal to set up the necessary Node.js dependencies for running the backend server and database. 
+```
+npm install
+```
+#### Database Creation
+Create a .env file in the ```/backend``` directory based on the .env.example
+```
+PORT=
+DB_FILE=
+JWT_SECRET=
+JWT_EXPIRES_IN=
+```
+Migrate and seed the database using the following commands. The seeder file is necessary in order to log in as a demo user.
+```
+npx dotenv sequelize db:create
+npx dotenv sequelize db:migrate
+npx dotenv sequelize db:seed:all
+```
+Run the server by executing the following command in the ```/backend``` directory.
+```
+npm start
+```
+
+### Step 3: Frontend Setup
+Navigate to the ```/frontend``` directory, run the following command to set up the necessary Node.js dependencies and then start the server
+```
+npm install
+npm start
+```
+
