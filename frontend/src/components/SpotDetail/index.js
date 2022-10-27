@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { getSpotBookings } from '../../store/bookings';
 import { deleteASpot, getOneSpot, getOwnerSpots } from '../../store/spots';
 import BookingsBySpot from '../BookingsBySpot';
 import EditSpotModal from '../EditSpotModal'
