@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { deleteASpot, getOneSpot, getOwnerSpots } from '../../store/spots';
+import BookingsBySpot from '../BookingsBySpot';
+import CreateBookingForm from '../CreateBooking';
 import EditSpotModal from '../EditSpotModal'
 import SpotReviews from '../SpotReviews';
 import './SpotDetail.css'
@@ -95,6 +97,12 @@ function SpotDetail() {
               <img src={imageCheck(spot)} alt="spot" className='sd_img'></img>
             </div>
             <div className='sd_info_container'>
+              {/* {spot.ownerId === sessionUser.id ? ( */}
+                <BookingsBySpot />
+              {/* ) : (
+                <>
+                </>
+              )} */}
               <div className='sd_info_container_left'>
                 <div className="sd_owner_container">
                   <p className='sd_owner_info'>Entire home hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</p>
@@ -139,6 +147,7 @@ function SpotDetail() {
                     <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
                   </div>
                 </div>
+                <CreateBookingForm />
               </div>
 
 
