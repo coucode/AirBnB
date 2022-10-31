@@ -39,8 +39,10 @@ function App() {
               <Listings />
             </div>
           </Route>
-          <Route exact path="/bookings/test">
-            <BookingsByUser />
+          <Route exact path="/bookings">
+            <div className="listingContainer">
+              <BookingsByUser />
+            </div>
           </Route>
         </Switch>
       )}

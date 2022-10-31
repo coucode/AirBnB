@@ -38,6 +38,8 @@ function BookingsByUser(){
               <button onClick={(e)  => {
                 dispatch(deleteABooking(booking.id))
               }}>Delete Booking</button>
+              <br />
+              <br />
             </div>
           )
         })}
