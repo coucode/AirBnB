@@ -51,7 +51,6 @@ export const getUserBookings = () => async (dispatch) => {
 }
 
 export const getSpotBookings = (id) => async (dispatch) => {
-  console.log("ID", id)
   const response = await csrfFetch(`/api/spots/${id}/bookings`)
 
   if (response.ok) {
@@ -85,6 +84,7 @@ export const updateABooking = (payload) => async (dispatch) => {
 }
 
 export const deleteABooking = (bookingId) => async (dispatch) => {
+  console.log("BOOKINGID", bookingId)
   const response = await csrfFetch(`/api/bookings/${bookingId}`, {
     method: 'DELETE'
   })

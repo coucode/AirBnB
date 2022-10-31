@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserBookings } from '../../store/bookings';
+import { deleteABooking, getUserBookings } from '../../store/bookings';
 
 
 function BookingsByUser(){
@@ -20,7 +20,10 @@ function BookingsByUser(){
     bookings = Object.values(bookingsObj)
     loading = false;
   }
-  console.log(bookings)
+
+  // const handleDeleteClick = async (e) => {
+  //   await dispatch(deleteABooking())
+  // }
 
   return (
     <div>
@@ -36,6 +39,9 @@ function BookingsByUser(){
               - END: {booking.endDate}
               <br />
               <br />
+              <button onClick={(e)  => {
+                dispatch(deleteABooking(booking.id))
+              }}>Delete Booking</button>
             </div>
           )
         })}
