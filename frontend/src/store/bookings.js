@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf";
 const GET_USER_BOOKINGS = 'bookings/GETUSERBOOKINGS'
 const GET_SPOT_BOOKINGS = 'bookings/GETSPOTBOOKINGS'
 const CREATE_BOOKING = 'bookings/CREATEBOOKING'
+const UPDATE_BOOKING = 'bookings/UPDATEBOOKING'
+const DELETE_BOOKING = 'bookings/DELETE'
 
 const getBookingsByUser = (bookings) => {
   return {
@@ -25,6 +27,20 @@ const createBooking = (booking) => {
   }
 }
 
+const updateBooking = (booking) => {
+  return {
+    type: UPDATE_BOOKING,
+    booking
+  }
+}
+
+const deleteBooking = (bookingId) => {
+  return {
+    type: DELETE_BOOKING, 
+    bookingId
+  }
+}
+
 export const getUserBookings = () => async (dispatch) => {
   const response = await csrfFetch('/api/bookings/current')
 
@@ -35,12 +51,10 @@ export const getUserBookings = () => async (dispatch) => {
 }
 
 export const getSpotBookings = (id) => async (dispatch) => {
-  console.log("ID", id)
   const response = await csrfFetch(`/api/spots/${id}/bookings`)
 
   if (response.ok) {
     const bookings = await response.json()
-    console.log("BOOKINGS", bookings)
     dispatch(getBookingsBySpot(bookings))
   }
 }
@@ -54,6 +68,28 @@ export const createABooking = (payload) => async (dispatch) => {
     const newBooking = await response.json()
     dispatch(createBooking(newBooking))
     return newBooking
+  }
+}
+
+export const updateABooking = (payload) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${payload.bookingId}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload)
+  })
+  if (response.ok) {
+    const updatedBooking = await response.json()
+    dispatch(updateBooking(updatedBooking))
+    return updatedBooking
+  }
+}
+
+export const deleteABooking = (bookingId) => async (dispatch) => {
+  console.log("BOOKINGID", bookingId)
+  const response = await csrfFetch(`/api/bookings/${bookingId}`, {
+    method: 'DELETE'
+  })
+  if (response.ok) {
+    dispatch(deleteBooking(bookingId))
   }
 }
 
@@ -75,6 +111,14 @@ const bookingReducer = (state = initialState, action) => {
       return { ...spotBookings }
     case CREATE_BOOKING:
       return {...state, [action.bookings.id]: action.newBooking}
+    case UPDATE_BOOKING:
+      const updatedState = {...state}
+      updatedState[action.updatedBooking.id] = action.updatedBooking
+      return updatedState
+    case DELETE_BOOKING:
+      const deleteState = { ...state }
+      delete deleteState[action.id]
+      return deleteState
     default:
       return state;
   }

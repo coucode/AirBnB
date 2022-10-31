@@ -18,8 +18,6 @@ function CreateBookingForm() {
     e.preventDefault()
     setHasSubmitted(true)
 
-    console.log("STARTDATE", startDate, "ENDDATE", endDate)
-
     const payload = {
       startDate, 
       endDate, 
@@ -28,6 +26,7 @@ function CreateBookingForm() {
     }
 
     dispatch(createABooking(payload))
+    dispatch(getSpotBookings(id))
   }
 
 
