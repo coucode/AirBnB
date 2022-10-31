@@ -21,10 +21,6 @@ function BookingsByUser(){
     loading = false;
   }
 
-  // const handleDeleteClick = async (e) => {
-  //   await dispatch(deleteABooking())
-  // }
-
   return (
     <div>
       {(loading === false) && (bookings.length > 0) ? (
