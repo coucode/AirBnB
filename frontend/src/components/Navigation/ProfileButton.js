@@ -42,6 +42,9 @@ function ProfileButton({ user }) {
           <div className="listing-container">
             <NavLink exact to='/listings' className="navLink listings">Your Listings</NavLink>
           </div>
+          <div className="listing-container">
+            <NavLink exact to='/bookings' className="navLink listings">Your Bookings</NavLink>
+          </div>
           <div className="logout-container">
             <button onClick={logout} className="logoutButton">Log Out</button>
           </div>
