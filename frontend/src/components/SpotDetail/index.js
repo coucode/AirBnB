@@ -142,7 +142,7 @@ function SpotDetail() {
                     <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
                   </div>
                 </div>
-                <CreateBookingForm />
+                {/* <CreateBookingForm /> */}
               </div>
 
 
