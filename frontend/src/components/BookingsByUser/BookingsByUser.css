@@ -7,13 +7,13 @@
 
 .bookings-by-user-inner-container {
   width: 85%;
-  padding-top: 40px;
 }
 
 .single-booking-container {
   display: flex;
   padding-bottom: 20px;
   justify-content: space-between;
+  margin-left: 20px;
 }
 
 .single-booking-links {
@@ -70,4 +70,13 @@
   height: 48px;
   width: 150px;
   cursor: pointer;
+}
+
+.bookings-header{
+  font-weight: 600;
+  padding: 20px 0;
+}
+
+.future-bookings-container{
+  border-bottom: 1px solid #EBEBEB;
 }
