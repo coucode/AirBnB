@@ -34,7 +34,7 @@ function BookingsByUser() {
   return (
     <div className='bookings-by-user-container'>
       {(loading === false) && (bookings.length > 0) ? (
-        <>
+        <div className='bookings-by-user-inner-container'>
           {bookings.map(booking => {
             return (
               <div key={booking.id} className='single-booking-container'>
@@ -65,20 +65,19 @@ function BookingsByUser() {
                           {booking?.endDate}
                         </p>
                       </div>
-
                     </div>
                   </div>
                 </NavLink>
+                <div className='delete-booking-container'>
+                  <button onClick={(e) => {
+                    dispatch(deleteABooking(booking.id))
+                  }} className='delete-booking-button'>Delete Booking</button>
+                </div>
 
-                <button onClick={(e) => {
-                  dispatch(deleteABooking(booking.id))
-                }}>Delete Booking</button>
-                <br />
-                <br />
               </div>
             )
           })}
-        </>
+        </div>
 
       ) : (
         <div>
