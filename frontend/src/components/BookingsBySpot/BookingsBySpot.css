@@ -1,0 +1,29 @@
+.bookings-by-spot-container {
+  border: 2px solid #FF385C;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 20px 20px;
+}
+
+.bookings-by-spot-header {
+  font-weight: 600;
+  font-size: 24px;
+  margin: 0;
+  border-bottom: 2px solid #EBEBEB;
+}
+
+.bookings-date-headers {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px 0 ;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.bookings-by-spot-info-container{
+  margin-bottom: 20px;
+}
+
+.bookings-by-spot-info{
+  font-size: 14px;
+  margin: 0;
+}
