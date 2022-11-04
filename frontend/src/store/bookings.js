@@ -84,7 +84,6 @@ export const updateABooking = (payload) => async (dispatch) => {
 }
 
 export const deleteABooking = (bookingId) => async (dispatch) => {
-  console.log("BOOKINGID", bookingId)
   const response = await csrfFetch(`/api/bookings/${bookingId}`, {
     method: 'DELETE'
   })
@@ -105,7 +104,7 @@ const bookingReducer = (state = initialState, action) => {
       return {...allBookings}
     case GET_SPOT_BOOKINGS:
       const spotBookings = {}
-      action.bookings.forEach(booking => {
+      action.bookings.Bookings.forEach(booking => {
         spotBookings[booking.id] = booking
       })
       return { ...spotBookings }

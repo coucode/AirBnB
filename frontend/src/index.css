@@ -61,3 +61,7 @@ body {
   padding-left: 50px;
   max-width: 1200px;
 }
+
+button {
+  cursor: pointer;
+}
