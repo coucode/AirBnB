@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { ConfirmModal } from '../../context/ConfirmModal';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { deleteAReview } from '../../store/reviews';
+
 
 import { deleteABooking } from '../../store/bookings';
 import { deleteASpot, getOwnerSpots } from '../../store/spots';
@@ -13,11 +15,17 @@ function ConfirmDelete({ type, input }) {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory()
+  const { id } = useParams()
 
   const handleSpotDeleteClick = async (e) => {
     await dispatch(deleteASpot(input.id))
     await dispatch(getOwnerSpots())
     await history.push('/listings')
+  }
+  // This deletes the review and rerenders the spot details
+  const handleReviewDeleteClick = async (e) => {
+    await dispatch(deleteAReview(input.id))
+    await history.push(`/spots/${id}`)
   }
 
   function deleteModal(type) {
@@ -28,9 +36,14 @@ function ConfirmDelete({ type, input }) {
         }} className='delete-booking-button'>Delete Booking</button>
       )
     }
-    if (type === 'listing'){
+    if (type === 'listing') {
       return (
         <button onClick={handleSpotDeleteClick} className="deleteButton">Delete Listing</button>
+      )
+    }
+    if (type === 'review') {
+      return (
+        <button onClick={handleReviewDeleteClick} className="review_delete_button">Delete Review</button>
       )
     }
   }

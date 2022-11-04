@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom';
-import { deleteAReview, getAllSpotReviews } from '../../store/reviews';
+import { getAllSpotReviews } from '../../store/reviews';
 import CreateReviewModal from '../CreateReviewModal';
+import ConfirmDelete from '../ConfirmDeleteModal';
+
 import './SpotReviews.css'
 
 function SpotReviews({ spot }) {
@@ -47,18 +49,14 @@ function SpotReviews({ spot }) {
       <CreateReviewModal />
     )
   }
-  // This deletes the review and rerenders the spot details
-  const handleDeleteClick = async (e) => {
-    await dispatch(deleteAReview(reviewCheck.id))
-    await history.push(`/spots/${id}`)
-  }
+
 
   // This checks if the current review belongs to the currently signed in user. If so, the delete button will appear
   function deleteCheck(review) {
     if (review && sessionUser) {
       if (review?.User?.id === sessionUser?.id) {
         return (
-          <button onClick={handleDeleteClick} className="review_delete_button">Delete Review</button>
+          <ConfirmDelete input={review} type='review' />
         )
       }
     }

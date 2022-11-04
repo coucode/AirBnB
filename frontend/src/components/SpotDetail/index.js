@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { deleteASpot, getOneSpot, getOwnerSpots } from '../../store/spots';
+import { getOneSpot } from '../../store/spots';
 import ConfirmDelete from '../ConfirmDeleteModal';
 import CreateBookingForm from '../CreateBooking';
 import EditSpotModal from '../EditSpotModal'

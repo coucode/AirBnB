@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { deleteABooking, getUserBookings } from '../../store/bookings';
+import { getUserBookings } from '../../store/bookings';
 import ConfirmDelete from '../ConfirmDeleteModal';
 import './BookingsByUser.css';
 
