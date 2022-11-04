@@ -5,6 +5,10 @@
   padding: 20px 20px;
 }
 
+.bookings-by-spot-inner-container{
+  padding: 10px 0;
+}
+
 .bookings-by-spot-header {
   font-weight: 600;
   font-size: 24px;
@@ -14,7 +18,8 @@
 
 .bookings-date-headers {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
+  color: #FF385C;
   margin: 10px 0 ;
   border-bottom: 1px solid #EBEBEB;
 }

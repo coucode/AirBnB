@@ -66,22 +66,24 @@ function BookingsBySpot() {
 
   return (
     <div className='bookings-by-spot-container'>
-      {(loading === false) && bookings.length > 0 ? (
-        <div >
+      {(loading === false) > 0 ? (
+        <div>
           <p className='bookings-by-spot-header'>Bookings for your listing</p>
-          <p className='bookings-date-headers'>Current and Upcoming Bookings</p>
-          {futureBookingsCheck(futureBookings)}
+          <div className='bookings-by-spot-inner-container'>
+            <p className='bookings-date-headers'>Current and Upcoming Bookings</p>
+            {futureBookingsCheck(futureBookings)}
 
-          <p className='bookings-date-headers'>Past Bookings</p>
-          {pastBookings.map(booking => {
-            return (
-              <div key={booking.id} className='bookings-by-spot-info-container'>
-                <p className='bookings-by-spot-info'>
-                  {booking.User.firstName} {booking.User.lastName} from {booking.startDate} to {booking.endDate}
-                </p>
-              </div>
-            )
-          })}
+            <p className='bookings-date-headers'>Past Bookings</p>
+            {pastBookings.map(booking => {
+              return (
+                <div key={booking.id} className='bookings-by-spot-info-container'>
+                  <p className='bookings-by-spot-info'>
+                    {booking.User.firstName} {booking.User.lastName} from {booking.startDate} to {booking.endDate}
+                  </p>
+                </div>
+              )
+            })}
+          </div>
         </div>
       ) : (
         <div> Loading... </div>
