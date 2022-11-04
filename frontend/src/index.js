@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { ModalProvider } from "./context/Modal";
 import { ReviewModalProvider } from "./context/ReviewModal";
+import { ConfirmModalProvider } from "./context/ConfirmModal";
+
 
 
 import configureStore from "./store";
@@ -29,14 +31,14 @@ function Root() {
       <Provider store={store}>
         <ModalProvider>
           <ReviewModalProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-
+            <ConfirmModalProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </ConfirmModalProvider>
           </ReviewModalProvider>
         </ModalProvider>
       </Provider>
-
     </div>
   );
 }

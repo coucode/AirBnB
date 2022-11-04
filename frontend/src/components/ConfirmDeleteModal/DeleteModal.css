@@ -1,0 +1,48 @@
+.delete-modal-button {
+  background-image:
+    radial-gradient(circle at center, #FF385C 0%, #E61E4D 27.5%, #E31C5F 50%, #D70466 75%, #BD1E59 100%, #BD1E59 100%);
+  background-size: 125% 300%;
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 20px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  height: 48px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.delete-modal-container {
+  padding: 25px;
+}
+
+.delete-text-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.delete-buttons-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.cancel-button {
+  background-color: #DDDDDD;
+  background-size: 125% 300%;
+  font-size: 16px;
+  color: #FF385C;
+  line-height: 20px;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  height: 48px;
+  width: 150px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.fa-solid.fa-xmark.fa-lg{
+  cursor: pointer;
+}

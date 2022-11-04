@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { deleteASpot, getOneSpot, getOwnerSpots } from '../../store/spots';
+import ConfirmDelete from '../ConfirmDeleteModal';
 import CreateBookingForm from '../CreateBooking';
 import EditSpotModal from '../EditSpotModal'
 import SpotReviews from '../SpotReviews';
@@ -53,19 +54,13 @@ function SpotDetail() {
     }
   }
 
-  const handleDeleteClick = async (e) => {
-    await dispatch(deleteASpot(id))
-    await dispatch(getOwnerSpots())
-    await history.push('/listings')
-  }
-
   let modifyButtons;
   if (spot && sessionUser) {
     if (spot.ownerId === sessionUser.id) {
       modifyButtons = (
         <div className='sd_modify_buttons'>
           <EditSpotModal spot={spot} />
-          <button onClick={handleDeleteClick} className="deleteButton">Delete Listing</button>
+          <ConfirmDelete input={spot} type='listing' />
         </div>
       )
     }
@@ -142,7 +137,7 @@ function SpotDetail() {
                     <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
                   </div>
                 </div>
-                {/* <CreateBookingForm /> */}
+                <CreateBookingForm />
               </div>
 
 
