@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { getOneSpot } from '../../store/spots';
+import BookingsBySpot from '../BookingsBySpot';
 import ConfirmDelete from '../ConfirmDeleteModal';
 import CreateBookingForm from '../CreateBooking';
 import EditSpotModal from '../EditSpotModal'
@@ -55,6 +56,7 @@ function SpotDetail() {
   }
 
   let modifyButtons;
+  let spotBookings;
   if (spot && sessionUser) {
     if (spot.ownerId === sessionUser.id) {
       modifyButtons = (
@@ -62,6 +64,9 @@ function SpotDetail() {
           <EditSpotModal spot={spot} />
           <ConfirmDelete input={spot} type='listing' />
         </div>
+      )
+      spotBookings = (
+        <BookingsBySpot />
       )
     }
   }
@@ -75,6 +80,7 @@ function SpotDetail() {
               <h1> {spot?.name} </h1>
               {modifyButtons}
             </div>
+            {spotBookings}
             <div className='sd_subtitle'>
               <div className='sd_subtitle_star'>
                 <i className="fa-solid fa-star"> </i>
