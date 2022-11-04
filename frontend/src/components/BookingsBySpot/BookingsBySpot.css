@@ -2,30 +2,36 @@
   border: 2px solid #FF385C;
   border-radius: 10px;
   margin-bottom: 20px;
-  padding: 20px 20px;
+  padding: 20px 20px 0px 20px;
+  background-color: rgb(235, 235, 235, 0.4);
 }
 
 .bookings-by-spot-inner-container{
   padding: 10px 0;
 }
 
+.bookings-current-container{
+  margin-bottom: 30px;
+}
+
 .bookings-by-spot-header {
   font-weight: 600;
   font-size: 24px;
   margin: 0;
-  border-bottom: 2px solid #EBEBEB;
+  border-bottom: 1px solid rgb(34, 34, 34, 0.4);
+  color: #222222;
 }
 
 .bookings-date-headers {
   font-weight: 600;
   font-size: 16px;
-  color: #FF385C;
   margin: 10px 0 ;
-  border-bottom: 1px solid #EBEBEB;
+  color: #FF385C;
+  border-bottom: 1px solid rgb(34, 34, 34, 0.4) ;
 }
 
 .bookings-by-spot-info-container{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .bookings-by-spot-info{
