@@ -51,6 +51,7 @@ function SplashPage() {
                       alt="listing"
                       style={{ width: 280.25, height: 266.25 }} 
                       className="sc_container_cards_img"
+                      onError={e => { e.currentTarget.src = "https://letusstudy.in/clientside/images/no-image.png" }}
                       />
                     <div className="sc_container_cards_top">
                       <div className='sc_container_cards_top--text'>

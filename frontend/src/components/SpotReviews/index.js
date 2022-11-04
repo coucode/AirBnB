@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getAllSpotReviews } from '../../store/reviews';
 import CreateReviewModal from '../CreateReviewModal';
 import ConfirmDelete from '../ConfirmDeleteModal';
@@ -10,7 +10,6 @@ import './SpotReviews.css'
 function SpotReviews({ spot }) {
   const dispatch = useDispatch()
   const { id } = useParams()
-  const history = useHistory()
   const reviewsObj = useSelector(state => state.reviews)
   const sessionUser = useSelector(state => state.session.user)
   const reviews = Object.values(reviewsObj)
