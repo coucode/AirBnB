@@ -42,27 +42,11 @@ function BookingsBySpot() {
     })
   }
 
-  function futureBookingsCheck(futureBookings) {
-    if (futureBookings.length === 0) {
-      return (
-        <div className='bookings-by-spot-info-container'>
-          <p className='bookings-by-spot-info'>
-            No Bookings
-          </p>
-        </div>
-      )
-    } else {
-      futureBookings.map(booking => {
-        return (
-          <div key={booking.id} className='bookings-by-spot-info-container'>
-            <p className='bookings-by-spot-info'>
-              {booking.User.firstName} {booking.User.lastName} from {booking.startDate} to {booking.endDate}
-            </p>
-          </div>
-        )
-      })
-    }
-  }
+  let noBookings = (
+    <div className='bookings-by-spot-info-container'>
+      <p className='bookings-by-spot-info'>• No Bookings</p>
+    </div>
+  )
 
   return (
     <div className='bookings-by-spot-container'>
@@ -70,19 +54,31 @@ function BookingsBySpot() {
         <div>
           <p className='bookings-by-spot-header'>Bookings for your listing</p>
           <div className='bookings-by-spot-inner-container'>
-            <p className='bookings-date-headers'>Current and Upcoming Bookings</p>
-            {futureBookingsCheck(futureBookings)}
-
-            <p className='bookings-date-headers'>Past Bookings</p>
-            {pastBookings.map(booking => {
-              return (
-                <div key={booking.id} className='bookings-by-spot-info-container'>
-                  <p className='bookings-by-spot-info'>
-                    {booking.User.firstName} {booking.User.lastName} from {booking.startDate} to {booking.endDate}
-                  </p>
-                </div>
-              )
-            })}
+            <div className='bookings-current-container'>
+              <p className='bookings-date-headers'>Current and Upcoming Bookings</p>
+              {(futureBookings?.length === 0) ? noBookings : futureBookings.map(booking => {
+                return (
+                  <div key={booking.id} className='bookings-by-spot-info-container'>
+                    <p className='bookings-by-spot-info'>
+                      • <b>{booking.User.firstName} {booking.User.lastName}</b> from <b>{booking.startDate}</b>   to <b>{booking.endDate} </b>
+                    </p>
+                  </div>
+                )
+              })}
+            </div>
+            <div>
+              <p className='bookings-date-headers'>Past Bookings</p>
+              {(pastBookings?.length === 0) ? noBookings : pastBookings.map(booking => {
+                return (
+                  <div key={booking.id} className='bookings-by-spot-info-container'>
+                    <p className='bookings-by-spot-info'>
+                      • <b>{booking.User.firstName} {booking.User.lastName} </b> from <i>{booking.startDate} </i>  to <i>{booking.endDate} </i>
+                    </p>
+                  </div>
+                )
+              })
+              }
+            </div>
           </div>
         </div>
       ) : (
