@@ -18,20 +18,13 @@ function CreateBookingForm() {
 
   useEffect(() => {
     if (values.length === 2) {
-      let start = new Date(values[0].year, values[0].month, values[0].day) 
-      let end = new Date(values[1].year, values[1].month, values[1].day) 
+      let start = new Date(values[0].year, (values[0].month - 1), values[0].day) 
+      let end = new Date(values[1].year, (values[1].month - 1), values[1].day) 
 
       setStartDate(start)
       setEndDate(end)
     }
   }, [values])
-
-  console.log("VALUES========", values)
-  console.log("VALUES 1========", values[0])
-  console.log("VALUES 2========", values[1])
-
-  console.log("START======", startDate)
-  console.log("END=========", endDate)
 
   const handleSubmit = async (e) => {
     e.preventDefault()

@@ -60,6 +60,7 @@ export const getSpotBookings = (id) => async (dispatch) => {
 }
 
 export const createABooking = (payload) => async (dispatch) => {
+  console.log("PAYLOAD", payload)
   const response = await csrfFetch(`/api/spots/${payload.spotId}/bookings`, {
     method: 'POST',
     body: JSON.stringify(payload)
@@ -104,12 +105,12 @@ const bookingReducer = (state = initialState, action) => {
       return {...allBookings}
     case GET_SPOT_BOOKINGS:
       const spotBookings = {}
-      action.bookings.Bookings.forEach(booking => {
+      action.bookings.forEach(booking => {
         spotBookings[booking.id] = booking
       })
       return { ...spotBookings }
     case CREATE_BOOKING:
-      return {...state, [action.bookings.id]: action.newBooking}
+      return {...state, [action.booking.id]: action.booking}
     case UPDATE_BOOKING:
       const updatedState = {...state}
       updatedState[action.updatedBooking.id] = action.updatedBooking
