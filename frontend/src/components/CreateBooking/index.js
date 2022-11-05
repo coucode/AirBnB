@@ -14,17 +14,24 @@ function CreateBookingForm() {
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [errors, setErrors] = useState([]);
+
   const { id } = useParams()
 
   useEffect(() => {
     if (values.length === 2) {
-      let start = new Date(values[0].year, (values[0].month - 1), values[0].day) 
-      let end = new Date(values[1].year, (values[1].month - 1), values[1].day) 
+      let start = new Date(values[0].year, (values[0].month - 1), values[0].day)
+      let end = new Date(values[1].year, (values[1].month - 1), values[1].day)
 
       setStartDate(start)
       setEndDate(end)
     }
   }, [values])
+
+  useEffect(() => {
+    setHasSubmitted(false)
+    setErrors([])
+  },[startDate, endDate])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -37,23 +44,37 @@ function CreateBookingForm() {
       userId: sessionUser.id
     }
 
-    dispatch(createABooking(payload))
+    dispatch(createABooking(payload)).catch(async (res) => {
+      const data = await res.json();
+      if (data) {
+        let errors = Object.values(data.errors)
+        setErrors(errors)
+      }
+    })
     dispatch(getSpotBookings(id))
   }
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      < Calendar
-        value={values}
-        onChange={setValues}
-        range
-        rangeHover
-      />
-      <div>
-        <button> Submit </button>
-      </div>
-    </form>
+    <div>
+      {hasSubmitted && (errors.length >= 1) && (
+        <div>
+          The following errors were found: 
+          {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
+        </div>
+      )}
+      <form onSubmit={handleSubmit}>
+        < Calendar
+          value={values}
+          onChange={setValues}
+          range
+          rangeHover
+        />
+        <div>
+          <button> Submit </button>
+        </div>
+      </form>
+    </div>
   )
 }
 
