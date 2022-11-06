@@ -17,6 +17,8 @@ function CreateBookingForm() {
   const [endDate, setEndDate] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [errors, setErrors] = useState([]);
+  const [success, setSuccess] = useState('')
+
   const { id } = useParams()
   let loading = true;
 
@@ -68,7 +70,6 @@ function CreateBookingForm() {
           futureBookings.push(new Date(start).toDateString())
           start.setDate(start.getDate() + 1);
         }
-
       }
     })
   }
@@ -84,27 +85,37 @@ function CreateBookingForm() {
       userId: sessionUser.id
     }
 
-    dispatch(createABooking(payload)).catch(async (res) => {
+    dispatch(createABooking(payload)).then(() => {
+      setSuccess('Booking Successful!')
+      setErrors('')
+      setTimeout(() => setSuccess(''), 5000)
+      dispatch(getSpotBookings(id))
+    }).catch(async (res) => {
       const data = await res.json();
       if (data) {
         let errors = Object.values(data.errors)
         setErrors(errors)
       }
+
     })
-    dispatch(getSpotBookings(id))
   }
   let dateChecker = new Date()
 
   return (
     <div>
+      {hasSubmitted && (errors.length >= 1) && (
+        <div>
+          The following errors were found:
+          {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
+        </div>
+      )}
+      {hasSubmitted && success.length > 0 && (
+        <p className='success-text'>
+          Booking Successful!
+        </p>
+      )}
       {!loading ? (
         <div>
-          {hasSubmitted && (errors.length >= 1) && (
-            <div>
-              The following errors were found:
-              {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
-            </div>
-          )}
           <form onSubmit={handleSubmit}>
             < Calendar
               mapDays={({ date }) => {
@@ -112,7 +123,7 @@ function CreateBookingForm() {
 
                 if (futureBookings.includes(dayCheck.toDateString()) || dayCheck < dateChecker) return {
                   disabled: true,
-                  style: { color: "#ccc"},
+                  style: { color: "#ccc" },
                   // onMouseOver: () => ("No")
                 }
               }}
@@ -136,7 +147,7 @@ function CreateBookingForm() {
                   }}
                 />,
               ]}
-              style={{fontFamily: "'Montserrat', sans-serif"}}
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
             />
             <div >
               <button className='create-booking'> Book </button>
@@ -144,9 +155,9 @@ function CreateBookingForm() {
           </form>
         </div>
 
-      ): (<div> Loading... </div>)}
+      ) : (<div> Loading... </div>)}
 
-      
+
     </div>
   )
 }

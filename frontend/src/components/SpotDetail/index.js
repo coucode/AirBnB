@@ -115,9 +115,7 @@ function SpotDetail() {
                     <div>
                       {ratingCheck(spot)} ·
                     </div>
-
                     <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
-
                   </div>
                   <SpotReviews spot={spot} />
 

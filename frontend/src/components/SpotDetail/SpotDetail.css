@@ -1,18 +1,22 @@
 .sd_outer_container{
   display: flex;
   justify-content: center;
+  height: auto;
 }
 
 .sd_container {
   padding-left: 40px;
   padding-right: 40px;
   max-width: 1400px;
-  width: 1000px;
+  width: 95%;
 }
 
 .sd_header {
   display: flex;
   justify-content: space-between;
+}
+.sd_header>h1{
+  margin: 15px 0; 
 }
 
 .sd_modify_buttons {
@@ -55,9 +59,9 @@
 .sd_info_container {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  padding-top: 32px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-top: 15px;
+  height: auto;
+  padding-bottom: 50px;
 }
 
 .sd_info_container_left {
@@ -74,7 +78,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #EBEBEB;
-  padding-bottom: 32px;
+  padding-bottom: 15px;
   padding-right: 10px;
 }
 
@@ -91,13 +95,12 @@
 .sd_description {
   line-height: 24px;
   font-size: 18px;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding: 15px 0;
   border-bottom: 2px solid #EBEBEB;
 }
 
 .sd_reviews {
-  padding-top: 32px;
+  padding-top: 20px;
   border-bottom: 2px solid #EBEBEB;
 }
 
@@ -119,13 +122,11 @@
   flex-direction: column;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  /* border-radius: 10px; */
   width: inherit;
   height: auto;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
   justify-content: space-evenly;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 15px 20px;
 }
 
 .sd_ipr_text_container{
