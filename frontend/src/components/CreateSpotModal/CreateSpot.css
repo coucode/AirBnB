@@ -34,22 +34,31 @@
 
   border: 1px solid #DDDDDD;
   border-bottom: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+
 }
 
 .csl_inputs_middle {
   padding: 26px 36px 10px 12px;
-
   border: 1px solid #DDDDDD;
+}
+
+.csl_inputs_middle#city{
+  width: 60%;
+}
+
+.csl_inputs_middle#state {
+  width: 40%;
 }
 
 .csl_inputs_bottom {
   padding: 26px 36px 10px 12px;
-
   border: 1px solid #DDDDDD;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+
+}
+.csl_inputs_latlng {
+  padding: 26px 36px 10px 12px;
+  border: 1px solid #DDDDDD;
+  width: 50%;
 }
 
 .csl_button_container {
@@ -72,4 +81,8 @@
   height: 48px;
   width: 100%;
   cursor: pointer;
+}
+
+#description{
+  resize: vertical;
 }

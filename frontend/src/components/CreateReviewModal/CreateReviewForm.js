@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { createAReview, getAllSpotReviews } from '../../store/reviews';
 
-function CreateReviewForm() {
+function CreateReviewForm({ setShowModal }) {
   const { id } = useParams()
   const dispatch = useDispatch()
   const history = useHistory()
@@ -14,6 +14,7 @@ function CreateReviewForm() {
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
   const [validationErrors, setValidationErrors] = useState([])
+
 
   useEffect(() => {
     const errors = []
@@ -44,10 +45,20 @@ function CreateReviewForm() {
     }
     // }
   }
+
   return (
     <div className='cr_container'>
-      <h2 className='modal_title'>Write a Review</h2>
-      {hasSubmitted && validationErrors.length > 0 && (
+      <div className='cr_title_container'>
+        <h2 className='modal_title'>Write a Review</h2>
+        <div>
+          <i
+            className="fa-solid fa-xmark fa-lg"
+            onClick={() => setShowModal(false)}
+          ></i>
+        </div>
+      </div>
+
+      { hasSubmitted && validationErrors.length > 0 && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">
@@ -62,7 +73,6 @@ function CreateReviewForm() {
           className='cr_inputs_top'
           type="number"
           min="1"
-          // max="5"
           placeholder='Your rating between 1 to 5 stars'
           step="1"
           // required

@@ -100,7 +100,7 @@ function CreateBookingForm() {
   let dateChecker = new Date()
 
   return (
-    <div>
+    <div className='booking-form-container'>
       {hasSubmitted && (errors.length >= 1) && (
         <div className='booking-error-container'>
           <p>

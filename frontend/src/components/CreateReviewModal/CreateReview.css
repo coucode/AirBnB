@@ -24,6 +24,12 @@
   padding: 24px;
 }
 
+.cr_title_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .cr_form {
   display: flex;
   justify-content: center;
@@ -36,15 +42,13 @@
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
   border-bottom: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+
 }
 
 .cr_inputs_bottom {
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  resize: vertical;
 }
 
 .cr_button_container {
