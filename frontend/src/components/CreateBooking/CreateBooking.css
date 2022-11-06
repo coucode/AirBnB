@@ -1,0 +1,20 @@
+.custom-input {
+  border-radius: 15px;
+  border: 1px #ff385c solid;
+  padding: 4px 12px;
+  background-color: white;
+  box-shadow: 0 0 2px #e6134d;
+}
+
+.custom-calendar.rmdp-wrapper,
+.rmdp-container .custom-calendar.ep-arrow::after {
+  background-color: rgb(235, 235, 235, 0.4);;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction="bottom"] {
+  border-top: 1px solid rgb(235, 235, 235, 0.4);;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction="top"] {
+  border-bottom: 1px solid rgb(235, 235, 235, 0.4);;
+}

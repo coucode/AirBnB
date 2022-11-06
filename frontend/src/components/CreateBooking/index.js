@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { createABooking, getSpotBookings } from '../../store/bookings';
 import { Calendar } from "react-multi-date-picker"
+import './CreateBooking.css'
+import Footer from "react-multi-date-picker/plugins/range_picker_footer";
+import "react-multi-date-picker/styles/colors/teal.css"
 
 function CreateBookingForm() {
   const [values, setValues] = useState([
@@ -15,8 +18,13 @@ function CreateBookingForm() {
   const [endDate, setEndDate] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [errors, setErrors] = useState([]);
-
   const { id } = useParams()
+  let loading = true;
+
+
+  useEffect(() => {
+    dispatch(getSpotBookings(id))
+  },[dispatch, id])
 
   useEffect(() => {
     if (values.length === 2) {
@@ -32,6 +40,39 @@ function CreateBookingForm() {
     setHasSubmitted(false)
     setErrors([])
   },[startDate, endDate])
+
+  // Obtains the bookings from state, creates an array with that information
+  let bookings;
+  const bookingsObj = useSelector(state => state.bookings)
+  if (bookingsObj) {
+    bookings = Object.values(bookingsObj)
+    loading = false;
+  }
+
+  // Rerenders the component while state is loading
+  if (!bookingsObj) return null
+  if (!bookings) return null
+
+  // Sorts the bookings into future arrays so they can be displayed separately. 
+  // Created a variable for today's date, and change the string values to date values in order to compare
+  let currentDate = new Date()
+  let futureBookings = []
+  if (bookings) {
+    bookings.forEach(booking => {
+      let convertDate = new Date(booking.startDate)
+
+      if (convertDate >= currentDate) {
+        let start = new Date(booking.startDate)
+        let end = new Date(booking.endDate)
+
+        while (start < end){
+          futureBookings.push(new Date(start))
+          start.setDate(start.getDate() + 1);
+        }
+
+      }
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -53,7 +94,7 @@ function CreateBookingForm() {
     })
     dispatch(getSpotBookings(id))
   }
-
+  // console.log("FUTURE", futureBookings)
 
   return (
     <div>
@@ -65,10 +106,36 @@ function CreateBookingForm() {
       )}
       <form onSubmit={handleSubmit}>
         < Calendar
+          mapDays={({ date }) => {
+            // console.log("DATE", date)
+            let isWeekend = [0, 6].includes(date.weekDay.index)
+
+            if (isWeekend) return {
+              disabled: true,
+              style: { color: "#ccc" },
+              onClick: () => alert("weekends are disabled")
+            }
+          }}
           value={values}
           onChange={setValues}
+          numberOfMonths={2}
           range
           rangeHover
+          className="custom-input custom-calendar"
+          plugins={[
+            <Footer
+              position="bottom"
+              format="MMM DD"
+              names={{
+                selectedDates: "Booking information:",
+                from: "Check-In:",
+                to: "Check-Out:",
+                selectDate: "Select a Date",
+                close: "Close",
+                separator: <br />,
+              }}
+            />,
+          ]}
         />
         <div>
           <button> Submit </button>
