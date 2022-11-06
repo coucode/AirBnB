@@ -13,22 +13,16 @@ function CreateReviewForm({ setShowModal }) {
   const [review, setReview] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
 
-  // const [validationErrors, setValidationErrors] = useState([])
+  const [validationErrors, setValidationErrors] = useState([])
 
-  // useEffect(() => {
-  //   const errors = []
-  //   if (stars < 1 || stars > 5) errors.push("Rating must be between 1 and 5")
 
-  //   setValidationErrors(errors)
-  // }, [stars, review])
+  useEffect(() => {
+    const errors = []
+    if (stars < 1 || stars > 5) errors.push("Rating must be between 1 and 5")
+    if (!review) errors.push("Review is required")
 
-  // useEffect(() => {
-  //   const errors = []
-  //   if (stars < 1 || stars > 5) errors.push("Rating must be between 1 and 5")
-  //   if (!review) errors.push("Review is required")
-
-  //   return setValidationErrors(errors)
-  // }, [stars, review])
+    return setValidationErrors(errors)
+  }, [stars, review])
 
 
   const handleSubmit = async (e) => {
@@ -52,23 +46,6 @@ function CreateReviewForm({ setShowModal }) {
     // }
   }
 
-  function starCheck(stars) {
-    if ((stars !== '') && (stars < 1 || stars > 5)){
-      return (
-        <li className="form_errors">Rating must be between 1 and 5</li>
-
-      )
-    }
-  }
-
-  function reviewCheck(review){
-    if (hasSubmitted && review.length === 0){
-      return (
-        <li className="form_errors">Review is required</li>
-      )
-    }
-  }
-
   return (
     <div className='cr_container'>
       <div className='cr_title_container'>
@@ -80,17 +57,8 @@ function CreateReviewForm({ setShowModal }) {
           ></i>
         </div>
       </div>
-      { (
-        <div >
-          <ul className="form_errors">
-            {starCheck(stars)}
-          </ul>
-          <ul className="form_errors">
-            {reviewCheck(review)}
-          </ul>
-        </div>
-      )}
-      {/* {validationErrors.length > 0 && (
+
+      { hasSubmitted && validationErrors.length > 0 && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">
@@ -99,13 +67,12 @@ function CreateReviewForm({ setShowModal }) {
             ))}
           </ul>
         </div>
-      )} */}
+      )}
       <form onSubmit={handleSubmit} className='cr_form'>
         <input
           className='cr_inputs_top'
           type="number"
           min="1"
-          // max="5"
           placeholder='Your rating between 1 to 5 stars'
           step="1"
           // required

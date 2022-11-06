@@ -17,7 +17,7 @@ function CreateSpotModal() {
       <button onClick={() => setShowModal(true)} className="createSpotButton">Create a new listing</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <CreateSpotForm />
+          <CreateSpotForm setShowModal={setShowModal}/>
         </Modal>
       )}
     </>

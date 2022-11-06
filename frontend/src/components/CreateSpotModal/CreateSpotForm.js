@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createASpot } from '../../store/spots';
 
-function CreateSpotForm() {
+function CreateSpotForm({ setShowModal }) {
   const dispatch = useDispatch()
   const history = useHistory()
   const [address, setAddress] = useState('');
@@ -61,7 +61,15 @@ function CreateSpotForm() {
 
   return (
     <section className='csl_container'>
-      <h2 className='modal_title'>Create a new listing</h2>
+      <div className='cr_title_container'>
+        <h2 className='modal_title'>Create a new listing</h2>
+        <div>
+          <i
+            className="fa-solid fa-xmark fa-lg"
+            onClick={() => setShowModal(false)}
+          ></i>
+        </div>
+      </div>
       {hasSubmitted && validationErrors.length >= 1 && (
         <div className='form_errors_container'>
           The following errors were found:
