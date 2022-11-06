@@ -50,15 +50,11 @@
 
 .login_buttons {
   background-color: #009688;
-  /* background-image:
-    radial-gradient(circle at center, #FF385C 0%, #E61E4D 27.5%, #E31C5F 50%, #D70466 75%, #BD1E59 100%, #BD1E59 100%);
-  background-size: 125% 300%; */
   font-size: 16px;
   color: #ffffff;
   line-height: 20px;
   font-weight: 500;
   border: none;
-  /* border-radius: 10px; */
   height: 48px;
   width: 100%;
   cursor: pointer;
@@ -66,4 +62,13 @@
 
 .login_buttons:hover {
   cursor: pointer;
+}
+
+.login-submit-button-disabled {
+  color: var(--light-font-color);
+  background-color: #CECECE;
+  border: none;
+  height: 2.5em;
+  cursor: not-allowed;
+  width: 100%;
 }
