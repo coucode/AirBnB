@@ -86,64 +86,52 @@ function CreateSpotForm({ setShowModal }) {
           placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-        // required
-
         />
-        <input
-          className="csl_inputs_middle"
-          type="text"
-          placeholder="City"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        // required
-
-        />
-        <input
-          className="csl_inputs_middle"
-          type="text"
-          placeholder="State"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-        // required
-
-        />
+        <div>
+          <input
+            className="csl_inputs_middle"
+            id="city"
+            type="text"
+            placeholder="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <input
+            className="csl_inputs_middle"
+            id="state"
+            type="text"
+            placeholder="State"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+        </div>
         <input
           className="csl_inputs_middle"
           type="text"
           placeholder="Country"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
-        // required
-
         />
-        <input
-          className="csl_inputs_middle"
-          type="number"
-          placeholder="Latitude"
-          // min="-90.000000000"
-          // max="90.000000000"
-          // step="0.00000001"
-          // required
-          value={lat}
-          onChange={(e) => setLat(e.target.value)} />
-        <input
-          className="csl_inputs_middle"
-          type="number"
-          placeholder="Longitude"
-          // min="-180.000000000"
-          // max="180.000000000"
-          // step="0.00000001"
-          // required
-          value={lng}
-          onChange={(e) => setLng(e.target.value)} />
+        <div>
+          <input
+            className="csl_inputs_latlng"
+            type="number"
+            placeholder="Latitude"
+            value={lat}
+            onChange={(e) => setLat(e.target.value)} />
+          <input
+            className="csl_inputs_latlng"
+            type="number"
+            placeholder="Longitude"
+            value={lng}
+            onChange={(e) => setLng(e.target.value)} />
+        </div>
         <input
           className="csl_inputs_middle"
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-        // required
-
         />
         <textarea
           className="csl_inputs_middle"
@@ -151,14 +139,11 @@ function CreateSpotForm({ setShowModal }) {
           onChange={(e) => setDescription(e.target.value)}
           value={description}
           placeholder="Write a description about your listing here."
-        // required
-
         ></textarea>
         <input
           className="csl_inputs_middle"
           type="url"
           placeholder="Provide a link to your png/jpg/jpeg preview image."
-          // required
           value={image}
           onChange={(e) => setImage(e.target.value)} />
         <input
@@ -167,7 +152,6 @@ function CreateSpotForm({ setShowModal }) {
           placeholder="Price"
           min="0"
           step="1"
-          // required
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
         <div className='csl_button_container'>
