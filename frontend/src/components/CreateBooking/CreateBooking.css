@@ -126,3 +126,18 @@
   color: #009688;
   font-weight: 600;
 }
+
+.booking-error-container {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-error-container>p{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.booking-error-container>li {
+  font-size: 14px;
+}

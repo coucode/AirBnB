@@ -7,9 +7,7 @@ import './CreateBooking.css'
 import Footer from "react-multi-date-picker/plugins/range_picker_footer";
 
 function CreateBookingForm() {
-  const [values, setValues] = useState([
-    new Date()
-  ])
+  const [values, setValues] = useState([])
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
 
@@ -104,8 +102,10 @@ function CreateBookingForm() {
   return (
     <div>
       {hasSubmitted && (errors.length >= 1) && (
-        <div>
-          The following errors were found:
+        <div className='booking-error-container'>
+          <p>
+            The following errors were found:
+          </p>
           {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
         </div>
       )}
