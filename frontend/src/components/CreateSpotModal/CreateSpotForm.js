@@ -18,6 +18,25 @@ function CreateSpotForm({ setShowModal }) {
   const [image, setImage] = useState('');
   const [validationErrors, setValidationErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [buttonChange, setButtonChange] = useState('csl-submit-button-disabled')
+
+
+  useEffect(() => {
+    if (address.length > 0 && city.length > 0
+      && state.length > 0 && country.length > 0
+      && name.length > 0 && description.length > 0
+      && lat.length > 0 && lng.length > 0
+      && price.length > 0 && image.length > 0) {
+      setButtonChange('csl_button')
+    }
+    if (address.length === 0 || city.length === 0 ||
+      state.length === 0 || country.length === 0 ||
+      name.length === 0 || description.length === 0 ||
+      lat.length === 0 || lng.length === 0 ||
+      price.length === 0 || image.length === 0) {
+      setButtonChange('csl-submit-button-disabled')
+    }
+  }, [address, city, state, country, lat, lng, name, description, price, image])
 
   useEffect(() => {
     const errors = [];
@@ -62,6 +81,7 @@ function CreateSpotForm({ setShowModal }) {
   return (
     <section className='csl_container'>
       <div className='cr_title_container'>
+        <h2 className='modal_title'>Create your listing</h2>
         <div>
           <i
             className="fa-solid fa-xmark fa-lg"
@@ -154,7 +174,7 @@ function CreateSpotForm({ setShowModal }) {
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
         <div className='csl_button_container'>
-          <button className='csl_button'> Submit </button>
+          <button className={`${buttonChange}`} disabled={buttonChange === 'csl-submit-button-disabled' ? true : false}> Submit </button>
         </div>
       </form>
     </section>
