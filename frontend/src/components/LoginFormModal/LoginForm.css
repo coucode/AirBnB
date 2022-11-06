@@ -5,7 +5,7 @@
   text-align: center;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   width: 77px;
   height: 42px;
   font-size: 14px;
@@ -53,15 +53,16 @@
 }
 
 .login_buttons {
-  background-image:
+  background-color: #009688;
+  /* background-image:
     radial-gradient(circle at center, #FF385C 0%, #E61E4D 27.5%, #E31C5F 50%, #D70466 75%, #BD1E59 100%, #BD1E59 100%);
-  background-size: 125% 300%;
+  background-size: 125% 300%; */
   font-size: 16px;
   color: #ffffff;
   line-height: 20px;
   font-weight: 500;
   border: none;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   height: 48px;
   width: 100%;
   cursor: pointer;

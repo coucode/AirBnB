@@ -1,0 +1,128 @@
+.custom-input {
+  border: 1px #009688 solid;
+  padding: 4px 12px;
+  background-color: white;
+  box-shadow: 0 0 2px #009688;
+}
+
+.custom-calendar.rmdp-wrapper,
+.rmdp-container .custom-calendar.ep-arrow::after {
+  background-color: rgb(235, 235, 235, 0.4);;
+  border-radius: 0px;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction="bottom"] {
+  border-top: 1px solid rgb(235, 235, 235, 0.4);;
+}
+
+.rmdp-container .custom-calendar.ep-arrow[direction="top"] {
+  border-bottom: 1px solid rgb(235, 235, 235, 0.4);;
+}
+
+:root {
+  --rmdp-primary-teal: #009688;
+  --rmdp-secondary-teal: #00796b;
+  --rmdp-shadow-teal: #26a69a;
+  /* --rmdp-today-teal: #1de9b6; */
+  --rmdp-hover-teal: #4db6ac;
+  --rmdp-deselect-teal: #00695c;
+}
+
+.aircnc-theme .rmdp-wrapper {
+  border: 1px solid var(--rmdp-secondary-teal);
+  box-shadow: 0 0 5px var(--rmdp-secondary-teal);
+}
+
+.aircnc-theme .rmdp-panel-body li {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 2px var(--rmdp-secondary-teal);
+}
+
+.aircnc-theme .rmdp-week-day {
+  color: var(--rmdp-primary-teal);
+}
+
+.aircnc-theme .rmdp-day.rmdp-deactive {
+  color: var(--rmdp-secondary-teal);
+}
+
+.aircnc-theme .rmdp-range {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 3px var(--rmdp-shadow-teal);
+  border-radius: 0px;
+}
+
+.aircnc-theme .rmdp-arrow {
+  border: solid var(--rmdp-primary-teal);
+  border-width: 0 2px 2px 0;
+  border-radius: 0px;
+}
+
+.aircnc-theme .rmdp-arrow-container:hover {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 3px var(--rmdp-secondary-teal);
+}
+
+.aircnc-theme .rmdp-panel-body::-webkit-scrollbar-thumb {
+  background: var(--rmdp-primary-teal);
+}
+
+.aircnc-theme .rmdp-day.rmdp-today span {
+  background-color: var(--rmdp-today-teal);
+}
+
+.aircnc-theme .rmdp-rtl .rmdp-panel {
+  border-left: unset;
+  border-right: 1px solid var(--rmdp-secondary-teal);
+}
+
+.aircnc-theme .rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: var(--rmdp-primary-teal);
+  box-shadow: 0 0 3px var(--rmdp-shadow-teal);
+}
+
+.aircnc-theme .rmdp-day:not(.rmdp-day-hidden) span:hover {
+  background-color: var(--rmdp-hover-teal) !important;
+  border-radius: 0px;
+}
+
+.aircnc-theme .b-deselect {
+  color: var(--rmdp-deselect-teal);
+  background-color: white;
+}
+
+.aircnc-theme .rmdp-action-button {
+  color: var(--rmdp-primary-teal);
+}
+
+.aircnc-theme .rmdp-button:not(.rmdp-action-button) {
+  background-color: var(--rmdp-primary-teal);
+}
+
+.aircnc-theme .rmdp-button:not(.rmdp-action-button):hover {
+  background-color: var(--rmdp-deselect-teal);
+}
+
+.create-booking {
+  background-color: #009688;
+  /* background-image:
+  radial-gradient(circle at center, #FF385C 0%, #E61E4D 27.5%, #E31C5F 50%, #D70466 75%, #BD1E59 100%, #BD1E59 100%); */
+  /* background-size: 125% 300%; */
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 20px;
+  font-weight: 500;
+  border: none;
+  /* border-radius: 10px; */
+  height: 48px;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.success-text {
+  font-size: 16px;
+  text-align: center;
+  color: #009688;
+  font-weight: 600;
+}

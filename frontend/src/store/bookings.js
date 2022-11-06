@@ -8,7 +8,7 @@ const DELETE_BOOKING = 'bookings/DELETE'
 
 const getBookingsByUser = (bookings) => {
   return {
-    type: GET_USER_BOOKINGS, 
+    type: GET_USER_BOOKINGS,
     bookings
   }
 }
@@ -22,7 +22,7 @@ const getBookingsBySpot = (bookings) => {
 
 const createBooking = (booking) => {
   return {
-    type: CREATE_BOOKING, 
+    type: CREATE_BOOKING,
     booking
   }
 }
@@ -36,7 +36,7 @@ const updateBooking = (booking) => {
 
 const deleteBooking = (bookingId) => {
   return {
-    type: DELETE_BOOKING, 
+    type: DELETE_BOOKING,
     bookingId
   }
 }
@@ -96,12 +96,12 @@ const initialState = {}
 
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_BOOKINGS: 
+    case GET_USER_BOOKINGS:
       const allBookings = {}
       action.bookings.Bookings.forEach(booking => {
         allBookings[booking.id] = booking
       })
-      return {...allBookings}
+      return { ...allBookings }
     case GET_SPOT_BOOKINGS:
       const spotBookings = {}
       action.bookings.Bookings.forEach(booking => {
@@ -109,9 +109,9 @@ const bookingReducer = (state = initialState, action) => {
       })
       return { ...spotBookings }
     case CREATE_BOOKING:
-      return {...state, [action.bookings.id]: action.newBooking}
+      return { ...state, [action.booking.id]: action.booking }
     case UPDATE_BOOKING:
-      const updatedState = {...state}
+      const updatedState = { ...state }
       updatedState[action.updatedBooking.id] = action.updatedBooking
       return updatedState
     case DELETE_BOOKING:
