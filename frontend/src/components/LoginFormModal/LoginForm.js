@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 
-function LoginForm() {
+function LoginForm({setShowModal}) {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -35,8 +35,17 @@ function LoginForm() {
 
   return (
     <div className="login_container">
-      <h2 className="modal_title">Welcome to Aircnc</h2>
-      {hasSubmitted && errors.length >=1 && (
+      <div className='cr_title_container'>
+        <h2 className="modal_title">Welcome to Aircnc</h2>
+        <div>
+          <i
+            className="fa-solid fa-xmark fa-lg"
+            onClick={() => setShowModal(false)}
+          ></i>
+        </div>
+      </div>
+
+      {hasSubmitted && errors.length >= 1 && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">

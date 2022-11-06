@@ -62,7 +62,6 @@ function CreateSpotForm({ setShowModal }) {
   return (
     <section className='csl_container'>
       <div className='cr_title_container'>
-        <h2 className='modal_title'>Create a new listing</h2>
         <div>
           <i
             className="fa-solid fa-xmark fa-lg"
