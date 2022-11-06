@@ -10,6 +10,7 @@ import Listings from "./components/ListingsPage"
 import Footer from "./components/Footer";
 import BookingsByUser from "./components/BookingsByUser";
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,7 +27,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <div className="splashContainer">
-              <SplashPage />
+                <SplashPage />
             </div>
           </Route>
           <Route exact path="/spots/:id">
