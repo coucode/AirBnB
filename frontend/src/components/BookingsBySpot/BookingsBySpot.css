@@ -1,6 +1,5 @@
 .bookings-by-spot-container {
-  border: 2px solid #FF385C;
-  border-radius: 10px;
+  border: 2px solid #009688;
   margin-bottom: 20px;
   padding: 20px 20px 0px 20px;
   background-color: rgb(235, 235, 235, 0.4);
@@ -26,7 +25,7 @@
   font-weight: 600;
   font-size: 16px;
   margin: 10px 0 ;
-  color: #FF385C;
+  color: #009688;
   border-bottom: 1px solid rgb(34, 34, 34, 0.4) ;
 }
 

@@ -22,7 +22,7 @@
   position: absolute;
   background-color: white;
   justify-content: center;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   width: 568px;
   top: 100px;
 }
@@ -44,7 +44,7 @@
   /* padding-left: 5px;
   padding-right: 5px; */
   border: 1px solid #DDDDDD;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   padding: 15px;
   padding-bottom: 10px;
 }
