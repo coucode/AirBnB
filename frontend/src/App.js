@@ -9,7 +9,6 @@ import SpotDetail from "./components/SpotDetail";
 import Listings from "./components/ListingsPage"
 import Footer from "./components/Footer";
 import BookingsByUser from "./components/BookingsByUser";
-import { SwitchModalContextProvider } from "./context/SwitchModalContext"
 
 
 function App() {
