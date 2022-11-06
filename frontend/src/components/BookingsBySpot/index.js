@@ -40,8 +40,8 @@ function BookingsBySpot() {
       if (convertDate >= currentDate) {
         futureBookings.push(booking)
       }
-      loading = false;
     })
+    loading = false;
   }
 
   // Variable that is returned when there are no bookings
@@ -66,7 +66,7 @@ function BookingsBySpot() {
                 return (
                   <div key={booking.id} className='bookings-by-spot-info-container'>
                     <p className='bookings-by-spot-info'>
-                      • <b>{booking.User.firstName} {booking.User.lastName}</b> from <b>{booking.startDate}</b>   to <b>{booking.endDate} </b>
+                      • <b>{booking?.User?.firstName} {booking?.User?.lastName}</b> from <b>{booking?.startDate}</b>   to <b>{booking?.endDate} </b>
                     </p>
                   </div>
                 )
@@ -79,7 +79,7 @@ function BookingsBySpot() {
                 return (
                   <div key={booking.id} className='bookings-by-spot-info-container'>
                     <p className='bookings-by-spot-info'>
-                      • <b>{booking.User.firstName} {booking.User.lastName} </b> from <i>{booking.startDate} </i>  to <i>{booking.endDate} </i>
+                      • <b>{booking?.User?.firstName} {booking?.User?.lastName} </b> from <i>{booking?.startDate} </i>  to <i>{booking?.endDate} </i>
                     </p>
                   </div>
                 )
