@@ -18,6 +18,25 @@ function EditSpotForm({ spot, setShowModal }) {
   const [price, setPrice] = useState(spot.price || '');
   const [validationErrors, setValidationErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [buttonChange, setButtonChange] = useState('edit_button')
+
+
+  useEffect(() => {
+    if (address.length > 0 && city.length > 0
+      && state.length > 0 && country.length > 0
+      && name.length > 0 && description.length > 0
+      && lat.length > 0 && lng.length > 0
+      && price.length > 0 ) {
+      setButtonChange('edit_button')
+    }
+    if (address.length === 0 || city.length === 0 ||
+      state.length === 0 || country.length === 0 ||
+      name.length === 0 || description.length === 0 ||
+      lat.length === 0 || lng.length === 0 ||
+      price.length === 0 ) {
+      setButtonChange('csl-submit-button-disabled')
+    }
+  }, [address, city, state, country, lat, lng, name, description, price])
 
   useEffect(() => {
     const errors = [];
@@ -143,7 +162,7 @@ function EditSpotForm({ spot, setShowModal }) {
           value={price}
           onChange={(e) => setPrice(e.target.value)} />
         <div className='edit_button_container'>
-          <button className='edit_button'>Submit</button>
+          <button className={`${buttonChange}`} disabled={buttonChange === 'csl-submit-button-disabled' ? true : false}>Submit</button>
         </div>
       </form>
     </section>

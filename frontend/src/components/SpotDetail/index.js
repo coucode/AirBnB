@@ -76,7 +76,7 @@ function SpotDetail() {
     <div className='sd_outer_container'>
       <div className='sd_container'>
         {!loading || !spot ? (
-          <>
+          <div className='sd_container'>
             <div className='sd_header'>
               <h1> {spot?.name} </h1>
               {modifyButtons}
@@ -143,7 +143,7 @@ function SpotDetail() {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <>
             <h1 className='noData'>loading...</h1>

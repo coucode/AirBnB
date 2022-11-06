@@ -12,9 +12,18 @@ function CreateReviewForm({ setShowModal }) {
   const [stars, setStars] = useState('')
   const [review, setReview] = useState('')
   const [hasSubmitted, setHasSubmitted] = useState(false)
-
   const [validationErrors, setValidationErrors] = useState([])
+  const [buttonChange, setButtonChange] = useState('cr-submit-button-disabled')
 
+
+  useEffect(() => {
+    if (stars.length > 0 && review.length > 0) {
+      setButtonChange('cr_button')
+    }
+    if (stars.length === 0 || review.length === 0) {
+      setButtonChange('cr-submit-button-disabled')
+    }
+  }, [stars, review])
 
   useEffect(() => {
     const errors = []
@@ -88,7 +97,7 @@ function CreateReviewForm({ setShowModal }) {
         >
         </textarea>
         <div className='cr_button_container'>
-          <button className='cr_button'>Submit</button>
+          <button className={`${buttonChange}`} disabled={buttonChange === 'cr-submit-button-disabled' ? true : false}>Submit</button>
         </div>
       </form>
     </div>

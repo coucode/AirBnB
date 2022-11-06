@@ -19,6 +19,7 @@
 /* Modal styling */
 .signin_container {
   padding: 24px;
+  height: auto;
 }
 
 .signin_form {
@@ -32,8 +33,6 @@
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
   border-bottom: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 
 .signup_inputs_middle {
@@ -43,15 +42,13 @@
 .signup_inputs_bottom {
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .signup_button_container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  height: 60px;
+  justify-content: space-between;
 }
 
 
@@ -69,4 +66,15 @@
   height: 48px;
   width: 100%;
   cursor: pointer;
+  margin: 5px 0;
+}
+
+.signup-submit-button-disabled {
+  color: var(--light-font-color);
+  background-color: #CECECE;
+  border: none;
+  height: 2.5em;
+  cursor: not-allowed;
+  width: 100%;
+  margin: 5px 0;
 }

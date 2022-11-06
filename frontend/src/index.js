@@ -7,7 +7,7 @@ import App from "./App";
 import { ModalProvider } from "./context/Modal";
 import { ReviewModalProvider } from "./context/ReviewModal";
 import { ConfirmModalProvider } from "./context/ConfirmModal";
-
+import { SwitchModalContextProvider } from "./context/SwitchModalContext";
 
 
 import configureStore from "./store";
@@ -32,9 +32,11 @@ function Root() {
         <ModalProvider>
           <ReviewModalProvider>
             <ConfirmModalProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
+              <SwitchModalContextProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </SwitchModalContextProvider>
             </ConfirmModalProvider>
           </ReviewModalProvider>
         </ModalProvider>

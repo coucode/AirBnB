@@ -1,26 +1,29 @@
 .footer-container {
-  position: relative;
+  position: absolute;
   z-index: 10;
   bottom: 0;
-  background-color: #FFFFFF;
-  border-top: 1px solid #EBEBEB;
+  background-color: #009688;
+  /* border-top: 1px solid #EBEBEB;  */
   display: flex;
   justify-content: center;
   align-items: center;
   height: fit-content;
-  
+  width: 100%;
 }
 
 
 .splash-dev-text {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   font-size: 18px;
   font-weight: 400;
   font-family: var(--main-fonts);
   margin-right: 20px;
+  color: #FFFFFF;
+  height: auto;
+  padding: 20px;
 }
 
 .splash-dev-inner-text {
@@ -37,4 +40,9 @@
   width: 100px;
   height: 50px;
   text-decoration: none;
+}
+
+.devLinks {
+  padding-left: 10px;
+  padding-right: 5px;
 }

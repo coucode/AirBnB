@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignUp.css'
 
-function SignupForm() {
+function SignupForm({ setShowModal }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -16,7 +16,20 @@ function SignupForm() {
   const [errors, setErrors] = useState([]);
   const [validationErrors, setValidationErrors] = useState([]);
   const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [buttonChange, setButtonChange] = useState('signup-submit-button-disabled')
 
+  useEffect(() => {
+    if (email.length > 0 && username.length > 0
+      && firstName.length > 0 && lastName.length > 0
+      && password.length > 0 && confirmPassword.length > 0) {
+      setButtonChange('signup_button')
+    }
+    if (username.length === 0 || password.length === 0 ||
+      email.length === 0 || confirmPassword.length === 0 ||
+      firstName.length === 0 || lastName.length === 0) {
+      setButtonChange('signup-submit-button-disabled')
+    }
+  }, [email, username, firstName, lastName, confirmPassword, password])
 
   useEffect(() => {
     const errors = []
@@ -67,9 +80,29 @@ function SignupForm() {
     return setValidationErrors([...validationErrors, 'Confirm Password field must be the same as the Password field']);
   };
 
+  const handleClick = (e) => {
+    e.preventDefault()
+
+    return dispatch(sessionActions.login({ credential: "demo9", password: "pass9" })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data) setErrors([data]);
+      }
+    )
+  }
+
   return (
     <section className="signin_container">
-      <h2 className="modal_title">Welcome to Aircnc!</h2>
+      <div className='cr_title_container'>
+        <h2 className="modal_title">Welcome to Aircnc!</h2>
+        <div>
+          <i
+            className="fa-solid fa-xmark fa-lg"
+            onClick={() => setShowModal(false)}
+          ></i>
+        </div>
+      </div>
+
       {hasSubmitted && (validationErrors.length >= 1 || errors.length >= 1) && (
         <div className='form_errors_container'>
           The following errors were found:
@@ -86,7 +119,6 @@ function SignupForm() {
           type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          required
           placeholder="First Name"
         />
 
@@ -95,7 +127,6 @@ function SignupForm() {
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          required
           placeholder="Last Name"
         />
 
@@ -104,7 +135,6 @@ function SignupForm() {
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
           placeholder="Email"
         />
 
@@ -113,7 +143,6 @@ function SignupForm() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
           placeholder="Username"
         />
 
@@ -122,7 +151,6 @@ function SignupForm() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
           placeholder="Password"
         />
 
@@ -131,11 +159,11 @@ function SignupForm() {
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          required
           placeholder="Confirm Password"
         />
         <div className="signup_button_container">
-          <button type="submit" className="signup_button">Sign Up</button>
+          <button type="submit" className={`${buttonChange}`} disabled={buttonChange === 'signup-submit-button-disabled' ? true : false}>Sign Up</button>
+          <button type="button" onClick={handleClick} className="signup_button">Sign in with Demo User</button>
         </div>
       </form>
     </section>

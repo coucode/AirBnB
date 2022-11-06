@@ -43,9 +43,8 @@ function BookingsByUser() {
       if (convertDate >= currentDate) {
         futureBookings.push(booking)
       }
-      loading = false;
-
     })
+    loading = false;
   }
 
   function dateConverter(date) {
@@ -65,7 +64,7 @@ function BookingsByUser() {
             <div className='bookings-header'>
               Current and Upcoming Bookings
             </div>
-            {futureBookings.map(booking => {
+            {futureBookings?.map(booking => {
               return (
                 <div key={booking.id} className='single-booking-container'>
                   <NavLink to={`/spots/${booking.spotId}`} className='single-booking-links'>
@@ -110,7 +109,7 @@ function BookingsByUser() {
           <div className='bookings-header'>
             Previous Bookings
           </div>
-          {pastBookings.map(booking => {
+          {pastBookings?.map(booking => {
             return (
               <div key={booking.id} className='single-booking-container'>
                 <NavLink to={`/spots/${booking.spotId}`} className='single-booking-links'>
@@ -123,7 +122,7 @@ function BookingsByUser() {
                     />
                     <div className='single-booking-text'>
                       <p className='single-booking-name'>
-                        {booking?.Spot.name}
+                        {booking?.Spot?.name}
                       </p>
                       <div className='single-booking-dates'>
                         <p style={{ fontWeight: '600', paddingRight: '10px' }}>

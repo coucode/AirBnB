@@ -16,10 +16,10 @@ function CreateBookingForm() {
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [errors, setErrors] = useState([]);
   const [success, setSuccess] = useState('')
+  const [buttonChange, setButtonChange] = useState('cb-submit-button-disabled')
 
   const { id } = useParams()
   let loading = true;
-
 
   useEffect(() => {
     dispatch(getSpotBookings(id))
@@ -34,6 +34,15 @@ function CreateBookingForm() {
       setEndDate(end)
     }
   }, [values])
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      setButtonChange('create-booking')
+    }
+    if (startDate.length === 0 || endDate.length === 0) {
+      setButtonChange('cb-submit-button-disabled')
+    }
+  }, [startDate, endDate])
 
   useEffect(() => {
     setHasSubmitted(false)
@@ -150,7 +159,7 @@ function CreateBookingForm() {
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             />
             <div >
-              <button className='create-booking'> Book </button>
+              <button className={`${buttonChange}`} disabled={buttonChange === 'cb-submit-button-disabled' ? true : false}> Book </button>
             </div>
           </form>
         </div>

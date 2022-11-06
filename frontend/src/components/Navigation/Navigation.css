@@ -97,8 +97,8 @@
   position: sticky;
   z-index: 10;
   top: 0;
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #EBEBEB;
+  background-color: #009688;
+  /* border-bottom: 1px solid #EBEBEB; */
   display: flex;
   justify-content: center;
 }
@@ -106,15 +106,16 @@
 .main-nav {
   display: flex;
   align-items: center;
-  height: 80px;
+  height: auto;
   width: 90%;
   justify-content: space-between;
   max-width: 1289px;
+  padding: 10px 0;
 }
 
 .fa-house,
 #homeLogo {
-  color: #009688;
+  color: #FFFFFF;
   /* color: #ff385c; */
   text-decoration: none;
 }
