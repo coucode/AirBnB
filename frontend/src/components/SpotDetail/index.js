@@ -125,28 +125,24 @@ function SpotDetail() {
               </div>
               <div className='sd_info_container_right'>
                 <div className='sd_info_price'>
-                  <div className='sd_info_pricenight'>
-                    <p className='sd_info_price--boldtext'>${spot?.price}</p>
-                    <p className='sd_info_night'>  night</p>
-                  </div>
-                  <div className='sd_info_div'>
-
-                  </div>
-                  <div className='sd_info_reviews'>
-                    <div className='sd_subtitle_star'>
-                      <i className="fa-solid fa-star"> </i>
+                  <div className='sd_ipr_text_container'>
+                    <div className='sd_info_pricenight'>
+                      <p className='sd_info_price--boldtext'>${spot?.price}</p>
+                      <p className='sd_info_night'>  night</p>
                     </div>
-                    <div>
-                      {ratingCheck(spot)} ·
-
+                    <div className='sd_info_reviews'>
+                      <div className='sd_subtitle_star'>
+                        <i className="fa-solid fa-star"> </i>
+                      </div>
+                      <div>
+                        {ratingCheck(spot)} ·
+                      </div>
+                      <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
                     </div>
-                    <div className='sd_subtitle_num_reviews'>{spot?.numReviews} Reviews</div>
                   </div>
+                  <CreateBookingForm />
                 </div>
-                <CreateBookingForm />
               </div>
-
-
             </div>
           </>
         ) : (

@@ -64,7 +64,7 @@ function CreateBookingForm() {
         let start = new Date(booking.startDate)
         let end = new Date(booking.endDate)
 
-        while (start < end) {
+        while (start <= end) {
           futureBookings.push(new Date(start).toDateString())
           start.setDate(start.getDate() + 1);
         }
@@ -93,52 +93,60 @@ function CreateBookingForm() {
     })
     dispatch(getSpotBookings(id))
   }
-  console.log(futureBookings)
+  let dateChecker = new Date()
 
   return (
     <div>
-      {hasSubmitted && (errors.length >= 1) && (
+      {!loading ? (
         <div>
-          The following errors were found:
-          {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        < Calendar
-          mapDays={({ date }) => {
-            let dayCheck = new Date(date.year, (date.month - 1), date.day).toDateString()
+          {hasSubmitted && (errors.length >= 1) && (
+            <div>
+              The following errors were found:
+              {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
+            </div>
+          )}
+          <form onSubmit={handleSubmit}>
+            < Calendar
+              mapDays={({ date }) => {
+                let dayCheck = new Date(date.year, (date.month - 1), date.day)
 
-            if (futureBookings.includes(dayCheck)) return {
-              disabled: true,
-              style: { color: "#ccc" },
-              // onMouseOver: () => ("No")
-            }
-          }}
-          value={values}
-          onChange={setValues}
-          numberOfMonths={2}
-          range
-          // rangeHover
-          className="custom-input custom-calendar aircnc-theme"
-          plugins={[
-            <Footer
-              position="bottom"
-              format="MMM DD"
-              names={{
-                selectedDates: "Booking information:",
-                from: "Check-In:",
-                to: "Check-Out:",
-                selectDate: "Select a Date",
-                close: "Close",
-                separator: <br />,
+                if (futureBookings.includes(dayCheck.toDateString()) || dayCheck < dateChecker) return {
+                  disabled: true,
+                  style: { color: "#ccc"},
+                  // onMouseOver: () => ("No")
+                }
               }}
-            />,
-          ]}
-        />
-        <div>
-          <button> Submit </button>
+              value={values}
+              onChange={setValues}
+              numberOfMonths={1}
+              range
+              // rangeHover
+              className="custom-input custom-calendar aircnc-theme"
+              plugins={[
+                <Footer
+                  position="bottom"
+                  format="MMM DD"
+                  names={{
+                    selectedDates: "Booking Information:",
+                    from: "Check-In:",
+                    to: "Check-Out:",
+                    selectDate: "Select a Date",
+                    close: "Close",
+                    separator: <br />
+                  }}
+                />,
+              ]}
+              style={{fontFamily: "'Montserrat', sans-serif"}}
+            />
+            <div >
+              <button className='create-booking'> Book </button>
+            </div>
+          </form>
         </div>
-      </form>
+
+      ): (<div> Loading... </div>)}
+
+      
     </div>
   )
 }
