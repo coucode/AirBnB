@@ -28,7 +28,7 @@
   "homepage": "https://github.com/coucode/AirBnB-clone#readme",
   "dependencies": {
     "booking_calendar": "^1.0.40",
-    "pg": "^8.7.3",
+    "pg": "^8.8.0",
     "react-select-date": "^0.1.1"
   }
 }
