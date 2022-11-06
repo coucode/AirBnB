@@ -98,7 +98,7 @@
   z-index: 10;
   top: 0;
   background-color: #009688;
-  border-bottom: 1px solid #EBEBEB;
+  /* border-bottom: 1px solid #EBEBEB; */
   display: flex;
   justify-content: center;
 }

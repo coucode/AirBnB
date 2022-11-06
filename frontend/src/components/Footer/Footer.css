@@ -3,7 +3,7 @@
   z-index: 10;
   bottom: 0;
   background-color: #009688;
-  border-top: 1px solid #EBEBEB;
+  /* border-top: 1px solid #EBEBEB;  */
   display: flex;
   justify-content: center;
   align-items: center;
