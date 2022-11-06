@@ -32,8 +32,6 @@
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
   border-bottom: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 
 .signup_inputs_middle {
@@ -43,8 +41,6 @@
 .signup_inputs_bottom {
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 
 .signup_button_container {

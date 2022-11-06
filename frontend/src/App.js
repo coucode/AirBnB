@@ -9,6 +9,8 @@ import SpotDetail from "./components/SpotDetail";
 import Listings from "./components/ListingsPage"
 import Footer from "./components/Footer";
 import BookingsByUser from "./components/BookingsByUser";
+import { SwitchModalContextProvider } from "./context/SwitchModalContext"
+
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <div className="splashContainer">
-              <SplashPage />
+                <SplashPage />
             </div>
           </Route>
           <Route exact path="/spots/:id">

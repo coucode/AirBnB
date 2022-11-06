@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignUp.css'
 
-function SignupForm() {
+function SignupForm({setShowModal}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -69,7 +69,17 @@ function SignupForm() {
 
   return (
     <section className="signin_container">
-      <h2 className="modal_title">Welcome to Aircnc!</h2>
+      <div className='cr_title_container'>
+        <h2 className="modal_title">Welcome to Aircnc!</h2>
+
+        <div>
+          <i
+            className="fa-solid fa-xmark fa-lg"
+            onClick={() => setShowModal(false)}
+          ></i>
+        </div>
+      </div>
+
       {hasSubmitted && (validationErrors.length >= 1 || errors.length >= 1) && (
         <div className='form_errors_container'>
           The following errors were found:
