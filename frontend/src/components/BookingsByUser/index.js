@@ -14,13 +14,13 @@ function BookingsByUser() {
       dispatch(getUserBookings())
     }
   }, [dispatch, sessionUser])
+  
   const bookingsObj = useSelector(state => state.bookings)
   let bookings;
   let loading = true;
 
   if (bookingsObj) {
     bookings = Object.values(bookingsObj)
-    loading = false;
   }
 
   function imageCheck(spot) {
@@ -43,6 +43,8 @@ function BookingsByUser() {
       if (convertDate >= currentDate) {
         futureBookings.push(booking)
       }
+      loading = false;
+
     })
   }
 
@@ -52,7 +54,8 @@ function BookingsByUser() {
   }
 
   if (!bookings) return null
-
+  if (!futureBookings) return null
+  if (!pastBookings) return null
 
   return (
     <div className='bookings-by-user-container'>

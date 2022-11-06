@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { deleteAReview } from '../../store/reviews';
 
 
-import { deleteABooking } from '../../store/bookings';
+import { deleteABooking, getUserBookings } from '../../store/bookings';
 import { deleteASpot, getOwnerSpots } from '../../store/spots';
 
 import './DeleteModal.css';
@@ -28,12 +28,17 @@ function ConfirmDelete({ type, input }) {
     await history.push(`/spots/${id}`)
   }
 
+  // This deletes the booking and rerenders the spot details
+  const handleBookingDeleteClick = async (e) => {
+    await dispatch(deleteABooking(input.id))
+    await dispatch(getUserBookings())
+    setShowModal(false)
+  }
+
   function deleteModal(type) {
     if (type === 'booking') {
       return (
-        <button onClick={(e) => {
-          dispatch(deleteABooking(input.id))
-        }} className='delete-booking-button'>Delete Booking</button>
+        <button onClick={handleBookingDeleteClick} className='delete-booking-button'>Delete Booking</button>
       )
     }
     if (type === 'listing') {
