@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getOneSpot, updateASpot } from '../../store/spots';
 
-function EditSpotForm({ spot }) {
+function EditSpotForm({ spot, setShowModal }) {
   const dispatch = useDispatch()
   const history = useHistory()
   const sessionUser = useSelector(state => state.session.user)
@@ -51,8 +51,17 @@ function EditSpotForm({ spot }) {
 
   return (
     <section className='edit_container'>
-      <h2 className='modal_title'>Edit your listing</h2>
-      {hasSubmitted && validationErrors.length >=1 && (
+      <div className='cr_title_container'>
+        <h2 className='modal_title'>Edit your listing</h2>
+        <div>
+          <i
+            className="fa-solid fa-xmark fa-lg"
+            onClick={() => setShowModal(false)}
+          ></i>
+        </div>
+      </div>
+
+      {hasSubmitted && validationErrors.length >= 1 && (
         <div className='form_errors_container'>
           The following errors were found:
           <ul className="form_errors">
@@ -70,20 +79,25 @@ function EditSpotForm({ spot }) {
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
-        <input
-          className="edit_inputs_middle"
-          type="text"
-          placeholder="City"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <input
-          className="edit_inputs_middle"
-          type="text"
-          placeholder="State"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-        />
+        <div>
+          <input
+            className="edit_inputs_middle"
+            type="text"
+            id="city"
+            placeholder="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <input
+            className="edit_inputs_middle"
+            type="text"
+            id="state"
+            placeholder="State"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+
+        </div>
         <input
           className="edit_inputs_middle"
           type="text"
@@ -91,24 +105,20 @@ function EditSpotForm({ spot }) {
           value={country}
           onChange={(e) => setCountry(e.target.value)}
         />
-        <input
-          className="edit_inputs_middle"
-          type="number"
-          placeholder="Latitude"
-          // min="-90"
-          // max="90"
-          // required
-          value={lat}
-          onChange={(e) => setLat(e.target.value)} />
-        <input
-          className="edit_inputs_middle"
-          type="number"
-          placeholder="Longitude"
-          // min="-180"
-          // max="180"
-          // required
-          value={lng}
-          onChange={(e) => setLng(e.target.value)} />
+        <div>
+          <input
+            className="edit_inputs_latlng"
+            type="number"
+            placeholder="Latitude"
+            value={lat}
+            onChange={(e) => setLat(e.target.value)} />
+          <input
+            className="edit_inputs_latlng"
+            type="number"
+            placeholder="Longitude"
+            value={lng}
+            onChange={(e) => setLng(e.target.value)} />
+        </div>
         <input
           className="edit_inputs_middle"
           type="text"

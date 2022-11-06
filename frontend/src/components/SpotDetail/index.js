@@ -20,14 +20,15 @@ function SpotDetail() {
   const reviews = useSelector(state => state.reviews)
 
   useEffect(() => {
-    dispatch(getOneSpot(id)).catch(
-      async (res) => {
-        const data = await res.json()
-        if (data) {
-          history.push("/")
-        }
-      }
-    )
+    dispatch(getOneSpot(id))
+    // .catch(
+    //   async (res) => {
+    //     const data = await res.json()
+    //     if (data) {
+    //       history.push("/")
+    //     }
+    //   }
+    // )
   }, [dispatch, id, reviews, history])
 
   useEffect(() => {
