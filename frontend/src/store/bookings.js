@@ -103,7 +103,6 @@ const bookingReducer = (state = initialState, action) => {
       })
       return { ...allBookings }
     case GET_SPOT_BOOKINGS:
-      console.log("action", action)
       const spotBookings = {}
       action.bookings.Bookings.forEach(booking => {
         spotBookings[booking.id] = booking

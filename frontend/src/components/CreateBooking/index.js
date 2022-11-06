@@ -24,7 +24,7 @@ function CreateBookingForm() {
 
   useEffect(() => {
     dispatch(getSpotBookings(id))
-  },[dispatch, id])
+  }, [dispatch, id])
 
   useEffect(() => {
     if (values.length === 2) {
@@ -39,7 +39,7 @@ function CreateBookingForm() {
   useEffect(() => {
     setHasSubmitted(false)
     setErrors([])
-  },[startDate, endDate])
+  }, [startDate, endDate])
 
   // Obtains the bookings from state, creates an array with that information
   let bookings;
@@ -65,8 +65,8 @@ function CreateBookingForm() {
         let start = new Date(booking.startDate)
         let end = new Date(booking.endDate)
 
-        while (start < end){
-          futureBookings.push(new Date(start))
+        while (start < end) {
+          futureBookings.push(new Date(start).toDateString())
           start.setDate(start.getDate() + 1);
         }
 
@@ -94,26 +94,25 @@ function CreateBookingForm() {
     })
     dispatch(getSpotBookings(id))
   }
-  // console.log("FUTURE", futureBookings)
+  console.log(futureBookings)
 
   return (
     <div>
       {hasSubmitted && (errors.length >= 1) && (
         <div>
-          The following errors were found: 
+          The following errors were found:
           {errors?.map((error, idx) => <li key={idx} className="form_errors">{error}</li>)}
         </div>
       )}
       <form onSubmit={handleSubmit}>
         < Calendar
           mapDays={({ date }) => {
-            // console.log("DATE", date)
-            let isWeekend = [0, 6].includes(date.weekDay.index)
+            let dayCheck = new Date(date.year, (date.month - 1), date.day).toDateString()
 
-            if (isWeekend) return {
+            if (futureBookings.includes(dayCheck)) return {
               disabled: true,
               style: { color: "#ccc" },
-              onClick: () => alert("weekends are disabled")
+              // onClick: () => alert("weekends are disabled")
             }
           }}
           value={values}
