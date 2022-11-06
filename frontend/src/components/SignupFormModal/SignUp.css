@@ -42,6 +42,7 @@
 .signup_inputs_bottom {
   padding: 26px 36px 10px 12px;
   border: 1px solid #DDDDDD;
+  margin-bottom: 10px;
 }
 
 .signup_button_container {
@@ -75,5 +76,5 @@
   height: 2.5em;
   cursor: not-allowed;
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
 }
