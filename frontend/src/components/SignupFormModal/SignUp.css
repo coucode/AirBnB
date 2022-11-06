@@ -66,3 +66,12 @@
   width: 100%;
   cursor: pointer;
 }
+
+.signup-submit-button-disabled {
+  color: var(--light-font-color);
+  background-color: #CECECE;
+  border: none;
+  height: 2.5em;
+  cursor: not-allowed;
+  width: 100%;
+}
