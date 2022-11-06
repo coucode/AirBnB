@@ -5,7 +5,6 @@ import { createABooking, getSpotBookings } from '../../store/bookings';
 import { Calendar } from "react-multi-date-picker"
 import './CreateBooking.css'
 import Footer from "react-multi-date-picker/plugins/range_picker_footer";
-import "react-multi-date-picker/styles/colors/teal.css"
 
 function CreateBookingForm() {
   const [values, setValues] = useState([
@@ -112,15 +111,15 @@ function CreateBookingForm() {
             if (futureBookings.includes(dayCheck)) return {
               disabled: true,
               style: { color: "#ccc" },
-              // onClick: () => alert("weekends are disabled")
+              // onMouseOver: () => ("No")
             }
           }}
           value={values}
           onChange={setValues}
           numberOfMonths={2}
           range
-          rangeHover
-          className="custom-input custom-calendar"
+          // rangeHover
+          className="custom-input custom-calendar aircnc-theme"
           plugins={[
             <Footer
               position="bottom"
