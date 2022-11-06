@@ -5,7 +5,6 @@
   text-align: center;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  border-radius: 20px;
   padding: 8px;
   height: 42px;
   font-size: 16px;
@@ -70,7 +69,6 @@
   line-height: 20px;
   font-weight: 500;
   border: none;
-  border-radius: 10px;
   height: 48px;
   width: 100%;
   cursor: pointer;

@@ -6,7 +6,7 @@
   font-weight: 600;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   width: 200px;
   height: auto;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
@@ -19,7 +19,7 @@
   text-align: center;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   width: 77px;
   height: 42px;
   font-size: 18px;

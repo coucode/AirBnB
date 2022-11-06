@@ -5,7 +5,7 @@
   text-align: center;
   background-color: #FFFFFF;
   border: 1px solid #DDDDDD;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   font-size: 14px;
   font-weight: 500;
   width: 77px;
@@ -65,7 +65,7 @@
   line-height: 20px;
   font-weight: 500;
   border: none;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   height: 48px;
   width: 100%;
   cursor: pointer;
