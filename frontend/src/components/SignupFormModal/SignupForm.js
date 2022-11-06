@@ -80,11 +80,21 @@ function SignupForm({ setShowModal }) {
     return setValidationErrors([...validationErrors, 'Confirm Password field must be the same as the Password field']);
   };
 
+  const handleClick = (e) => {
+    e.preventDefault()
+
+    return dispatch(sessionActions.login({ credential: "demo9", password: "pass9" })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data) setErrors([data]);
+      }
+    )
+  }
+
   return (
     <section className="signin_container">
       <div className='cr_title_container'>
         <h2 className="modal_title">Welcome to Aircnc!</h2>
-
         <div>
           <i
             className="fa-solid fa-xmark fa-lg"
@@ -153,6 +163,7 @@ function SignupForm({ setShowModal }) {
         />
         <div className="signup_button_container">
           <button type="submit" className={`${buttonChange}`} disabled={buttonChange === 'signup-submit-button-disabled' ? true : false}>Sign Up</button>
+          <button type="button" onClick={handleClick} className="signup_button">Sign in with Demo User</button>
         </div>
       </form>
     </section>
