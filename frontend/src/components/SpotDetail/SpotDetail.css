@@ -66,6 +66,7 @@
 
 .sd_info_container_left {
   grid-column-start: 1;
+  padding-right: 10px;
 }
 
 .sd_info_container_right {

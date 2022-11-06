@@ -19,12 +19,12 @@ function BookingsBySpot() {
   const bookingsObj = useSelector(state => state.bookings)
   if (bookingsObj) {
     bookings = Object.values(bookingsObj)
-    loading = false;
   }
 
   // Rerenders the component while state is loading
   if (!bookingsObj) return null
   if (!bookings) return null
+
 
   // Sorts the bookings into past and future arrays so they can be displayed separately. 
   // Created a variable for today's date, and change the string values to date values in order to compare
@@ -40,6 +40,7 @@ function BookingsBySpot() {
       if (convertDate >= currentDate) {
         futureBookings.push(booking)
       }
+      loading = false;
     })
   }
 
@@ -49,6 +50,8 @@ function BookingsBySpot() {
       <p className='bookings-by-spot-info'>• No Bookings</p>
     </div>
   )
+  if (!futureBookings) return null
+  if (!pastBookings) return null
 
   return (
     <div className='bookings-by-spot-container'>
@@ -59,7 +62,7 @@ function BookingsBySpot() {
             <div className='bookings-current-container'>
               <p className='bookings-date-headers'>Current and Upcoming Bookings</p>
               {/* Function checks if the array has no values, it will return a no bookings message, else map through the array and display information */}
-              {(futureBookings?.length === 0) ? noBookings : futureBookings.map(booking => {
+              {(futureBookings?.length === 0) ? noBookings : futureBookings?.map(booking => {
                 return (
                   <div key={booking.id} className='bookings-by-spot-info-container'>
                     <p className='bookings-by-spot-info'>
@@ -72,7 +75,7 @@ function BookingsBySpot() {
             <div>
               <p className='bookings-date-headers'>Past Bookings</p>
               {/* Function checks if the array has no values, it will return a no bookings message, else map through the array and display information */}
-              {(pastBookings?.length === 0) ? noBookings : pastBookings.map(booking => {
+              {(pastBookings?.length === 0) ? noBookings : pastBookings?.map(booking => {
                 return (
                   <div key={booking.id} className='bookings-by-spot-info-container'>
                     <p className='bookings-by-spot-info'>
