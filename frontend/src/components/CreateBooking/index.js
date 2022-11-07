@@ -102,11 +102,20 @@ function CreateBookingForm() {
       if (data) {
         let errors = Object.values(data.errors)
         setErrors(errors)
+        console.log("ERRORS", errors)
       }
 
     })
   }
   let dateChecker = new Date()
+
+  function buttonText(){
+    if (!sessionUser){
+      return "Log In or Sign Up to Book"
+    } else {
+      return "Book"
+    }
+  }
 
   return (
     <div className='booking-form-container'>
@@ -159,7 +168,7 @@ function CreateBookingForm() {
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             />
             <div >
-              <button className={`${buttonChange}`} disabled={buttonChange === 'cb-submit-button-disabled' ? true : false}> Book </button>
+              <button className={`${buttonChange}`} disabled={(buttonChange === 'cb-submit-button-disabled') || buttonText() === 'Log In or Sign Up to Book' ? true : false}> {buttonText()}</button>
             </div>
           </form>
         </div>
