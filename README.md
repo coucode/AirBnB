@@ -81,7 +81,7 @@ To run this application locally, you will need Node.js and NPM. This root folder
 ### Step 1: Download
 Clone the project repository in your terminal
 ```
-git clone https://github.com/coucode/AirBnB-clone.git
+https://github.com/coucode/aircnc.git
 ```
 
 ### Step 2: Backend Setup
