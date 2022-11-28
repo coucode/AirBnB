@@ -1,6 +1,6 @@
 # Welcome to Aircnc!
 Aircnc is a web application inspired by Airbnb that offers short-term rentals of various property types. 
-* [Click here to view Aircnc Live Site](https://aircnc-co.herokuapp.com/)
+* [Click here to view Aircnc Live Site](https://aircnc.onrender.com/)
 
 Please see below links to Project Wiki
 * [API Documentation](https://github.com/coucode/AirBnB-clone/wiki/API-Documentation)
